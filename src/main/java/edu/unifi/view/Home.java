@@ -35,8 +35,5 @@ public class Home extends Window {
         optionsMenu.add(settings);
 
         addMenuEntries(optionsMenu, tablesMenu, dishesMenu);
-
-        Thread.sleep(5000);
-
     }
 }

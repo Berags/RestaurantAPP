@@ -17,16 +17,15 @@ public class Window extends JFrame implements Runnable {
     public enum Layout {BORDER, FLOW, GRID}
 
 
-    public Window(String title, boolean hasMenu, int defaultExitOperation) {
+    public Window(String title, boolean hasMenu, int defaultExitOperation, int... bounds) {
         super(title);
 
         getContentPane().add(rootPane);
-
-        setBounds(0, 0, 1280, 720);
+        if (bounds.length == 4) setBounds(bounds[0], bounds[1], bounds[2], bounds[3]);
+        else setBounds(0, 0, 1280, 720);
         setDefaultCloseOperation(defaultExitOperation);
         if (hasMenu) setJMenuBar(menuBar);
 
-        setResizable(true);
         setVisible(true);
 
         t.setName(title);
