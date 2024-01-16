@@ -1,7 +1,6 @@
-package edu.unifi.view;
+package edu.unifi.views;
 
 import edu.unifi.api.graphics.Window;
-import lombok.Data;
 import lombok.Getter;
 
 import javax.swing.*;
@@ -9,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.CountDownLatch;
 
 public class Login extends Window {
     @Getter
@@ -21,6 +21,8 @@ public class Login extends Window {
     private final JLabel passwordLabel;
     private final JLabel usernameLabel;
     private final Font font = new Font("Droid Sans Mono Slashed", -1, 18);
+    @Getter
+    private final CountDownLatch loginLatch = new CountDownLatch(1);
 
 
     public Login() throws Exception {
@@ -109,6 +111,7 @@ public class Login extends Window {
             // TODO: replace with database query
             if (login.getUsernameField().getText().equals("Admin") && String.valueOf(login.getPasswordField().getPassword()).equals("Admin")) {
                 login.dispose();
+                login.getLoginLatch().countDown();
                 return;
             }
             JOptionPane.showMessageDialog(null, "Username or password is not correct!");

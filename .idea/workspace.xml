@@ -4,13 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f76637e2-7e14-4636-86fc-d0d2dae511df" name="Changes" comment="Authorize annotation with role&#10;Expanded Authorize Annotation with a role that can access the resource">
+    <list default="true" id="f76637e2-7e14-4636-86fc-d0d2dae511df" name="Changes" comment="Login Action Listener">
+      <change afterPath="$PROJECT_DIR$/src/test/java/SecurityTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/api/graphics/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/api/graphics/Window.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/api/security/Authorize.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/api/security/Authorize.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/api/security/Authorize.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/api/security/aop/Authorize.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/api/security/aop/AuthorizeAspect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/api/security/aop/AuthorizeAspect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/view/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/view/Login.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/view/Home.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/views/Home.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/view/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/views/Login.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,10 +24,10 @@
       <list>
         <option value="spring-beans.schema" />
         <option value="Interface" />
-        <option value="Class" />
         <option value="Aspect" />
         <option value="@Aspect" />
         <option value="AnnotationType" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -82,8 +84,8 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler",
     "vue.rearranger.settings.migration": "true"
   },
@@ -141,7 +143,7 @@
       <workItem from="1705326161382" duration="652000" />
       <workItem from="1705334899629" duration="8027000" />
       <workItem from="1705394370958" duration="15819000" />
-      <workItem from="1705415408561" duration="2369000" />
+      <workItem from="1705415408561" duration="4203000" />
     </task>
     <task id="LOCAL-00001" summary="Added First Files">
       <option name="closed" value="true" />
@@ -191,7 +193,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705410016293</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Login Action Listener">
+      <option name="closed" value="true" />
+      <created>1705417812490</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1705417812490</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -204,6 +214,7 @@
     <MESSAGE value="Created Skeleton for Home View&#10;Added functionalities to Window Component, created the skeleton for Home Layout and added Material-ui-theming" />
     <MESSAGE value="Simple AOP implementation&#10;Added a simple AOP implementation with AspectJ to add annotation to execute code before and after method (e.g. to check if a user is Authorized to access a resource).&#10;Added simple Login form" />
     <MESSAGE value="Authorize annotation with role&#10;Expanded Authorize Annotation with a role that can access the resource" />
-    <option name="LAST_COMMIT_MESSAGE" value="Authorize annotation with role&#10;Expanded Authorize Annotation with a role that can access the resource" />
+    <MESSAGE value="Login Action Listener" />
+    <option name="LAST_COMMIT_MESSAGE" value="Login Action Listener" />
   </component>
 </project>

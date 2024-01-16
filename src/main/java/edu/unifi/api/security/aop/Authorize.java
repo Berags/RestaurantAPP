@@ -1,4 +1,4 @@
-package edu.unifi.api.security;
+package edu.unifi.api.security.aop;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

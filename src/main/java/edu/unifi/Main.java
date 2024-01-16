@@ -1,8 +1,8 @@
 package edu.unifi;
 
-import edu.unifi.api.security.Authorize;
-import edu.unifi.view.Home;
-import edu.unifi.view.Login;
+import edu.unifi.api.security.aop.Authorize;
+import edu.unifi.views.Home;
+import edu.unifi.views.Login;
 import mdlaf.MaterialLookAndFeel;
 import mdlaf.themes.MaterialLiteTheme;
 
@@ -14,17 +14,19 @@ public class Main {
 
     static {
         try {
-            UIManager.setLookAndFeel(new MaterialLookAndFeel(new MaterialLiteTheme()));// by including the https://github.com/material-ui-swing/DarkStackOverflowTheme
+            UIManager.setLookAndFeel(new MaterialLookAndFeel(new MaterialLiteTheme()));
         } catch (UnsupportedLookAndFeelException e) {
             log.info(e.getMessage());
         }
     }
 
     public static void main(String[] args) throws Exception {
-        //new Home("RestaurantName HERE");
         test();
-        new Login();
+        Login login = new Login();
+        // Main thread is asleep while waiting for login thread to complete
+        login.getLoginLatch().await();
         System.out.println("After login");
+        new Home("Da Pippo");
     }
 
     @Authorize

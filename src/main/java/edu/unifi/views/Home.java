@@ -1,4 +1,4 @@
-package edu.unifi.view;
+package edu.unifi.views;
 
 import edu.unifi.api.graphics.Window;
 
@@ -9,7 +9,6 @@ public class Home extends Window {
     public Home(String title) throws Exception {
         super(title, true, JFrame.EXIT_ON_CLOSE);
 
-        JPanel rootPane = new JPanel();
         setRootLayout(Layout.BORDER, 0, 0);
 
         JTabbedPane roomsTabbedPane = new JTabbedPane();
@@ -29,8 +28,8 @@ public class Home extends Window {
 
         JMenuItem settings = new JMenuItem("Settings");
         JMenuItem exitFromApplication = new JMenuItem("Exit");
-        optionsMenu.add(exitFromApplication);
         optionsMenu.add(settings);
+        optionsMenu.add(exitFromApplication);
 
         addMenuEntries(optionsMenu, tablesMenu, dishesMenu);
     }
