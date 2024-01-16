@@ -1,6 +1,8 @@
 package edu.unifi;
 
 import edu.unifi.api.security.Authorize;
+import edu.unifi.view.Home;
+import edu.unifi.view.Login;
 import mdlaf.MaterialLookAndFeel;
 import mdlaf.themes.MaterialLiteTheme;
 
@@ -19,13 +21,13 @@ public class Main {
     }
 
     public static void main(String[] args) throws Exception {
-        //new Home("Home");
+        //new Home("RestaurantName HERE");
         //new Login();
-        test();
+        testAuth();
     }
 
-    @Authorize
-    public static void test() {
-        System.out.println("I am in the method");
+    @Authorize(role = "andjsk")
+    private static void testAuth() {
+        System.out.println("TEST");
     }
 }

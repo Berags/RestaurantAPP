@@ -13,16 +13,14 @@ public class Home extends Window {
         setRootLayout(Layout.BORDER, 0, 0);
 
         JTabbedPane roomsTabbedPane = new JTabbedPane();
-        final JPanel panel1 = new JPanel();
-        panel1.setLayout(new BorderLayout(0, 0));
-        roomsTabbedPane.addTab("Untitled", panel1);
-        addComponent(roomsTabbedPane, BorderLayout.CENTER);
+        final JPanel panelRoom1 = new JPanel();
+        final JPanel panelRoom2 = new JPanel();
 
-        JLabel restaurantNamePane = new JLabel();
-        restaurantNamePane.setHorizontalAlignment(0);
-        restaurantNamePane.setText("restaurantName");
-        restaurantNamePane.setToolTipText("Restaurant Name");
-        addComponent(restaurantNamePane, BorderLayout.NORTH);
+        panelRoom1.setLayout(new BorderLayout(0, 0));
+        roomsTabbedPane.addTab("Room 1", panelRoom1);
+        panelRoom2.setLayout(new BorderLayout(0, 0));
+        roomsTabbedPane.addTab("Room 2", panelRoom2);
+        addComponent(roomsTabbedPane, BorderLayout.CENTER);
 
         /* MENU*/
         JMenu optionsMenu = new JMenu("Options");
