@@ -4,30 +4,39 @@ import edu.unifi.api.graphics.Window;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class Home extends Window {
-    public Home(String title) throws HeadlessException {
-        super(title, createComponents());
-    }
+    public Home(String title) throws Exception {
+        super(title, true, JFrame.EXIT_ON_CLOSE);
 
-    private static ArrayList<JComponent> createComponents() {
-        ArrayList<JComponent> components = new ArrayList<>();
+        JPanel rootPane = new JPanel();
+        setRootLayout(Layout.BORDER, 0, 0);
 
-        JLabel testLabel = new JLabel("Ciao");
-        testLabel.setHorizontalAlignment(JLabel.CENTER);
-        testLabel.setFont(new Font("Courier New", Font.BOLD, 32));
-        testLabel.setForeground(Color.RED);
-        testLabel.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.BLACK));
-        components.add(testLabel);
+        JTabbedPane roomsTabbedPane = new JTabbedPane();
+        final JPanel panel1 = new JPanel();
+        panel1.setLayout(new BorderLayout(0, 0));
+        roomsTabbedPane.addTab("Untitled", panel1);
+        addComponent(roomsTabbedPane, BorderLayout.CENTER);
 
-        JLabel test2 = new JLabel("Prova?");
-        test2.setHorizontalAlignment(JLabel.LEFT);
-        test2.setFont(new Font("Courier New", Font.BOLD, 32));
-        test2.setForeground(Color.RED);
-        test2.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.BLACK));
-        components.add(test2);
+        JLabel restaurantNamePane = new JLabel();
+        restaurantNamePane.setHorizontalAlignment(0);
+        restaurantNamePane.setText("restaurantName");
+        restaurantNamePane.setToolTipText("Restaurant Name");
+        addComponent(restaurantNamePane, BorderLayout.NORTH);
 
-        return components;
+        /* MENU*/
+        JMenu optionsMenu = new JMenu("Options");
+        JMenu tablesMenu = new JMenu("Tables");
+        JMenu dishesMenu = new JMenu("Dishes");
+
+        JMenuItem settings = new JMenuItem("Settings");
+        JMenuItem exitFromApplication = new JMenuItem("Exit");
+        optionsMenu.add(exitFromApplication);
+        optionsMenu.add(settings);
+
+        addMenuEntries(optionsMenu, tablesMenu, dishesMenu);
+
+        Thread.sleep(5000);
+
     }
 }
