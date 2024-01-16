@@ -18,7 +18,7 @@ public class AuthorizeAspect {
     @Around("callAt(authorize)")
     public Object around(ProceedingJoinPoint pjp,
                          Authorize authorize) throws Throwable {
-        System.out.println(authorize.role());
+        System.out.println("Authorizing the method: " + pjp.getSignature() + " with role access " + authorize.role());
         if (authorize.role().equals("Admin")) return pjp.proceed();
         return null;
     }

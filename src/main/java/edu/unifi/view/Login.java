@@ -1,13 +1,19 @@
 package edu.unifi.view;
 
 import edu.unifi.api.graphics.Window;
+import lombok.Data;
+import lombok.Getter;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Login extends Window {
+    @Getter
     private final JTextField usernameField;
+    @Getter
     private final JPasswordField passwordField;
     private final JButton loginButton;
     private final JLabel titleLabel;
@@ -73,6 +79,7 @@ public class Login extends Window {
         loginPane.add(usernameLabel, gbc);
         loginButton = new JButton();
         loginButton.setText("Login");
+        loginButton.addActionListener(new LoginActionListener(this));
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 3;
@@ -86,5 +93,25 @@ public class Login extends Window {
         passwordField.setFont(font);
 
         addComponent(loginPane, BorderLayout.CENTER);
+    }
+
+    // TODO: find a way to implement action listeners better
+    private static class LoginActionListener implements ActionListener {
+        private final Login login;
+
+        public LoginActionListener(Login login) {
+            this.login = login;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // TODO: thread?
+            // TODO: replace with database query
+            if (login.getUsernameField().getText().equals("Admin") && String.valueOf(login.getPasswordField().getPassword()).equals("Admin")) {
+                login.dispose();
+                return;
+            }
+            JOptionPane.showMessageDialog(null, "Username or password is not correct!");
+        }
     }
 }

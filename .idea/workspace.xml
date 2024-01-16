@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f76637e2-7e14-4636-86fc-d0d2dae511df" name="Changes" comment="Simple AOP implementation&#10;Added a simple AOP implementation with AspectJ to add annotation to execute code before and after method (e.g. to check if a user is Authorized to access a resource).&#10;Added simple Login form">
+    <list default="true" id="f76637e2-7e14-4636-86fc-d0d2dae511df" name="Changes" comment="Authorize annotation with role&#10;Expanded Authorize Annotation with a role that can access the resource">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/api/graphics/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/api/graphics/Window.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/api/security/Authorize.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/api/security/Authorize.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/api/security/aop/AuthorizeAspect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/api/security/aop/AuthorizeAspect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/view/Home.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/view/Home.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/view/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/view/Login.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +81,10 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -118,19 +121,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="RestaurantAPP" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="RestaurantAPP" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
@@ -150,7 +140,8 @@
       <workItem from="1705325907220" duration="247000" />
       <workItem from="1705326161382" duration="652000" />
       <workItem from="1705334899629" duration="8027000" />
-      <workItem from="1705394370958" duration="15152000" />
+      <workItem from="1705394370958" duration="15819000" />
+      <workItem from="1705415408561" duration="2369000" />
     </task>
     <task id="LOCAL-00001" summary="Added First Files">
       <option name="closed" value="true" />
@@ -192,7 +183,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705406150096</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Authorize annotation with role&#10;Expanded Authorize Annotation with a role that can access the resource">
+      <option name="closed" value="true" />
+      <created>1705410016293</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1705410016293</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -204,6 +203,7 @@
     <MESSAGE value="Started Window Component&#10;Added functionality to create JFrame Windows with an integrated Thread" />
     <MESSAGE value="Created Skeleton for Home View&#10;Added functionalities to Window Component, created the skeleton for Home Layout and added Material-ui-theming" />
     <MESSAGE value="Simple AOP implementation&#10;Added a simple AOP implementation with AspectJ to add annotation to execute code before and after method (e.g. to check if a user is Authorized to access a resource).&#10;Added simple Login form" />
-    <option name="LAST_COMMIT_MESSAGE" value="Simple AOP implementation&#10;Added a simple AOP implementation with AspectJ to add annotation to execute code before and after method (e.g. to check if a user is Authorized to access a resource).&#10;Added simple Login form" />
+    <MESSAGE value="Authorize annotation with role&#10;Expanded Authorize Annotation with a role that can access the resource" />
+    <option name="LAST_COMMIT_MESSAGE" value="Authorize annotation with role&#10;Expanded Authorize Annotation with a role that can access the resource" />
   </component>
 </project>

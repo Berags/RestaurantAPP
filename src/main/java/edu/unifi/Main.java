@@ -22,12 +22,13 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         //new Home("RestaurantName HERE");
-        //new Login();
-        testAuth();
+        test();
+        new Login();
+        System.out.println("After login");
     }
 
-    @Authorize(role = "andjsk")
-    private static void testAuth() {
-        System.out.println("TEST");
+    @Authorize
+    private static void test() {
+        System.out.println("TEsting");
     }
 }
