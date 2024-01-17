@@ -94,9 +94,6 @@
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
-                    <mainclass>edu.unifi.Main</mainclass>
-                </configuration>
             </plugin>
         </plugins>
     </build>

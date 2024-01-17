@@ -4,18 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f76637e2-7e14-4636-86fc-d0d2dae511df" name="Changes" comment="Repository interface&#10;Added Repository interface and UserRepository example. Each Repository follow Singleton pattern.&#10;Refactor of DatabaseAccess and DatabaseConnection.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/views/CreateTableTest.form" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/views/CreateTableTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/views/TableCreationTool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="f76637e2-7e14-4636-86fc-d0d2dae511df" name="Changes" comment="Created View for Table insertion and Refactoring&#10;Added Icon Package, added font selection in Window class">
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/api/dco/DatabaseAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/api/dco/DatabaseAccess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/api/graphics/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/api/graphics/Window.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/api/security/aop/AuthorizeAspect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/api/security/aop/AuthorizeAspect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,7 +139,7 @@
       <workItem from="1705415408561" duration="4236000" />
       <workItem from="1705425628531" duration="2354000" />
       <workItem from="1705491803826" duration="11127000" />
-      <workItem from="1705504246626" duration="1171000" />
+      <workItem from="1705504246626" duration="1290000" />
     </task>
     <task id="LOCAL-00001" summary="Added First Files">
       <option name="closed" value="true" />
@@ -231,7 +221,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705499143839</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Created View for Table insertion and Refactoring&#10;Added Icon Package, added font selection in Window class">
+      <option name="closed" value="true" />
+      <created>1705505517487</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1705505517487</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -248,7 +246,8 @@
     <MESSAGE value="Refactor &amp; Added JUnit" />
     <MESSAGE value="Added DatabaseAccess class &#10;Added DatabaseAccess class that manages all database operations with custom annotation that allows to connect and close the db session automatically" />
     <MESSAGE value="Repository interface&#10;Added Repository interface and UserRepository example. Each Repository follow Singleton pattern.&#10;Refactor of DatabaseAccess and DatabaseConnection." />
-    <option name="LAST_COMMIT_MESSAGE" value="Repository interface&#10;Added Repository interface and UserRepository example. Each Repository follow Singleton pattern.&#10;Refactor of DatabaseAccess and DatabaseConnection." />
+    <MESSAGE value="Created View for Table insertion and Refactoring&#10;Added Icon Package, added font selection in Window class" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created View for Table insertion and Refactoring&#10;Added Icon Package, added font selection in Window class" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
