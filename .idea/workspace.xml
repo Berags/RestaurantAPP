@@ -4,15 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f76637e2-7e14-4636-86fc-d0d2dae511df" name="Changes" comment="Created View for Table insertion and Refactoring&#10;Added Icon Package, added font selection in Window class">
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/views/DishCreationTool.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/views/DishTest.form" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/views/DishTest.java" afterDir="false" />
+    <list default="true" id="f76637e2-7e14-4636-86fc-d0d2dae511df" name="Changes" comment="Created View for Dishes insertion and Refactoring">
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/views/TableUpdateTool.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/api/graphics/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/api/graphics/Window.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/views/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/views/Login.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/views/Home.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/views/Home.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/views/TableCreationTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/views/TableCreationTool.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -150,7 +148,8 @@
       <workItem from="1705491803826" duration="11127000" />
       <workItem from="1705504246626" duration="2366000" />
       <workItem from="1705526555274" duration="169000" />
-      <workItem from="1705576253871" duration="3237000" />
+      <workItem from="1705576253871" duration="3469000" />
+      <workItem from="1705588188666" duration="5139000" />
     </task>
     <task id="LOCAL-00001" summary="Added First Files">
       <option name="closed" value="true" />
@@ -248,7 +247,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705505556761</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Created View for Dishes insertion and Refactoring">
+      <option name="closed" value="true" />
+      <created>1705581776497</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1705581776497</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -266,7 +273,8 @@
     <MESSAGE value="Added DatabaseAccess class &#10;Added DatabaseAccess class that manages all database operations with custom annotation that allows to connect and close the db session automatically" />
     <MESSAGE value="Repository interface&#10;Added Repository interface and UserRepository example. Each Repository follow Singleton pattern.&#10;Refactor of DatabaseAccess and DatabaseConnection." />
     <MESSAGE value="Created View for Table insertion and Refactoring&#10;Added Icon Package, added font selection in Window class" />
-    <option name="LAST_COMMIT_MESSAGE" value="Created View for Table insertion and Refactoring&#10;Added Icon Package, added font selection in Window class" />
+    <MESSAGE value="Created View for Dishes insertion and Refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created View for Dishes insertion and Refactoring" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

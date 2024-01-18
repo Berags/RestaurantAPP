@@ -1,6 +1,8 @@
 package edu.unifi.views;
 
 import edu.unifi.api.graphics.Window;
+import lombok.Getter;
+import lombok.Setter;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
 import org.kordamp.ikonli.swing.FontIcon;
 
@@ -8,6 +10,8 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
+@Getter
+@Setter
 public class TableCreationTool extends Window {
     private JTextField nameTextField;
     private JSpinner nOfSeatsSpinner;

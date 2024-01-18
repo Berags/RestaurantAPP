@@ -4,6 +4,10 @@ import edu.unifi.api.graphics.Window;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Home extends Window {
     public Home(String title) throws Exception {
@@ -31,6 +35,16 @@ public class Home extends Window {
         optionsMenu.add(settings);
         optionsMenu.add(exitFromApplication);
 
-        addMenuEntries(optionsMenu, tablesMenu, dishesMenu);
+        JMenuItem createTableMenuItem = new JMenuItem("Create Table");
+        createTableMenuItem.addActionListener(e -> {
+            try {
+                new TableCreationTool();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+        tablesMenu.add(createTableMenuItem);
+
+        addMenuEntries(new JMenu[]{optionsMenu, tablesMenu, dishesMenu});
     }
 }

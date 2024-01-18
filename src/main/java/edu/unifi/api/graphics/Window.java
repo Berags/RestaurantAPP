@@ -8,6 +8,7 @@ import javax.swing.plaf.FontUIResource;
 import javax.swing.text.StyleContext;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -41,7 +42,7 @@ public class Window extends JFrame implements Runnable {
         update();
     }
 
-    public void addMenuEntries(JMenu... menuEntries) {
+    public void addMenuEntries(JMenu[] menuEntries) {
         for (JMenu entry : menuEntries)
             menuBar.add(entry);
         update();
