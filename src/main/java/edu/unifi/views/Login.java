@@ -98,23 +98,18 @@ public class Login extends Window {
     }
 
     // TODO: find a way to implement action listeners better
-    private static class LoginActionListener implements ActionListener {
-        private final Login login;
-
-        public LoginActionListener(Login login) {
-            this.login = login;
-        }
+        private record LoginActionListener(Login login) implements ActionListener {
 
         @Override
-        public void actionPerformed(ActionEvent e) {
-            // TODO: thread?
-            // TODO: replace with database query
-            if (login.getUsernameField().getText().equals("Admin") && String.valueOf(login.getPasswordField().getPassword()).equals("Admin")) {
-                login.dispose();
-                login.getLoginLatch().countDown();
-                return;
+            public void actionPerformed(ActionEvent e) {
+                // TODO: thread?
+                // TODO: replace with database query
+                if (login.getUsernameField().getText().equals("Admin") && String.valueOf(login.getPasswordField().getPassword()).equals("Admin")) {
+                    login.dispose();
+                    login.getLoginLatch().countDown();
+                    return;
+                }
+                JOptionPane.showMessageDialog(null, "Username or password is not correct!");
             }
-            JOptionPane.showMessageDialog(null, "Username or password is not correct!");
         }
-    }
 }

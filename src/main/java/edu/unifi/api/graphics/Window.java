@@ -21,6 +21,7 @@ public class Window extends JFrame implements Runnable {
     public enum Layout {BORDER, FLOW, GRID}
 
 
+    // TODO: refactor constructor to get Rectangle instead of int... bounds
     public Window(String title, boolean hasMenu, int defaultExitOperation, int... bounds) {
         super(title);
 

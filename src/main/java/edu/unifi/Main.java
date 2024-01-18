@@ -3,6 +3,7 @@ package edu.unifi;
 import edu.unifi.api.dco.DatabaseAccess;
 import edu.unifi.entities.User;
 import edu.unifi.repositories.UserRepository;
+import edu.unifi.views.DishCreationTool;
 import edu.unifi.views.TableCreationTool;
 import mdlaf.MaterialLookAndFeel;
 import mdlaf.themes.MaterialLiteTheme;
@@ -26,11 +27,11 @@ public class Main {
         // Initiating database connection pool
         DatabaseAccess.initiate();
         try {
-            UserRepository userRepository = UserRepository.getInstance();
-            List<User> users = userRepository.getAll();
-            users.forEach(user -> System.out.printf(String.valueOf(user.getId())));
-            userRepository.delete(User.builder().build());
-            new TableCreationTool();
+            //UserRepository userRepository = UserRepository.getInstance();
+            //List<User> users = userRepository.getAll();
+            //users.forEach(user -> System.out.printf(String.valueOf(user.getId())));
+            //userRepository.delete(User.builder().build());
+            new DishCreationTool();
         /*Login login = new Login();
         // Main thread is asleep while waiting for login thread to complete
         login.getLoginLatch().await();
