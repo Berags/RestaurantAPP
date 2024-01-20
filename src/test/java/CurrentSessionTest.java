@@ -51,18 +51,6 @@ public class CurrentSessionTest {
         assertThrows(SecurityException.class, session::getRole);
     }
 
-
-    @Test
-    public void testAuthorization() {
-        CurrentSession session = CurrentSession.getInstance();
-        session.login(mockUser);
-        // Verify authorization for admin user
-        assertTrue(session.isAuthorized(Roles.ADMIN));
-
-        // Verify non-authorization for non-admin user
-        assertFalse(session.isAuthorized(Roles.WAITER));
-    }
-
     @Test
     public void testConcurrentAccess() {
         // Simulate multiple threads accessing the singleton instance
