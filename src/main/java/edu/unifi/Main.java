@@ -1,15 +1,9 @@
 package edu.unifi;
 
 import edu.unifi.api.dco.DatabaseAccess;
-import edu.unifi.api.security.CurrentSession;
 import edu.unifi.api.security.Roles;
 import edu.unifi.api.security.aop.Authorize;
-import edu.unifi.entities.User;
-import edu.unifi.repositories.UserRepository;
-import edu.unifi.views.DishCreationTool;
 import edu.unifi.views.Home;
-import edu.unifi.views.TableCreationTool;
-import edu.unifi.views.TableUpdateTool;
 import mdlaf.MaterialLookAndFeel;
 import mdlaf.themes.MaterialLiteTheme;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignA;
@@ -17,7 +11,6 @@ import org.kordamp.ikonli.swing.FontIcon;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 import java.util.logging.Logger;
 
 public class Main {

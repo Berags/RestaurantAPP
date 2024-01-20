@@ -11,7 +11,7 @@ import java.util.Arrays;
 
 public class Home extends Window {
     public Home(String title) throws Exception {
-        super(title, true, JFrame.EXIT_ON_CLOSE);
+        super(title, true, JFrame.EXIT_ON_CLOSE, 0, 0, 1000, 700);
 
         setRootLayout(Layout.BORDER, 0, 0);
 
