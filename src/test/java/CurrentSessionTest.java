@@ -23,6 +23,7 @@ public class CurrentSessionTest {
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
+        mockUser.setRole(Roles.ADMIN);
         when(mockUser.getRole()).thenReturn(Roles.ADMIN);
     }
 

@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f76637e2-7e14-4636-86fc-d0d2dae511df" name="Changes" comment="Updated maven.yml">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="f76637e2-7e14-4636-86fc-d0d2dae511df" name="Changes" comment="Updated Test">
       <change beforePath="$PROJECT_DIR$/src/test/java/CurrentSessionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/CurrentSessionTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -214,7 +213,7 @@
       <workItem from="1705576253871" duration="3469000" />
       <workItem from="1705588188666" duration="6655000" />
       <workItem from="1705746890292" duration="2489000" />
-      <workItem from="1705749417646" duration="10531000" />
+      <workItem from="1705749417646" duration="10686000" />
     </task>
     <task id="LOCAL-00001" summary="Added First Files">
       <option name="closed" value="true" />
@@ -368,7 +367,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705762566980</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Updated Test">
+      <option name="closed" value="true" />
+      <created>1705763112639</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1705763112639</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -392,7 +399,8 @@
     <MESSAGE value="Refactoring and added simple test&#10;Refactoring of the classes and added JavaDoc.&#10;Created simple test for CurrentSession class." />
     <MESSAGE value="Removed Lombok and added automated testing" />
     <MESSAGE value="Updated maven.yml" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated maven.yml" />
+    <MESSAGE value="Updated Test" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated Test" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
