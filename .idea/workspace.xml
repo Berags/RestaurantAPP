@@ -4,17 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f76637e2-7e14-4636-86fc-d0d2dae511df" name="Changes" comment="Refactoring and added simple test&#10;Refactoring of the classes and added JavaDoc.&#10;Created simple test for CurrentSession class.">
+    <list default="true" id="f76637e2-7e14-4636-86fc-d0d2dae511df" name="Changes" comment="Removed Lombok and added automated testing">
       <change beforePath="$PROJECT_DIR$/.github/workflows/maven.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/maven.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/api/dco/DatabaseAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/api/dco/DatabaseAccess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/api/graphics/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/api/graphics/Window.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/entities/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/views/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/views/Login.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/views/TableCreationTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/views/TableCreationTool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/views/TableUpdateTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/views/TableUpdateTool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/CurrentSessionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/CurrentSessionTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -222,7 +214,7 @@
       <workItem from="1705576253871" duration="3469000" />
       <workItem from="1705588188666" duration="6655000" />
       <workItem from="1705746890292" duration="2489000" />
-      <workItem from="1705749417646" duration="9497000" />
+      <workItem from="1705749417646" duration="9783000" />
     </task>
     <task id="LOCAL-00001" summary="Added First Files">
       <option name="closed" value="true" />
@@ -352,7 +344,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705756689677</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Removed Lombok and added automated testing">
+      <option name="closed" value="true" />
+      <created>1705762085593</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1705762085593</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -374,7 +374,8 @@
     <MESSAGE value="Created View for Table Update&#10;Added Right panel to view a summary of all the dishes ordered by that table" />
     <MESSAGE value="Added SecuritySession&#10;Added Class CurrentSession (implemented with Singleton) that allow to store the current user info and manages all session related stuff (login, logout, role checking, etc...). Updated AuthorizeAspect to use CurrentSession in @Authorize aspect to check if current user has the authorization to access a certain method.&#10;Simple IRepository refactor." />
     <MESSAGE value="Refactoring and added simple test&#10;Refactoring of the classes and added JavaDoc.&#10;Created simple test for CurrentSession class." />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactoring and added simple test&#10;Refactoring of the classes and added JavaDoc.&#10;Created simple test for CurrentSession class." />
+    <MESSAGE value="Removed Lombok and added automated testing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed Lombok and added automated testing" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
