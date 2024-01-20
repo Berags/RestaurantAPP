@@ -1,8 +1,6 @@
 package edu.unifi.views;
 
 import edu.unifi.api.graphics.Window;
-import lombok.Getter;
-import lombok.Setter;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
 import org.kordamp.ikonli.swing.FontIcon;
 
@@ -10,8 +8,6 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
-@Getter
-@Setter
 public class TableCreationTool extends Window {
     private JTextField nameTextField;
     private JSpinner nOfSeatsSpinner;
@@ -127,5 +123,69 @@ public class TableCreationTool extends Window {
 
         addComponent(titleLabel, BorderLayout.NORTH);
         addComponent(panel, BorderLayout.CENTER);
+    }
+
+    public JTextField getNameTextField() {
+        return nameTextField;
+    }
+
+    public void setNameTextField(JTextField nameTextField) {
+        this.nameTextField = nameTextField;
+    }
+
+    public JSpinner getNOfSeatsSpinner() {
+        return nOfSeatsSpinner;
+    }
+
+    public void setNOfSeatsSpinner(JSpinner nOfSeatsSpinner) {
+        this.nOfSeatsSpinner = nOfSeatsSpinner;
+    }
+
+    public JComboBox getStateComboBox() {
+        return stateComboBox;
+    }
+
+    public void setStateComboBox(JComboBox stateComboBox) {
+        this.stateComboBox = stateComboBox;
+    }
+
+    public JLabel getNameLabel() {
+        return nameLabel;
+    }
+
+    public void setNameLabel(JLabel nameLabel) {
+        this.nameLabel = nameLabel;
+    }
+
+    public JLabel getnOfSeatsLabel() {
+        return nOfSeatsLabel;
+    }
+
+    public void setnOfSeatsLabel(JLabel nOfSeatsLabel) {
+        this.nOfSeatsLabel = nOfSeatsLabel;
+    }
+
+    public JButton getCreateButton() {
+        return createButton;
+    }
+
+    public void setCreateButton(JButton createButton) {
+        this.createButton = createButton;
+    }
+
+    public JLabel getStateLabel() {
+        return stateLabel;
+    }
+
+    public void setStateLabel(JLabel stateLabel) {
+        this.stateLabel = stateLabel;
+    }
+
+    public JLabel getTitleLabel() {
+        return titleLabel;
+    }
+
+    public void setTitleLabel(JLabel titleLabel) {
+        this.titleLabel = titleLabel;
     }
 }

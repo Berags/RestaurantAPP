@@ -1,6 +1,5 @@
 package edu.unifi.api.dco;
 
-import lombok.Getter;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -10,7 +9,6 @@ import org.hibernate.cfg.Configuration;
  *
  * @author Jacopo Beragnoli
  */
-@Getter
 public class DatabaseAccess {
     // SessionFactory instance for creating database sessions
     private static SessionFactory sessionFactory;
@@ -54,5 +52,9 @@ public class DatabaseAccess {
     public static void terminate() {
         // Close the SessionFactory
         sessionFactory.close();
+    }
+
+    public static SessionFactory getSessionFactory() {
+        return sessionFactory;
     }
 }

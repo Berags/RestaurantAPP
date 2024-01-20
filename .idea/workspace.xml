@@ -4,19 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f76637e2-7e14-4636-86fc-d0d2dae511df" name="Changes" comment="Added SecuritySession&#10;Added Class CurrentSession (implemented with Singleton) that allow to store the current user info and manages all session related stuff (login, logout, role checking, etc...). Updated AuthorizeAspect to use CurrentSession in @Authorize aspect to check if current user has the authorization to access a certain method.&#10;Simple IRepository refactor.">
-      <change afterPath="$PROJECT_DIR$/src/test/java/CurrentSessionTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+    <list default="true" id="f76637e2-7e14-4636-86fc-d0d2dae511df" name="Changes" comment="Refactoring and added simple test&#10;Refactoring of the classes and added JavaDoc.&#10;Created simple test for CurrentSession class.">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/maven.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/maven.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/api/dco/DatabaseAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/api/dco/DatabaseAccess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/api/dco/IRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/api/dco/IRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/api/graphics/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/api/graphics/Window.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/api/security/CurrentSession.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/api/security/CurrentSession.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/api/security/aop/Authorize.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/api/security/aop/Authorize.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/api/security/aop/AuthorizeAspect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/api/security/aop/AuthorizeAspect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/views/Home.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/views/Home.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/entities/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/views/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/views/Login.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/views/TableCreationTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/views/TableCreationTool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/views/TableUpdateTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/views/TableUpdateTool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/CurrentSessionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/CurrentSessionTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,9 +69,14 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Main.executor": "Run",
+    "JUnit.AllTests.executor": "Run",
     "JUnit.CurrentSessionTest.executor": "Run",
     "JUnit.CurrentSessionTest.testConcurrentAccess.executor": "Run",
+    "JUnit.CurrentSessionTest.testInvalidLogin.executor": "Run",
     "JUnit.CurrentSessionTest.testLoginLogout.executor": "Run",
+    "Maven.RestaurantAPP [--batch-mode...].executor": "Run",
+    "Maven.RestaurantAPP [-B,test,--file,pom.xml].executor": "Run",
+    "Maven.RestaurantAPP [clean,test].executor": "Run",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
@@ -92,10 +95,10 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
+    "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -118,7 +121,15 @@
       <recent name="edu.unifi.api.security" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.CurrentSessionTest">
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn --batch-mode -Djps.track.ap.dependencies=false  -Dmaven.test.failure.ignore=true test" />
+      <command value="mvn --batch-mode -Dmaven.track.ap.dependencies=false  -Dmaven.test.failure.ignore=true test" />
+      <command value="mvn -B test --file pom.xml" />
+      <command value="mvn clean test" />
+    </option>
+  </component>
+  <component name="RunManager" selected="JUnit.CurrentSessionTest.testInvalidLogin">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="edu.unifi.Main" />
       <module name="RestaurantAPP" />
@@ -136,6 +147,7 @@
       <module name="RestaurantAPP" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="CurrentSessionTest" />
+      <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -151,6 +163,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="CurrentSessionTest.testInvalidLogin" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="RestaurantAPP" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="CurrentSessionTest" />
+      <option name="METHOD_NAME" value="testInvalidLogin" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="CurrentSessionTest.testLoginLogout" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="RestaurantAPP" />
       <option name="PACKAGE_NAME" value="" />
@@ -161,12 +183,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.Main" />
+      <item itemvalue="JUnit.CurrentSessionTest.testInvalidLogin" />
+      <item itemvalue="JUnit.CurrentSessionTest" />
+      <item itemvalue="JUnit.CurrentSessionTest.testConcurrentAccess" />
+      <item itemvalue="JUnit.CurrentSessionTest.testLoginLogout" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CurrentSessionTest.testInvalidLogin" />
+        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.CurrentSessionTest" />
         <item itemvalue="JUnit.CurrentSessionTest.testConcurrentAccess" />
         <item itemvalue="JUnit.CurrentSessionTest.testLoginLogout" />
-        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -192,7 +222,7 @@
       <workItem from="1705576253871" duration="3469000" />
       <workItem from="1705588188666" duration="6655000" />
       <workItem from="1705746890292" duration="2489000" />
-      <workItem from="1705749417646" duration="3785000" />
+      <workItem from="1705749417646" duration="9497000" />
     </task>
     <task id="LOCAL-00001" summary="Added First Files">
       <option name="closed" value="true" />
@@ -314,7 +344,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705748877893</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Refactoring and added simple test&#10;Refactoring of the classes and added JavaDoc.&#10;Created simple test for CurrentSession class.">
+      <option name="closed" value="true" />
+      <created>1705756689677</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1705756689677</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -335,7 +373,8 @@
     <MESSAGE value="Created View for Dishes insertion and Refactoring" />
     <MESSAGE value="Created View for Table Update&#10;Added Right panel to view a summary of all the dishes ordered by that table" />
     <MESSAGE value="Added SecuritySession&#10;Added Class CurrentSession (implemented with Singleton) that allow to store the current user info and manages all session related stuff (login, logout, role checking, etc...). Updated AuthorizeAspect to use CurrentSession in @Authorize aspect to check if current user has the authorization to access a certain method.&#10;Simple IRepository refactor." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added SecuritySession&#10;Added Class CurrentSession (implemented with Singleton) that allow to store the current user info and manages all session related stuff (login, logout, role checking, etc...). Updated AuthorizeAspect to use CurrentSession in @Authorize aspect to check if current user has the authorization to access a certain method.&#10;Simple IRepository refactor." />
+    <MESSAGE value="Refactoring and added simple test&#10;Refactoring of the classes and added JavaDoc.&#10;Created simple test for CurrentSession class." />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactoring and added simple test&#10;Refactoring of the classes and added JavaDoc.&#10;Created simple test for CurrentSession class." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

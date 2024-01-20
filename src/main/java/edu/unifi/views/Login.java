@@ -1,8 +1,6 @@
 package edu.unifi.views;
 
 import edu.unifi.api.graphics.Window;
-import lombok.Getter;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -11,9 +9,7 @@ import java.awt.event.ActionListener;
 import java.util.concurrent.CountDownLatch;
 
 public class Login extends Window {
-    @Getter
     private final JTextField usernameField;
-    @Getter
     private final JPasswordField passwordField;
     private final JButton loginButton;
     private final JLabel titleLabel;
@@ -21,7 +17,6 @@ public class Login extends Window {
     private final JLabel passwordLabel;
     private final JLabel usernameLabel;
     private final Font font = new Font("Droid Sans Mono Slashed", -1, 18);
-    @Getter
     private final CountDownLatch loginLatch = new CountDownLatch(1);
 
 
@@ -112,4 +107,16 @@ public class Login extends Window {
                 JOptionPane.showMessageDialog(null, "Username or password is not correct!");
             }
         }
+
+    public JTextField getUsernameField() {
+        return usernameField;
+    }
+
+    public JPasswordField getPasswordField() {
+        return passwordField;
+    }
+
+    public CountDownLatch getLoginLatch() {
+        return loginLatch;
+    }
 }

@@ -63,17 +63,6 @@ public class CurrentSessionTest {
     }
 
     @Test
-    @Disabled("Disabled until able to create invalid user")
-    public void testInvalidLogin() {
-        // TODO
-        CurrentSession session = CurrentSession.getInstance();
-
-        // Attempt to login with invalid user
-        User invalidUser = User.builder().build();
-        assertThrows(IllegalArgumentException.class, () -> session.login(invalidUser));
-    }
-
-    @Test
     public void testConcurrentAccess() {
         // Simulate multiple threads accessing the singleton instance
         ExecutorService executorService = Executors.newFixedThreadPool(5);

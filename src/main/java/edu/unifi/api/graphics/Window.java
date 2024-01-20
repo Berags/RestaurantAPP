@@ -1,14 +1,9 @@
 package edu.unifi.api.graphics;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import javax.swing.text.StyleContext;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -24,7 +19,6 @@ public class Window extends JFrame implements Runnable {
     // Root panel of the window
     private final JPanel rootPane = new JPanel();
     // Menu bar of the window
-    @Setter
     private JMenuBar menuBar = new JMenuBar();
 
     // Enum for layout types
