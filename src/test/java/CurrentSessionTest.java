@@ -16,7 +16,7 @@ import static org.mockito.Mockito.*;
 
 public class CurrentSessionTest {
     @Mock
-    private User mockUser;
+    private User mockUser = new User();
 
     static Logger log = Logger.getLogger(CurrentSession.class.getName());
 

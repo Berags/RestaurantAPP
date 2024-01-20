@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f76637e2-7e14-4636-86fc-d0d2dae511df" name="Changes" comment="Updated maven.yml">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/maven.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/maven.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/CurrentSessionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/CurrentSessionTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +121,7 @@
       <command value="mvn clean test" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.CurrentSessionTest.testInvalidLogin">
+  <component name="RunManager" selected="JUnit.CurrentSessionTest">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="edu.unifi.Main" />
       <module name="RestaurantAPP" />
@@ -183,9 +184,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CurrentSessionTest" />
         <item itemvalue="JUnit.CurrentSessionTest.testInvalidLogin" />
         <item itemvalue="Application.Main" />
-        <item itemvalue="JUnit.CurrentSessionTest" />
         <item itemvalue="JUnit.CurrentSessionTest.testConcurrentAccess" />
         <item itemvalue="JUnit.CurrentSessionTest.testLoginLogout" />
       </list>
@@ -213,7 +214,7 @@
       <workItem from="1705576253871" duration="3469000" />
       <workItem from="1705588188666" duration="6655000" />
       <workItem from="1705746890292" duration="2489000" />
-      <workItem from="1705749417646" duration="10003000" />
+      <workItem from="1705749417646" duration="10531000" />
     </task>
     <task id="LOCAL-00001" summary="Added First Files">
       <option name="closed" value="true" />
@@ -359,7 +360,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705762358727</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Updated maven.yml">
+      <option name="closed" value="true" />
+      <created>1705762566980</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1705762566980</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
