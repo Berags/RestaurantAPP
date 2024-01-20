@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * @param <T> The Entity represented by this repository
  */
-public interface Repository<T> {
+public interface IRepository<T> {
     void insert(T entity);
 
     void delete(T entity);

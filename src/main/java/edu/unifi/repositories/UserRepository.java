@@ -1,14 +1,13 @@
 package edu.unifi.repositories;
 
 import edu.unifi.api.dco.DatabaseAccess;
-import edu.unifi.api.dco.Repository;
+import edu.unifi.api.dco.IRepository;
 import edu.unifi.entities.User;
-import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Session;
 
 import java.util.List;
 
-public class UserRepository implements Repository<User> {
+public class UserRepository implements IRepository<User> {
     private Session session;
     private static volatile UserRepository instance = null;
 
