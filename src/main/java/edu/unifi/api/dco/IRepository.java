@@ -7,8 +7,9 @@ import java.util.List;
  * This interface defines the Repository pattern for CRUD operations on an entity.
  *
  * @param <T> the type of the entity
+ * @param <S> the id of the entity
  */
-public interface IRepository<T> {
+public interface IRepository<T, S> {
     /**
      * Inserts a new entity.
      *
@@ -36,7 +37,7 @@ public interface IRepository<T> {
      * @param id the ID of the entity
      * @return the entity with the given ID
      */
-    T getById(Object... id);
+    T getById(S id);
 
     /**
      * Retrieves all entities.

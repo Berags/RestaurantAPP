@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f76637e2-7e14-4636-86fc-d0d2dae511df" name="Changes" comment="Removed TestAuthorization">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/maven.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/maven.yml" afterDir="false" />
+    <list default="true" id="f76637e2-7e14-4636-86fc-d0d2dae511df" name="Changes" comment="Updated maven.yml">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/api/dco/IRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/api/dco/IRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/api/security/Roles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/api/security/Roles.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/repositories/UserRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,10 +91,10 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
+    "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler",
+    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -121,7 +125,7 @@
       <command value="mvn clean test" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.CurrentSessionTest">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="edu.unifi.Main" />
       <module name="RestaurantAPP" />
@@ -184,9 +188,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.CurrentSessionTest" />
         <item itemvalue="JUnit.CurrentSessionTest.testInvalidLogin" />
-        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.CurrentSessionTest.testConcurrentAccess" />
         <item itemvalue="JUnit.CurrentSessionTest.testLoginLogout" />
       </list>
@@ -214,7 +218,8 @@
       <workItem from="1705576253871" duration="3469000" />
       <workItem from="1705588188666" duration="6655000" />
       <workItem from="1705746890292" duration="2489000" />
-      <workItem from="1705749417646" duration="10864000" />
+      <workItem from="1705749417646" duration="14381000" />
+      <workItem from="1705999047765" duration="8221000" />
     </task>
     <task id="LOCAL-00001" summary="Added First Files">
       <option name="closed" value="true" />
@@ -392,7 +397,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705763335363</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Updated maven.yml">
+      <option name="closed" value="true" />
+      <created>1705763443300</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1705763443300</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -415,10 +428,10 @@
     <MESSAGE value="Added SecuritySession&#10;Added Class CurrentSession (implemented with Singleton) that allow to store the current user info and manages all session related stuff (login, logout, role checking, etc...). Updated AuthorizeAspect to use CurrentSession in @Authorize aspect to check if current user has the authorization to access a certain method.&#10;Simple IRepository refactor." />
     <MESSAGE value="Refactoring and added simple test&#10;Refactoring of the classes and added JavaDoc.&#10;Created simple test for CurrentSession class." />
     <MESSAGE value="Removed Lombok and added automated testing" />
-    <MESSAGE value="Updated maven.yml" />
     <MESSAGE value="Updated Test" />
     <MESSAGE value="Removed TestAuthorization" />
-    <option name="LAST_COMMIT_MESSAGE" value="Removed TestAuthorization" />
+    <MESSAGE value="Updated maven.yml" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated maven.yml" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -1,9 +1,12 @@
 package edu.unifi;
 
 import edu.unifi.api.dco.DatabaseAccess;
+import edu.unifi.api.security.CurrentSession;
 import edu.unifi.api.security.Roles;
 import edu.unifi.api.security.aop.Authorize;
-import edu.unifi.views.Home;
+import edu.unifi.entities.User;
+import edu.unifi.repositories.UserRepository;
+import edu.unifi.views.*;
 import mdlaf.MaterialLookAndFeel;
 import mdlaf.themes.MaterialLiteTheme;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignA;
@@ -14,6 +17,7 @@ import java.awt.*;
 import java.util.logging.Logger;
 
 public class Main {
+    // Todo: replace with slf4j
     static Logger log = Logger.getLogger(Main.class.getName());
     private static Home home;
 
@@ -40,9 +44,10 @@ public class Main {
         login.getLoginLatch().await();
         System.out.println("After login");
         new Home("Da Pippo");*/
+            //new TableUpdateTool();
         } catch (Exception e) {
             log.severe(e.getMessage());
-            JOptionPane.showMessageDialog(home, e.getMessage(), "Severe Error!", JOptionPane.ERROR_MESSAGE, FontIcon.of(MaterialDesignA.ALERT_RHOMBUS_OUTLINE, 40, Color.RED));
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Severe Error!", JOptionPane.ERROR_MESSAGE, FontIcon.of(MaterialDesignA.ALERT_RHOMBUS_OUTLINE, 40, Color.RED));
         } finally {
             // Cleaning up database connection pool
             DatabaseAccess.terminate();

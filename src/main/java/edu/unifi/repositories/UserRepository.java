@@ -2,12 +2,17 @@ package edu.unifi.repositories;
 
 import edu.unifi.api.dco.DatabaseAccess;
 import edu.unifi.api.dco.IRepository;
+import edu.unifi.api.security.Roles;
+import edu.unifi.api.security.aop.Authorize;
 import edu.unifi.entities.User;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import java.util.List;
+import java.util.UUID;
 
-public class UserRepository implements IRepository<User> {
+public class UserRepository implements IRepository<User, UUID> {
     private Session session;
     private static volatile UserRepository instance = null;
 
@@ -46,12 +51,24 @@ public class UserRepository implements IRepository<User> {
 
     @Override
     public void update(User entity) {
-
+        try {
+            session = DatabaseAccess.open();
+            session.merge(entity);
+        } finally {
+            DatabaseAccess.close(session);
+        }
     }
 
     @Override
-    public User getById(Object... id) {
-        return null;
+    public User getById(UUID uuid) {
+        try {
+            session = DatabaseAccess.open();
+            Query<User> q = session.createQuery("from User u where u.id = :u_id", User.class);
+            q.setParameter("u_id", uuid);
+            return q.getSingleResultOrNull();
+        } finally {
+            DatabaseAccess.close(session);
+        }
     }
 
     @Override
