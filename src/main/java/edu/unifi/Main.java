@@ -31,7 +31,13 @@ public class Main {
 
     public static void main(String[] args) {
         // Initiating database connection pool
-        DatabaseAccess.initiate();
+        var session = CurrentSession.getInstance();
+        User u = new User();
+        u.setRole(Roles.WAITER);
+        session.login(u);
+        System.out.println(session.isAuthorized(Roles.WAITER));
+        test();
+        //DatabaseAccess.initiate();
         try {
             //UserRepository userRepository = UserRepository.getInstance();
             //List<User> users = userRepository.getAll();
@@ -50,7 +56,7 @@ public class Main {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Severe Error!", JOptionPane.ERROR_MESSAGE, FontIcon.of(MaterialDesignA.ALERT_RHOMBUS_OUTLINE, 40, Color.RED));
         } finally {
             // Cleaning up database connection pool
-            DatabaseAccess.terminate();
+            //DatabaseAccess.terminate();
         }
     }
 
