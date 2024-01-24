@@ -6,7 +6,7 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/restourant_app</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/restaurant_app</property>
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password"/>
 
@@ -16,6 +16,13 @@
         <property name="hbm2ddl.auto">update</property>
 
         <mapping class="edu.unifi.entities.User"/>
+        <mapping class="edu.unifi.entities.Room"/>
+        <mapping class="edu.unifi.entities.Table"/>
+        <mapping class="edu.unifi.entities.Check"/>
+        <mapping class="edu.unifi.entities.TypeOfCourse"/>
+        <mapping class="edu.unifi.entities.Dish"/>
+        <mapping class="edu.unifi.entities.Ingredient"/>
+        <mapping class="edu.unifi.entities.Allergen"/>
 
     </session-factory>
 </hibernate-configuration>

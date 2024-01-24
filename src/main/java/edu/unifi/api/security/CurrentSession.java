@@ -1,7 +1,7 @@
 package edu.unifi.api.security;
 
 import edu.unifi.entities.User;
-import edu.unifi.repositories.UserRepository;
+import edu.unifi.repositories.UserDAO;
 
 /**
  * This class manages the current session of a user in the application.
@@ -31,7 +31,7 @@ public class CurrentSession {
         // Thread-safe, lazy load singleton
         CurrentSession thisInstance = instance;
         if (instance == null) {
-            synchronized (UserRepository.class) {
+            synchronized (UserDAO.class) {
                 if (thisInstance == null) {
                     instance = thisInstance = new CurrentSession();
                 }

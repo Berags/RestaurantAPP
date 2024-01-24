@@ -9,7 +9,7 @@ import java.util.List;
  * @param <T> the type of the entity
  * @param <S> the id of the entity
  */
-public interface IRepository<T, S> {
+public interface IDAO<T, S> {
     /**
      * Inserts a new entity.
      *
