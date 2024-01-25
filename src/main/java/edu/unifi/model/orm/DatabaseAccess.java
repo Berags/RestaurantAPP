@@ -1,8 +1,14 @@
 package edu.unifi.model.orm;
 
+import jakarta.persistence.EntityManager;
+import org.hibernate.FlushMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.context.internal.ManagedSessionContext;
+import org.hibernate.service.ServiceRegistry;
 
 /**
  * This class manages database access using Hibernate.
@@ -22,7 +28,7 @@ public class DatabaseAccess {
         // Open a new session
         Session session = sessionFactory.openSession();
         // Begin a transaction
-        session.beginTransaction();
+        Transaction t = session.beginTransaction();
         return session;
     }
 
@@ -32,9 +38,7 @@ public class DatabaseAccess {
      * @param session the session to close
      */
     public static void close(Session session) {
-        // Commit the transaction
         session.getTransaction().commit();
-        // Close the session
         session.close();
     }
 

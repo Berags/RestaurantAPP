@@ -122,6 +122,8 @@ public class TableCreationTool extends Window {
 
         addComponent(titleLabel, BorderLayout.NORTH);
         addComponent(panel, BorderLayout.CENTER);
+
+        setVisible(true);
     }
 
     public JTextField getNameTextField() {

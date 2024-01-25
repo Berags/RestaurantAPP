@@ -43,7 +43,7 @@ public class AuthorizeAspect {
      * @throws Throwable if the user is not authorized
      * @author Jacopo Beragnoli
      */
-    @Around("callAt(authorize)")
+    @Around(value = "callAt(authorize)", argNames = "pjp,authorize")
     public Object around(ProceedingJoinPoint pjp,
                          Authorize authorize) throws Throwable {
         // Log the authorization attempt.

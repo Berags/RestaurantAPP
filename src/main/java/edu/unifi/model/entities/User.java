@@ -26,6 +26,17 @@ public class User {
     @Column(name = "password_hash", unique = true)
     private String passwordHash;
 
+    @Column(name = "username", unique = true, length = 50)
+    private String username;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getPasswordHash() {
         return passwordHash;
     }

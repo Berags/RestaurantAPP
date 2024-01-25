@@ -40,5 +40,6 @@ public class Home extends Window {
         tablesMenu.add(createTableMenuItem);
 
         addMenuEntries(new JMenu[]{optionsMenu, tablesMenu, dishesMenu});
+        setVisible(true);
     }
 }

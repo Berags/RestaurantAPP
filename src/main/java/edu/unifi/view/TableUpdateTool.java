@@ -35,6 +35,8 @@ public class TableUpdateTool extends TableCreationTool {
         setUpRightUI();
 
         addComponent(rightPanel, BorderLayout.EAST);
+
+        setVisible(true);
     }
 
     private void setUpRightUI() {
