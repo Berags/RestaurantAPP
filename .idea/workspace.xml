@@ -4,20 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f76637e2-7e14-4636-86fc-d0d2dae511df" name="Changes" comment="Created Entities&#10;created all entities and renamed IRepository to IDAO">
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/entities/Order.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/entities/OrderId.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jpa-buddy.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jpa-buddy.xml" afterDir="false" />
+    <list default="true" id="f76637e2-7e14-4636-86fc-d0d2dae511df" name="Changes" comment="Updated maven.yml">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/api/dco/DatabaseAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/api/dco/DatabaseAccess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/api/security/CurrentSession.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/api/security/CurrentSession.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/entities/Allergen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/entities/Allergen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/entities/Check.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/entities/Check.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/entities/Dish.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/entities/Dish.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/entities/Ingredient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/entities/Ingredient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/entities/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/repositories/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/dao/UserDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,16 +23,10 @@
         <option value="Interface" />
         <option value="Enum" />
         <option value="Class" />
-        <option value="com.haulmont.jpb.JpaEntity" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="main" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -60,6 +43,9 @@
       </UrlAndAccount>
     </option>
   </component>
+  <component name="JpbToolWindowState">
+    <option name="isToolWindowVisible" value="false" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 6
@@ -72,47 +58,47 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "JUnit.AllTests.executor": "Run",
-    "JUnit.CurrentSessionTest.executor": "Run",
-    "JUnit.CurrentSessionTest.testConcurrentAccess.executor": "Run",
-    "JUnit.CurrentSessionTest.testInvalidLogin.executor": "Run",
-    "JUnit.CurrentSessionTest.testLoginLogout.executor": "Run",
-    "Maven.RestaurantAPP [--batch-mode...].executor": "Run",
-    "Maven.RestaurantAPP [-B,test,--file,pom.xml].executor": "Run",
-    "Maven.RestaurantAPP [clean,test].executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.Main.executor": "Run",
-    "UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH": "337",
-    "UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH": "344",
-    "aspect.path.notification.shown": "true",
-    "git-widget-placeholder": "database",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "com.haulmont.jpb.entityDeclaration",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AllTests.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CurrentSessionTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CurrentSessionTest.testConcurrentAccess.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CurrentSessionTest.testInvalidLogin.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CurrentSessionTest.testLoginLogout.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.RestaurantAPP [--batch-mode...].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.RestaurantAPP [-B,test,--file,pom.xml].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.RestaurantAPP [clean,test].executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.Main.executor&quot;: &quot;Run&quot;,
+    &quot;UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH&quot;: &quot;337&quot;,
+    &quot;UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH&quot;: &quot;344&quot;,
+    &quot;aspect.path.notification.shown&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="edu.unifi.api.security" />
@@ -206,6 +192,15 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-13.0.14-azul-13.0.14-249ae16d76d6-687636ad" />
+        <option value="jdk-21.0.1-openjdk-21.0.1-249ae16d76d6-a618e4d4" />
+        <option value="jdk-21.0.1-openjdk-21.0.1-f644763e9732-f98dd351" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -229,11 +224,7 @@
       <workItem from="1705588188666" duration="6655000" />
       <workItem from="1705746890292" duration="2489000" />
       <workItem from="1705749417646" duration="14381000" />
-      <workItem from="1705999047765" duration="10044000" />
-      <workItem from="1706037535449" duration="719000" />
-      <workItem from="1706043802187" duration="73000" />
-      <workItem from="1706111464744" duration="4284000" />
-      <workItem from="1706173895458" duration="3159000" />
+      <workItem from="1705999047765" duration="8221000" />
     </task>
     <task id="LOCAL-00001" summary="Added First Files">
       <option name="closed" value="true" />
@@ -419,23 +410,7 @@
       <option name="project" value="LOCAL" />
       <updated>1705763443300</updated>
     </task>
-    <task id="LOCAL-00024" summary="Simple Refactor">
-      <option name="closed" value="true" />
-      <created>1706009777831</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1706009777831</updated>
-    </task>
-    <task id="LOCAL-00025" summary="Bug fixing on AspectJ&#10;Fixed a bug where the aspects were not compiled and weaved correctly resulting in missing execution">
-      <option name="closed" value="true" />
-      <created>1706038224230</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1706038224230</updated>
-    </task>
-    <option name="localTasksCounter" value="26" />
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -461,9 +436,7 @@
     <MESSAGE value="Updated Test" />
     <MESSAGE value="Removed TestAuthorization" />
     <MESSAGE value="Updated maven.yml" />
-    <MESSAGE value="Simple Refactor" />
-    <MESSAGE value="Bug fixing on AspectJ&#10;Fixed a bug where the aspects were not compiled and weaved correctly resulting in missing execution" />
-    <option name="LAST_COMMIT_MESSAGE" value="Bug fixing on AspectJ&#10;Fixed a bug where the aspects were not compiled and weaved correctly resulting in missing execution" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated maven.yml" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

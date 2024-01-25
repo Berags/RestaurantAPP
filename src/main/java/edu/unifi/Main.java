@@ -1,11 +1,10 @@
 package edu.unifi;
 
-import edu.unifi.api.dco.DatabaseAccess;
-import edu.unifi.api.security.Roles;
-import edu.unifi.api.security.aop.Authorize;
-import edu.unifi.entities.Room;
-import edu.unifi.entities.Table;
-import edu.unifi.views.*;
+import edu.unifi.model.util.security.Roles;
+import edu.unifi.model.util.security.aop.Authorize;
+import edu.unifi.model.entities.Room;
+import edu.unifi.model.entities.Table;
+import edu.unifi.view.*;
 import mdlaf.MaterialLookAndFeel;
 import mdlaf.themes.MaterialLiteTheme;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignA;
@@ -30,7 +29,7 @@ public class Main {
 
     public static void main(String[] args) {
         // Initiating database connection pool
-        DatabaseAccess.initiate();
+       // DatabaseAccess.initiate();
         Room r = new Room();
         Table t = new Table();
         try {
@@ -51,7 +50,7 @@ public class Main {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Severe Error!", JOptionPane.ERROR_MESSAGE, FontIcon.of(MaterialDesignA.ALERT_RHOMBUS_OUTLINE, 40, Color.RED));
         } finally {
             // Cleaning up database connection pool
-            DatabaseAccess.terminate();
+           // DatabaseAccess.terminate();
         }
     }
 
