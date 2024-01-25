@@ -1,5 +1,7 @@
 package edu.unifi.view;
 
+import edu.unifi.controller.LoginController;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -75,7 +77,7 @@ public class Login extends Window {
         loginPane.add(usernameLabel, gbc);
         loginButton = new JButton();
         loginButton.setText("Login");
-        loginButton.addActionListener(new LoginActionListener(this));
+        loginButton.addActionListener(new LoginController(this));
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 3;
@@ -89,23 +91,8 @@ public class Login extends Window {
         passwordField.setFont(font);
 
         addComponent(loginPane, BorderLayout.CENTER);
+        setVisible(true);
     }
-
-    // TODO: find a way to implement action listeners better
-        private record LoginActionListener(Login login) implements ActionListener {
-
-        @Override
-            public void actionPerformed(ActionEvent e) {
-                // TODO: thread?
-                // TODO: replace with database query
-                if (login.getUsernameField().getText().equals("Admin") && String.valueOf(login.getPasswordField().getPassword()).equals("Admin")) {
-                    login.dispose();
-                    login.getLoginLatch().countDown();
-                    return;
-                }
-                JOptionPane.showMessageDialog(null, "Username or password is not correct!");
-            }
-        }
 
     public JTextField getUsernameField() {
         return usernameField;

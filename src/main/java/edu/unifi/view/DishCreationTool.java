@@ -147,5 +147,7 @@ public class DishCreationTool extends Window {
 
         addComponent(titleLabel, BorderLayout.NORTH);
         addComponent(panel, BorderLayout.CENTER);
+
+        setVisible(true);
     }
 }

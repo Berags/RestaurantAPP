@@ -2,6 +2,7 @@ package edu.unifi.model.orm.dao;
 
 import edu.unifi.model.orm.DatabaseAccess;
 import edu.unifi.model.entities.User;
+import jakarta.transaction.Transactional;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -29,7 +30,7 @@ public class UserDAO implements IDAO<User, UUID> {
     public void insert(User u) {
         try {
             session = DatabaseAccess.open();
-            session.persist(u);
+            session.save(u);
         } finally {
             DatabaseAccess.close(session);
         }
@@ -61,6 +62,17 @@ public class UserDAO implements IDAO<User, UUID> {
             session = DatabaseAccess.open();
             Query<User> q = session.createQuery("from User u where u.id = :u_id", User.class);
             q.setParameter("u_id", uuid);
+            return q.getSingleResultOrNull();
+        } finally {
+            DatabaseAccess.close(session);
+        }
+    }
+
+    public User getByUsername(String username) {
+        try {
+            session = DatabaseAccess.open();
+            Query<User> q = session.createQuery("from User where username = :u_username", User.class);
+            q.setParameter("u_username", username);
             return q.getSingleResultOrNull();
         } finally {
             DatabaseAccess.close(session);

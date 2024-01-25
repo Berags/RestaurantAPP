@@ -43,8 +43,6 @@ public class Window extends JFrame implements Runnable {
         setDefaultCloseOperation(defaultExitOperation);
         if (hasMenu) setJMenuBar(menuBar);
 
-        setVisible(true);
-
         t.setName(title);
     }
 
