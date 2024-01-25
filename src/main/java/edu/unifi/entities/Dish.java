@@ -37,18 +37,15 @@ public class Dish {
     @ManyToMany(mappedBy = "dishes", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     private Set<Ingredient> ingredients = new LinkedHashSet<>();
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
-    @JoinTable(name = "dish_allergen",
-            joinColumns = @JoinColumn(name = "dish_id"),
-            inverseJoinColumns = @JoinColumn(name = "allergens_name"))
-    private Set<Allergen> allergens = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Order> orders = new LinkedHashSet<>();
 
-    public Set<Allergen> getAllergens() {
-        return allergens;
+    public Set<Order> getOrders() {
+        return orders;
     }
 
-    public void setAllergens(Set<Allergen> allergens) {
-        this.allergens = allergens;
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
     }
 
     public Set<Ingredient> getIngredients() {

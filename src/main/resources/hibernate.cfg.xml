@@ -23,6 +23,7 @@
         <mapping class="edu.unifi.entities.Dish"/>
         <mapping class="edu.unifi.entities.Ingredient"/>
         <mapping class="edu.unifi.entities.Allergen"/>
+        <mapping class="edu.unifi.entities.Order"/>
 
     </session-factory>
 </hibernate-configuration>

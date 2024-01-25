@@ -1,12 +1,12 @@
 package edu.unifi.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.persistence.Table;
 import org.hibernate.proxy.HibernateProxy;
 
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "allergen")
@@ -14,6 +14,17 @@ public class Allergen {
     @Id
     @Column(name = "name", nullable = false)
     private String name;
+
+    @ManyToMany(mappedBy = "allergens", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    private Set<Ingredient> ingredients = new LinkedHashSet<>();
+
+    public Set<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(Set<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
 
     public String getName() {
         return name;

@@ -53,8 +53,4 @@ public class DatabaseAccess {
         // Close the SessionFactory
         sessionFactory.close();
     }
-
-    public static SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
 }

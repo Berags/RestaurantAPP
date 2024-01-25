@@ -1,7 +1,7 @@
 package edu.unifi.api.security;
 
 import edu.unifi.entities.User;
-import edu.unifi.repositories.UserDAO;
+import edu.unifi.dao.UserDAO;
 
 /**
  * This class manages the current session of a user in the application.

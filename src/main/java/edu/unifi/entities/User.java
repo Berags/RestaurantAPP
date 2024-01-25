@@ -24,6 +24,17 @@ public class User {
     @Column(name = "role")
     private Roles role;
 
+    @Column(name = "password_hash", unique = true)
+    private String passwordHash;
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
     public UUID getId() {
         return id;
     }

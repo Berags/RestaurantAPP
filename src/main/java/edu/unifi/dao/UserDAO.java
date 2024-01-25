@@ -1,4 +1,4 @@
-package edu.unifi.repositories;
+package edu.unifi.dao;
 
 import edu.unifi.api.dco.DatabaseAccess;
 import edu.unifi.api.dco.IDAO;

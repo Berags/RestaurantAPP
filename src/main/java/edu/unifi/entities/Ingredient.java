@@ -22,6 +22,20 @@ public class Ingredient {
             inverseJoinColumns = @JoinColumn(name = "dishes_id"))
     private Set<Dish> dishes = new LinkedHashSet<>();
 
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    @JoinTable(name = "ingredient_allergen",
+            joinColumns = @JoinColumn(name = "ingredient_name"),
+            inverseJoinColumns = @JoinColumn(name = "allergens_name"))
+    private Set<Allergen> allergens = new LinkedHashSet<>();
+
+    public Set<Allergen> getAllergens() {
+        return allergens;
+    }
+
+    public void setAllergens(Set<Allergen> allergens) {
+        this.allergens = allergens;
+    }
+
     public Set<Dish> getDishes() {
         return dishes;
     }
