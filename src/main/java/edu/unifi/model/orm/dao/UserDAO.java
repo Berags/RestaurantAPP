@@ -82,7 +82,7 @@ public class UserDAO implements IDAO<User, UUID> {
     @Override
     public List<User> getAll() {
         session = DatabaseAccess.open();
-        List<User> users = session.createQuery("From User", User.class).getResultList();
+        List<User> users = session.createQuery("from User", User.class).getResultList();
         DatabaseAccess.close(session);
         return users;
     }

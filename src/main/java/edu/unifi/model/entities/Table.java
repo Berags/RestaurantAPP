@@ -13,7 +13,7 @@ public class Table {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
-    private long id;
+    private Long id;
 
     @Column(name = "n_of_seats", nullable = false)
     @JdbcTypeCode(SqlTypes.SMALLINT)
