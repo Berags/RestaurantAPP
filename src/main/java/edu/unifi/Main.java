@@ -1,5 +1,6 @@
 package edu.unifi;
 
+import edu.unifi.model.util.security.PasswordManager;
 import edu.unifi.model.util.security.Roles;
 import edu.unifi.model.util.security.aop.Authorize;
 import edu.unifi.model.entities.Room;
@@ -30,21 +31,8 @@ public class Main {
     public static void main(String[] args) {
         // Initiating database connection pool
        // DatabaseAccess.initiate();
-        Room r = new Room();
-        Table t = new Table();
         try {
-            //UserRepository userRepository = UserRepository.getInstance();
-            //List<User> users = userRepository.getAll();
-            //users.forEach(user -> System.out.printf(String.valueOf(user.getId())));
-            //userRepository.delete(User.builder().build());
-            //new TableUpdateTool();
-            home = new Home("Restaurant Name");
-        /*Login login = new Login();
-        // Main thread is asleep while waiting for login thread to complete
-        login.getLoginLatch().await();
-        System.out.println("After login");
-        new Home("Da Pippo");*/
-            //new TableUpdateTool();
+            test();
         } catch (Exception e) {
             log.severe(e.getMessage());
             JOptionPane.showMessageDialog(null, e.getMessage(), "Severe Error!", JOptionPane.ERROR_MESSAGE, FontIcon.of(MaterialDesignA.ALERT_RHOMBUS_OUTLINE, 40, Color.RED));
