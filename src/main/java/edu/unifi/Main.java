@@ -1,11 +1,10 @@
 package edu.unifi;
 
 import edu.unifi.api.dco.DatabaseAccess;
-import edu.unifi.api.security.CurrentSession;
 import edu.unifi.api.security.Roles;
 import edu.unifi.api.security.aop.Authorize;
-import edu.unifi.entities.User;
-import edu.unifi.repositories.UserRepository;
+import edu.unifi.entities.Room;
+import edu.unifi.entities.Table;
 import edu.unifi.views.*;
 import mdlaf.MaterialLookAndFeel;
 import mdlaf.themes.MaterialLiteTheme;
@@ -31,13 +30,9 @@ public class Main {
 
     public static void main(String[] args) {
         // Initiating database connection pool
-        var session = CurrentSession.getInstance();
-        User u = new User();
-        u.setRole(Roles.WAITER);
-        session.login(u);
-        System.out.println(session.isAuthorized(Roles.WAITER));
-        test();
-        //DatabaseAccess.initiate();
+        DatabaseAccess.initiate();
+        Room r = new Room();
+        Table t = new Table();
         try {
             //UserRepository userRepository = UserRepository.getInstance();
             //List<User> users = userRepository.getAll();
@@ -56,7 +51,7 @@ public class Main {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Severe Error!", JOptionPane.ERROR_MESSAGE, FontIcon.of(MaterialDesignA.ALERT_RHOMBUS_OUTLINE, 40, Color.RED));
         } finally {
             // Cleaning up database connection pool
-            //DatabaseAccess.terminate();
+            DatabaseAccess.terminate();
         }
     }
 

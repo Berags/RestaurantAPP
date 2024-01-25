@@ -4,10 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f76637e2-7e14-4636-86fc-d0d2dae511df" name="Changes" comment="Simple Refactor">
+    <list default="true" id="f76637e2-7e14-4636-86fc-d0d2dae511df" name="Changes" comment="Created Entities&#10;created all entities and renamed IRepository to IDAO">
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/entities/Order.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/entities/OrderId.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jpa-buddy.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jpa-buddy.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/api/dco/DatabaseAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/api/dco/DatabaseAccess.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/api/security/CurrentSession.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/api/security/CurrentSession.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/entities/Allergen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/entities/Allergen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/entities/Check.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/entities/Check.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/entities/Dish.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/entities/Dish.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/entities/Ingredient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/entities/Ingredient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/entities/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/unifi/repositories/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/unifi/dao/UserDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,10 +34,16 @@
         <option value="Interface" />
         <option value="Enum" />
         <option value="Class" />
+        <option value="com.haulmont.jpb.JpaEntity" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -43,9 +59,6 @@
         <option name="url" value="git@github.com:Berags/RestourantAPP.git" />
       </UrlAndAccount>
     </option>
-  </component>
-  <component name="JpbToolWindowState">
-    <option name="isToolWindowVisible" value="false" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -81,7 +94,7 @@
     "UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH": "337",
     "UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH": "344",
     "aspect.path.notification.shown": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "database",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -91,7 +104,7 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler",
+    "settings.editor.selected.configurable": "com.haulmont.jpb.entityDeclaration",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -217,7 +230,10 @@
       <workItem from="1705746890292" duration="2489000" />
       <workItem from="1705749417646" duration="14381000" />
       <workItem from="1705999047765" duration="10044000" />
-      <workItem from="1706037535449" duration="611000" />
+      <workItem from="1706037535449" duration="719000" />
+      <workItem from="1706043802187" duration="73000" />
+      <workItem from="1706111464744" duration="4284000" />
+      <workItem from="1706173895458" duration="3159000" />
     </task>
     <task id="LOCAL-00001" summary="Added First Files">
       <option name="closed" value="true" />
@@ -411,7 +427,15 @@
       <option name="project" value="LOCAL" />
       <updated>1706009777831</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Bug fixing on AspectJ&#10;Fixed a bug where the aspects were not compiled and weaved correctly resulting in missing execution">
+      <option name="closed" value="true" />
+      <created>1706038224230</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1706038224230</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -438,7 +462,8 @@
     <MESSAGE value="Removed TestAuthorization" />
     <MESSAGE value="Updated maven.yml" />
     <MESSAGE value="Simple Refactor" />
-    <option name="LAST_COMMIT_MESSAGE" value="Simple Refactor" />
+    <MESSAGE value="Bug fixing on AspectJ&#10;Fixed a bug where the aspects were not compiled and weaved correctly resulting in missing execution" />
+    <option name="LAST_COMMIT_MESSAGE" value="Bug fixing on AspectJ&#10;Fixed a bug where the aspects were not compiled and weaved correctly resulting in missing execution" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

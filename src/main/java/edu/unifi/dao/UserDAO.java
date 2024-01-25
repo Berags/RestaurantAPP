@@ -1,28 +1,25 @@
-package edu.unifi.repositories;
+package edu.unifi.dao;
 
 import edu.unifi.api.dco.DatabaseAccess;
-import edu.unifi.api.dco.IRepository;
-import edu.unifi.api.security.Roles;
-import edu.unifi.api.security.aop.Authorize;
+import edu.unifi.api.dco.IDAO;
 import edu.unifi.entities.User;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import java.util.List;
 import java.util.UUID;
 
-public class UserRepository implements IRepository<User, UUID> {
+public class UserDAO implements IDAO<User, UUID> {
     private Session session;
-    private static volatile UserRepository instance = null;
+    private static volatile UserDAO instance = null;
 
-    public static UserRepository getInstance() {
+    public static UserDAO getInstance() {
         // Thread-safe, lazy load singleton
-        UserRepository thisInstance = instance;
+        UserDAO thisInstance = instance;
         if (instance == null) {
-            synchronized (UserRepository.class) {
+            synchronized (UserDAO.class) {
                 if (thisInstance == null) {
-                    instance = thisInstance = new UserRepository();
+                    instance = thisInstance = new UserDAO();
                 }
             }
         }
