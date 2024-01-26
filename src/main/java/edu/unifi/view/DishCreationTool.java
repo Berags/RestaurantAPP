@@ -1,7 +1,12 @@
 package edu.unifi.view;
 
+import edu.unifi.model.entities.DishType;
+import edu.unifi.model.entities.TableState;
+import edu.unifi.model.entities.TypeOfCourse;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class DishCreationTool extends Window {
     private JLabel titleLabel;
@@ -107,7 +112,13 @@ public class DishCreationTool extends Window {
         gbc.fill = GridBagConstraints.BOTH;
         gbc.insets = new Insets(0, 0, 15, 50);
         panel.add(descriptionTextArea, gbc);
-        typeComboBox = new JComboBox();
+
+        ArrayList<DishType> listOfTypes = new ArrayList<>();
+        for (DishType myVar : DishType.values())
+            listOfTypes.add(myVar);
+
+
+        typeComboBox = new JComboBox(listOfTypes.toArray());
         Font typeComboBoxFont = getFont(null, -1, 18, typeComboBox.getFont());
         if (typeComboBoxFont != null) typeComboBox.setFont(typeComboBoxFont);
         gbc = new GridBagConstraints();

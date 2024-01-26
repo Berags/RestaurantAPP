@@ -26,18 +26,55 @@ public class Home extends Window {
 
         JMenuItem settings = new JMenuItem("Settings");
         JMenuItem exitFromApplication = new JMenuItem("Exit");
+
+        //menu option to exit the program
+        exitFromApplication.addActionListener(e -> {
+            try {
+                System.exit(0);
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
         optionsMenu.add(settings);
         optionsMenu.add(exitFromApplication);
 
-        JMenuItem createTableMenuItem = new JMenuItem("Create Table");
-        createTableMenuItem.addActionListener(e -> {
+        //menu option to add a new table
+        JMenuItem addTableMenuItem = new JMenuItem("Add Table");
+        addTableMenuItem.addActionListener(e -> {
             try {
                 new TableCreationTool();
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
         });
-        tablesMenu.add(createTableMenuItem);
+        tablesMenu.add(addTableMenuItem);
+
+        //menu option to remove a table
+        JMenuItem removeTableMenuItem = new JMenuItem("Remove Table");
+
+
+        tablesMenu.add(removeTableMenuItem);
+
+
+
+        //menu option to add a new dish
+        JMenuItem addDishItem = new JMenuItem("Add Dish");
+        addDishItem.addActionListener(e -> {
+            try {
+                new DishCreationTool();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+
+        JMenuItem removeDishItem = new JMenuItem("Remove Dish");
+        JMenuItem EditDishItem = new JMenuItem("Edit Dish");
+
+        dishesMenu.add(addDishItem);
+        dishesMenu.add(removeDishItem);
+        dishesMenu.add(EditDishItem);
 
         addMenuEntries(new JMenu[]{optionsMenu, tablesMenu, dishesMenu});
         setVisible(true);

@@ -19,6 +19,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.concurrent.CountDownLatch;
 import java.util.logging.Logger;
+import java.io.*;
 
 public class Main {
     // Todo: replace with slf4j
@@ -35,10 +36,16 @@ public class Main {
 
     public static void main(String[] args) throws InterruptedException {
         // Initiating database connection pool
+
+        PasswordManager pm = new PasswordManager();
+        String pw = new String("jack");
+        System.out.println(pm.hash(pw.toCharArray()));
+
         DatabaseAccess.initiate();
         try {
             Login loginView = new Login();
             loginView.getLoginLatch().await();
+            home = new Home("prova");
         } catch (Exception e) {
             log.severe(e.getMessage());
             JOptionPane.showMessageDialog(null, e.getMessage(), "Severe Error!", JOptionPane.ERROR_MESSAGE, FontIcon.of(MaterialDesignA.ALERT_RHOMBUS_OUTLINE, 40, Color.RED));

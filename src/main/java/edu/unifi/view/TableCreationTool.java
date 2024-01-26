@@ -1,11 +1,15 @@
 package edu.unifi.view;
 
+import edu.unifi.model.entities.TableState;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
 import org.kordamp.ikonli.swing.FontIcon;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
 
 public class TableCreationTool extends Window {
     private JTextField nameTextField;
@@ -76,7 +80,12 @@ public class TableCreationTool extends Window {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(15, 0, 0, 50);
         panel.add(nOfSeatsSpinner, gbc);
-        stateComboBox = new JComboBox();
+
+        ArrayList<TableState> listOfState = new ArrayList<>();
+        for (TableState myVar : TableState.values())
+            listOfState.add(myVar);
+        stateComboBox = new JComboBox(listOfState.toArray());
+
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 2;
