@@ -29,6 +29,17 @@ public class Table {
     @OneToMany(mappedBy = "table", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Check> checks = new ArrayList<>();
 
+    @Column(name = "name")
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public List<Check> getChecks() {
         return checks;
     }

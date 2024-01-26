@@ -81,4 +81,9 @@ public class CurrentSession {
         if (user == null) throw new SecurityException("Session not initialized!");
         return user.getRole();
     }
+
+    public User getUser() {
+        if (user == null) throw new SecurityException("Session not initialized!");
+        return user;
+    }
 }

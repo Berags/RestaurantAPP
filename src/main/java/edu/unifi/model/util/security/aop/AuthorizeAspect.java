@@ -5,8 +5,8 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This aspect is used for authorization purposes.
@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 @Aspect
 public class AuthorizeAspect {
     // Logger instance for logging security related information.
-    static Logger log = Logger.getLogger("SecurityManager");
+    static Logger log = LoggerFactory.getLogger(AuthorizeAspect.class);
 
     /**
      * This pointcut is triggered at the execution of any method annotated with @Authorize.

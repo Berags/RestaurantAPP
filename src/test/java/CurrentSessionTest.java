@@ -18,11 +18,49 @@ public class CurrentSessionTest {
 
     static Logger log = Logger.getLogger(CurrentSession.class.getName());
 
+
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-        mockUser.setRole(Roles.ADMIN);
         when(mockUser.getRole()).thenReturn(Roles.ADMIN);
+    }
+
+    @Test
+    public void testAuthorization() {
+        CurrentSession session = CurrentSession.getInstance();
+        session.login(mockUser);
+        assertTrue(session.isAuthorized(Roles.ADMIN));
+    }
+
+    @AfterEach
+    public void tearDown() {
+        CurrentSession.getInstance().logout();
+    }
+
+    @Test
+    public void testGetRole() {
+        CurrentSession session = CurrentSession.getInstance();
+        session.login(mockUser);
+        assertEquals(Roles.ADMIN, session.getRole());
+    }
+
+    @Test
+    public void testGetRoleWithoutLogin() {
+        CurrentSession session = CurrentSession.getInstance();
+        assertThrows(SecurityException.class, session::getRole);
+    }
+
+    @Test
+    public void testGetUser() {
+        CurrentSession session = CurrentSession.getInstance();
+        session.login(mockUser);
+        assertEquals(mockUser, session.getUser());
+    }
+
+    @Test
+    public void testGetUserWithoutLogin() {
+        CurrentSession session = CurrentSession.getInstance();
+        assertThrows(SecurityException.class, session::getUser);
     }
 
     @Test

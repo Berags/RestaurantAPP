@@ -1,53 +1,52 @@
 package edu.unifi;
 
-import edu.unifi.model.entities.User;
 import edu.unifi.model.orm.DatabaseAccess;
-import edu.unifi.model.orm.dao.UserDAO;
-import edu.unifi.model.util.security.PasswordManager;
 import edu.unifi.model.util.security.Roles;
 import edu.unifi.model.util.security.aop.Authorize;
-import edu.unifi.model.entities.Room;
-import edu.unifi.model.entities.Table;
-import edu.unifi.view.*;
-import edu.unifi.view.SplashScreen;
+import edu.unifi.view.Home;
+import edu.unifi.view.Login;
 import mdlaf.MaterialLookAndFeel;
 import mdlaf.themes.MaterialLiteTheme;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignA;
+import org.kordamp.ikonli.materialdesign2.MaterialDesignL;
 import org.kordamp.ikonli.swing.FontIcon;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.concurrent.CountDownLatch;
-import java.util.logging.Logger;
-import java.io.*;
 
 public class Main {
-    // Todo: replace with slf4j
-    static Logger log = Logger.getLogger(Main.class.getName());
+    static Logger log = LoggerFactory.getLogger(Main.class);
+    private static final CountDownLatch exitLatch = new CountDownLatch(1);
     private static Home home;
 
     static {
         try {
             UIManager.setLookAndFeel(new MaterialLookAndFeel(new MaterialLiteTheme()));
         } catch (UnsupportedLookAndFeelException e) {
-            log.info(e.getMessage());
+            log.error(e.getMessage());
         }
     }
 
     public static void main(String[] args) throws InterruptedException {
+        JDialog loadingDialog = new JDialog();
+        loadingDialog.setLocationRelativeTo(null);
+        loadingDialog.setTitle("Loading...");
+        loadingDialog.add(new JLabel("Please wait while the application is loading..."));
+        loadingDialog.pack();
+        loadingDialog.setVisible(true);
         // Initiating database connection pool
-
-        PasswordManager pm = new PasswordManager();
-        String pw = new String("jack");
-        System.out.println(pm.hash(pw.toCharArray()));
-
         DatabaseAccess.initiate();
+        loadingDialog.setVisible(false);
         try {
             Login loginView = new Login();
             loginView.getLoginLatch().await();
-            home = new Home("prova");
+            home = new Home("Test");
+            exitLatch.await();
         } catch (Exception e) {
-            log.severe(e.getMessage());
+            log.error(e.getMessage());
             JOptionPane.showMessageDialog(null, e.getMessage(), "Severe Error!", JOptionPane.ERROR_MESSAGE, FontIcon.of(MaterialDesignA.ALERT_RHOMBUS_OUTLINE, 40, Color.RED));
         } finally {
             // Cleaning up database connection pool

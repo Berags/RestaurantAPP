@@ -1,6 +1,9 @@
 package edu.unifi.view;
 
+import edu.unifi.controller.TableCreationToolController;
+import edu.unifi.model.entities.Room;
 import edu.unifi.model.entities.TableState;
+import edu.unifi.model.orm.dao.RoomDAO;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
 import org.kordamp.ikonli.swing.FontIcon;
 
@@ -21,6 +24,8 @@ public class TableCreationTool extends Window {
     private JLabel stateLabel;
     private JLabel titleLabel;
     private FontIcon createFontIcon;
+    private JLabel roomLabel;
+    private JComboBox<String> roomComboBox;
 
     public TableCreationTool() throws Exception {
         super("Table Creation Tool", false, JFrame.DISPOSE_ON_CLOSE, 0, 0, 400, 300);
@@ -105,6 +110,31 @@ public class TableCreationTool extends Window {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(15, 50, 0, 0);
         panel.add(stateLabel, gbc);
+
+        roomLabel = new JLabel("Room");
+        Font roomLabelFont = getFont(null, -1, 18, roomLabel.getFont());
+        if (roomLabelFont != null) roomLabel.setFont(roomLabelFont);
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.weightx = 0.2;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(15, 50, 0, 0);
+        panel.add(roomLabel, gbc);
+
+        roomComboBox = new JComboBox<>();
+        for (Room room : new RoomDAO().getAll()) {
+            roomComboBox.addItem(room.getName());
+        }
+        gbc = new GridBagConstraints();
+        gbc.gridx = 2;
+        gbc.gridy = 3;
+        gbc.weightx = 1.0;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(15, 0, 0, 50);
+        panel.add(roomComboBox, gbc);
+
         createButton = new JButton();
         Font createButtonFont = getFont(null, Font.BOLD, 18, createButton.getFont());
         if (createButtonFont != null) createButton.setFont(createButtonFont);
@@ -128,6 +158,7 @@ public class TableCreationTool extends Window {
 
         createFontIcon = FontIcon.of(MaterialDesignP.PLUS_BOX_OUTLINE, 20);
         createButton.setIcon(createFontIcon);
+        createButton.addActionListener(new TableCreationToolController(this));
 
         addComponent(titleLabel, BorderLayout.NORTH);
         addComponent(panel, BorderLayout.CENTER);
@@ -197,5 +228,9 @@ public class TableCreationTool extends Window {
 
     public void setTitleLabel(JLabel titleLabel) {
         this.titleLabel = titleLabel;
+    }
+
+    public JComboBox<String> getRoomComboBox() {
+        return roomComboBox;
     }
 }
