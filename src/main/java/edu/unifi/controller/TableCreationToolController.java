@@ -9,16 +9,27 @@ import edu.unifi.view.TableCreationTool;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
 
-public record TableCreationToolController(TableCreationTool tableCreationTool) implements ActionListener {
+public class TableCreationToolController extends Observable implements ActionListener {
+    private TableCreationTool tableCreationTool;
+
+    public TableCreationToolController(TableCreationTool tableCreationTool){
+        this.tableCreationTool = tableCreationTool;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         Table table = new Table();
         table.setName(tableCreationTool.getNameTextField().getText());
         table.setNOfSeats((Integer) tableCreationTool.getNOfSeatsSpinner().getValue());
         table.setState((TableState) tableCreationTool.getStateComboBox().getSelectedItem());
-        table.setRoom(RoomDAO.getinstance().getById((String) tableCreationTool.getRoomComboBox().getSelectedItem()));
+        //table.setRoom(RoomDAO.getinstance().getById((String) tableCreationTool.getRoomComboBox().getSelectedItem()));
 
-        TableDAO.getinstance().insert(table);
+        setChanged();
+        notifyObservers("Table added");
+       // TableDAO.getinstance().insert(table);
+
+
     }
 }
