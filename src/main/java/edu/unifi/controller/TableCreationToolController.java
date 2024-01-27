@@ -17,8 +17,11 @@ public record TableCreationToolController(TableCreationTool tableCreationTool) i
         table.setName(tableCreationTool.getNameTextField().getText());
         table.setNOfSeats((Integer) tableCreationTool.getNOfSeatsSpinner().getValue());
         table.setState((TableState) tableCreationTool.getStateComboBox().getSelectedItem());
-        table.setRoom(RoomDAO.getinstance().getById((String) tableCreationTool.getRoomComboBox().getSelectedItem()));
+        Room room = RoomDAO.getinstance().getById((String) tableCreationTool.getRoomComboBox().getSelectedItem());
+        table.setRoom(room);
 
         TableDAO.getinstance().insert(table);
+
+        tableCreationTool.dispose();
     }
 }

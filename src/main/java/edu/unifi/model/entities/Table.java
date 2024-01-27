@@ -22,8 +22,7 @@ public class Table {
     @Column(name = "state", nullable = false)
     private TableState state;
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "room_name", nullable = false)
+    @ManyToOne(cascade = {CascadeType.REMOVE, CascadeType.REFRESH}, optional = false)
     private Room room;
 
     @OneToMany(mappedBy = "table", cascade = CascadeType.ALL, orphanRemoval = true)
