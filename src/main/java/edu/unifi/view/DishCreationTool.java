@@ -7,6 +7,7 @@ import edu.unifi.model.entities.TypeOfCourse;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class DishCreationTool extends Window {
     private JLabel titleLabel;
@@ -114,12 +115,9 @@ public class DishCreationTool extends Window {
         gbc.insets = new Insets(0, 0, 15, 50);
         panel.add(descriptionTextArea, gbc);
 
-        ArrayList<DishType> listOfTypes = new ArrayList<>();
-        for (DishType myVar : DishType.values())
-            listOfTypes.add(myVar);
+        ArrayList<DishType> listOfTypes = new ArrayList<>(Arrays.asList(DishType.values()));
 
-
-        typeComboBox = new JComboBox(listOfTypes.toArray());
+        typeComboBox = new JComboBox<>(listOfTypes.toArray());
         Font typeComboBoxFont = getFont(null, -1, 18, typeComboBox.getFont());
         if (typeComboBoxFont != null) typeComboBox.setFont(typeComboBoxFont);
         gbc = new GridBagConstraints();
@@ -164,7 +162,6 @@ public class DishCreationTool extends Window {
     }
     //singleton
     public static DishCreationTool getInstance() throws Exception{
-
         DishCreationTool thisInstance = instance;
         if(instance == null) {
             synchronized (DishCreationTool.class) {
@@ -180,5 +177,4 @@ public class DishCreationTool extends Window {
         instance = null;
         super.dispose();
     }
-
 }

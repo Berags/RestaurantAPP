@@ -12,9 +12,9 @@ import java.awt.event.ActionListener;
 import java.util.Observable;
 
 public class TableCreationToolController extends Observable implements ActionListener {
-    private TableCreationTool tableCreationTool;
+    private final TableCreationTool tableCreationTool;
 
-    public TableCreationToolController(TableCreationTool tableCreationTool){
+    public TableCreationToolController(TableCreationTool tableCreationTool) {
         this.tableCreationTool = tableCreationTool;
     }
 
@@ -29,8 +29,8 @@ public class TableCreationToolController extends Observable implements ActionLis
 
         TableDAO.getInstance().insert(table);
 
-        tableCreationTool.dispose();
         setChanged();
-        notifyObservers("Table added");
+        notifyObservers("TableAdded");
+        tableCreationTool.dispose();
     }
 }

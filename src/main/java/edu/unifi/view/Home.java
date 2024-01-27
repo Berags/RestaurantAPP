@@ -1,5 +1,6 @@
 package edu.unifi.view;
 
+import edu.unifi.Notifier;
 import edu.unifi.controller.TableController;
 import edu.unifi.model.entities.Room;
 import edu.unifi.model.orm.dao.RoomDAO;
@@ -95,9 +96,12 @@ public class Home extends Window {
 
         addMenuEntries(new JMenu[]{optionsMenu, tablesMenu, dishesMenu});
         setVisible(true);
+
+        Notifier.getInstance().setHome(this);
     }
 
-    private void showTables() {
+    public void showTables() {
+        System.out.println("Update the tables view");
         // TODO: implement observer to update tables when a new table is added
         Room room = rooms.get(roomsTabbedPane.getSelectedIndex());
         room = RoomDAO.getInstance().getById(room.getName());
@@ -115,5 +119,9 @@ public class Home extends Window {
             button.setBackground(table.getState().getColor());
             panel.add(button);
         }
+    }
+
+    public void showAddedTableDialog() {
+        JOptionPane.showMessageDialog(this, "Table added successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
     }
 }

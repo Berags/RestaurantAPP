@@ -20,6 +20,7 @@ import java.util.concurrent.CountDownLatch;
 public class Main {
     static Logger log = LoggerFactory.getLogger(Main.class);
     private static final CountDownLatch exitLatch = new CountDownLatch(1);
+    private static final Notifier notifier = new Notifier();
     private static Home home;
 
     static {

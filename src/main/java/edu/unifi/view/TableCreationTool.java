@@ -47,14 +47,15 @@ public class TableCreationTool extends Window {
     }
 
     private static volatile TableCreationTool instance = null;
-    private Notifier notifier;
 
 
     protected TableCreationTool() throws Exception {
         super("Table Creation Tool", false, JFrame.DISPOSE_ON_CLOSE, 0, 0, 400, 300);
         setUpUI();
 
-        createButton.addActionListener(new TableCreationToolController(this));
+        TableCreationToolController tableCreationToolController = new TableCreationToolController(this);
+        tableCreationToolController.addObserver(Notifier.getInstance());
+        createButton.addActionListener(tableCreationToolController);
 
         setVisible(true);
     }
@@ -190,19 +191,14 @@ public class TableCreationTool extends Window {
         createFontIcon = FontIcon.of(MaterialDesignP.PLUS_BOX_OUTLINE, 20);
         createButton.setIcon(createFontIcon);
 
-        notifier = new Notifier();
-        TableCreationToolController tableCreationToolController = new TableCreationToolController(this);
-        tableCreationToolController.addObserver(notifier);
-        createButton.addActionListener(tableCreationToolController);
-
         addComponent(titleLabel, BorderLayout.NORTH);
         addComponent(panel, BorderLayout.CENTER);
     }
-    //singleton
-    public static TableCreationTool getInstance() throws Exception{
 
+    //singleton
+    public static TableCreationTool getInstance() throws Exception {
         TableCreationTool thisInstance = instance;
-        if(instance == null) {
+        if (instance == null) {
             synchronized (TableCreationTool.class) {
                 if (thisInstance == null)
                     instance = thisInstance = new TableCreationTool();
@@ -210,9 +206,10 @@ public class TableCreationTool extends Window {
         }
         return thisInstance;
     }
+
     //to "reset" the singleton
     @Override
-    public void dispose(){
+    public void dispose() {
         instance = null;
         super.dispose();
     }
