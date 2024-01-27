@@ -30,7 +30,7 @@ public class TableCreationToolController extends Observable implements ActionLis
         TableDAO.getInstance().insert(table);
 
         setChanged();
-        notifyObservers("TableAdded");
+        notifyObservers(MessageType.ADD_TABLE);
         tableCreationTool.dispose();
     }
 }

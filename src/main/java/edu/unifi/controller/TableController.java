@@ -1,5 +1,6 @@
 package edu.unifi.controller;
 
+import edu.unifi.Notifier;
 import edu.unifi.model.entities.Table;
 import edu.unifi.model.entities.TableState;
 import edu.unifi.model.orm.dao.TableDAO;
@@ -7,8 +8,18 @@ import edu.unifi.view.TableUpdateTool;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
+import java.util.Observable;
 
-public record TableController(Table table, TableUpdateTool tableUpdateTool) implements ActionListener {
+public final class TableController extends Observable implements ActionListener {
+    private final Table table;
+    private final TableUpdateTool tableUpdateTool;
+
+    public TableController(Table table, TableUpdateTool tableUpdateTool) {
+        this.table = table;
+        this.tableUpdateTool = tableUpdateTool;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         boolean ok = true;
@@ -23,6 +34,36 @@ public record TableController(Table table, TableUpdateTool tableUpdateTool) impl
             ok = false;
         }
         tableUpdateTool.showResultDialog(ok ? "Table updated successfully" : "Error while updating table", ok);
-        // TODO: notify Home to update the table
+        notifyObservers(MessageType.UPDATE_TABLE);
     }
+
+    public Table table() {
+        return table;
+    }
+
+    public TableUpdateTool tableUpdateTool() {
+        return tableUpdateTool;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null || obj.getClass() != this.getClass()) return false;
+        var that = (TableController) obj;
+        return Objects.equals(this.table, that.table) &&
+                Objects.equals(this.tableUpdateTool, that.tableUpdateTool);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(table, tableUpdateTool);
+    }
+
+    @Override
+    public String toString() {
+        return "TableController[" +
+                "table=" + table + ", " +
+                "tableUpdateTool=" + tableUpdateTool + ']';
+    }
+
 }

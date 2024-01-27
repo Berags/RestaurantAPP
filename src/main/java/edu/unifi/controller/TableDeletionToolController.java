@@ -19,7 +19,7 @@ public class TableDeletionToolController extends Observable implements ActionLis
     public void actionPerformed(ActionEvent e) {
         TableDAO.getInstance().deleteById(tableDeletionTool.getSelectedTableId());
         setChanged();
-        notifyObservers("TableDeleted");
+        notifyObservers(MessageType.DELETE_TABLE);
         tableDeletionTool.dispose();
     }
 }

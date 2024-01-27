@@ -53,7 +53,6 @@ public class TableDAO implements IDAO<Table, Long> {
         try {
             session = DatabaseAccess.open();
             Table table = session.get(Table.class, id);
-            table.getRoom().deleteTable(table);
             session.remove(table);
         } finally {
             DatabaseAccess.close(session);

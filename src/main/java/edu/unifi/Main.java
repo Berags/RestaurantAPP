@@ -50,9 +50,7 @@ public class Main {
         try {
             Login loginView = new Login();
             loginView.getLoginLatch().await();
-            loginView.setVisible(true);
             home = new Home("Test");
-            loginView.setVisible(false);
             exitLatch.await();
 
         } catch (Exception e) {

@@ -27,7 +27,7 @@ public class Home extends Window {
             roomsTabbedPane.addTab(room.getName(), panel);
             panels.add(panel);
         }
-        if(!rooms.isEmpty())
+        if (!rooms.isEmpty())
             showTables();
         roomsTabbedPane.addChangeListener(e -> showTables());
         addComponent(roomsTabbedPane, BorderLayout.CENTER);
@@ -124,7 +124,12 @@ public class Home extends Window {
     public void showAddedTableDialog() {
         JOptionPane.showMessageDialog(this, "Table added successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
     }
+
     public void showDeletedTableDialog() {
         JOptionPane.showMessageDialog(this, "Table deleted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void showUpdatedTableDialog() {
+        JOptionPane.showMessageDialog(this, "Table updated successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
     }
 }

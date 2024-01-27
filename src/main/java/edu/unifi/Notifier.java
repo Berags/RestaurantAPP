@@ -1,5 +1,6 @@
 package edu.unifi;
 
+import edu.unifi.controller.MessageType;
 import edu.unifi.model.orm.DatabaseAccess;
 import edu.unifi.view.DishCreationTool;
 import edu.unifi.view.Home;
@@ -25,12 +26,16 @@ public class Notifier implements Observer {
 
     @Override
     public void update(Observable o, Object toDisplay) {
-        if (toDisplay.equals("TableAdded")) {
+        if (toDisplay.equals(MessageType.ADD_TABLE)) {
             home.showAddedTableDialog();
             home.showTables();
         }
-        if(toDisplay.equals("TableDeleted")){
+        if (toDisplay.equals(MessageType.DELETE_TABLE)) {
             home.showDeletedTableDialog();
+            home.showTables();
+        }
+        if (toDisplay.equals(MessageType.UPDATE_TABLE)) {
+            home.showUpdatedTableDialog();
             home.showTables();
         }
     }
