@@ -1,5 +1,7 @@
 package edu.unifi.view;
 
+import edu.unifi.controller.TableController;
+import edu.unifi.model.entities.Table;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignU;
 import org.kordamp.ikonli.swing.FontIcon;
@@ -21,12 +23,16 @@ public class TableUpdateTool extends TableCreationTool {
     private JPanel bottomPanel;
     private JLabel receiptTotalLabel;
     private JPanel bottomActionsLabel;
+    private Table table;
 
-    public TableUpdateTool() throws Exception {
-        super();
+    public TableUpdateTool(Table table) throws Exception {
+        super(table);
+        this.table = table;
 
-        getNameTextField().setText("Table 2");
-        getNOfSeatsSpinner().setValue(4);
+        getNameTextField().setText(table.getName());
+        getNOfSeatsSpinner().setValue(table.getNOfSeats());
+        getStateComboBox().setSelectedItem(table.getState());
+        getRoomComboBox().setSelectedItem(table.getRoom().getName());
 
         getCreateButton().setText("Update");
         getCreateButton().setIcon(FontIcon.of(MaterialDesignU.UPDATE, 20));
@@ -35,6 +41,7 @@ public class TableUpdateTool extends TableCreationTool {
         setUpRightUI();
 
         addComponent(rightPanel, BorderLayout.EAST);
+        getCreateButton().addActionListener(new TableController(table, this));
 
         setVisible(true);
     }

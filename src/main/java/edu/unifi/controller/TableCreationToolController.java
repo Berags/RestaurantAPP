@@ -24,12 +24,13 @@ public class TableCreationToolController extends Observable implements ActionLis
         table.setName(tableCreationTool.getNameTextField().getText());
         table.setNOfSeats((Integer) tableCreationTool.getNOfSeatsSpinner().getValue());
         table.setState((TableState) tableCreationTool.getStateComboBox().getSelectedItem());
-        //table.setRoom(RoomDAO.getinstance().getById((String) tableCreationTool.getRoomComboBox().getSelectedItem()));
+        Room room = RoomDAO.getInstance().getById((String) tableCreationTool.getRoomComboBox().getSelectedItem());
+        table.setRoom(room);
 
+        TableDAO.getInstance().insert(table);
+
+        tableCreationTool.dispose();
         setChanged();
         notifyObservers("Table added");
-       // TableDAO.getinstance().insert(table);
-
-
     }
 }

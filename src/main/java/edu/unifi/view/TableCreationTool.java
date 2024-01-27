@@ -1,10 +1,14 @@
 package edu.unifi.view;
 
+import edu.unifi.controller.TableController;
 import edu.unifi.Notifier;
 import edu.unifi.controller.TableCreationToolController;
 import edu.unifi.model.entities.Room;
+import edu.unifi.model.entities.Table;
 import edu.unifi.model.entities.TableState;
 import edu.unifi.model.orm.dao.RoomDAO;
+import org.kordamp.ikonli.materialdesign2.MaterialDesignA;
+import org.kordamp.ikonli.materialdesign2.MaterialDesignC;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
 import org.kordamp.ikonli.swing.FontIcon;
 
@@ -12,6 +16,7 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 
@@ -27,6 +32,19 @@ public class TableCreationTool extends Window {
     private FontIcon createFontIcon;
     private JLabel roomLabel;
     private JComboBox<String> roomComboBox;
+    private List<Room> rooms;
+
+    protected TableCreationTool(Table table) throws Exception {
+        super("Table Update Tool", false, JFrame.DISPOSE_ON_CLOSE, 0, 0, 900, 700);
+        setUpUI();
+        nameTextField.setText(table.getName());
+        nOfSeatsSpinner.setValue(table.getNOfSeats());
+        stateComboBox.setSelectedItem(table.getState());
+        roomComboBox.setSelectedItem(table.getRoom().getName());
+        createButton.setText("Update");
+
+        setVisible(true);
+    }
 
     private static volatile TableCreationTool instance = null;
     private Notifier notifier;
@@ -34,6 +52,14 @@ public class TableCreationTool extends Window {
 
     protected TableCreationTool() throws Exception {
         super("Table Creation Tool", false, JFrame.DISPOSE_ON_CLOSE, 0, 0, 400, 300);
+        setUpUI();
+
+        createButton.addActionListener(new TableCreationToolController(this));
+
+        setVisible(true);
+    }
+
+    private void setUpUI() throws Exception {
         setRootLayout(Layout.BORDER, 0, 0);
         titleLabel = new JLabel();
         Font titleLabelFont = getFont(null, Font.BOLD, 22, titleLabel.getFont());
@@ -91,10 +117,8 @@ public class TableCreationTool extends Window {
         gbc.insets = new Insets(15, 0, 0, 50);
         panel.add(nOfSeatsSpinner, gbc);
 
-        ArrayList<TableState> listOfState = new ArrayList<>();
-        for (TableState myVar : TableState.values())
-            listOfState.add(myVar);
-        stateComboBox = new JComboBox(listOfState.toArray());
+        ArrayList<TableState> listOfState = new ArrayList<>(Arrays.asList(TableState.values()));
+        stateComboBox = new JComboBox<>(listOfState.toArray());
 
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
@@ -128,7 +152,8 @@ public class TableCreationTool extends Window {
         panel.add(roomLabel, gbc);
 
         roomComboBox = new JComboBox<>();
-        for (Room room : new RoomDAO().getAll()) {
+        rooms = new RoomDAO().getAll();
+        for (Room room : rooms) {
             roomComboBox.addItem(room.getName());
         }
         gbc = new GridBagConstraints();
@@ -162,6 +187,7 @@ public class TableCreationTool extends Window {
         stateLabel.setLabelFor(stateComboBox);
 
         createFontIcon = FontIcon.of(MaterialDesignP.PLUS_BOX_OUTLINE, 20);
+        createFontIcon = FontIcon.of(MaterialDesignP.PLUS_BOX_OUTLINE, 20);
         createButton.setIcon(createFontIcon);
 
         notifier = new Notifier();
@@ -171,8 +197,6 @@ public class TableCreationTool extends Window {
 
         addComponent(titleLabel, BorderLayout.NORTH);
         addComponent(panel, BorderLayout.CENTER);
-
-        setVisible(true);
     }
     //singleton
     public static TableCreationTool getInstance() throws Exception{
@@ -259,5 +283,15 @@ public class TableCreationTool extends Window {
 
     public JComboBox<String> getRoomComboBox() {
         return roomComboBox;
+    }
+
+    public void showResultDialog(String message, boolean messageType) {
+        JOptionPane.showMessageDialog(null, message, messageType ? "Action successful" : "Severe Error!",
+                messageType ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE,
+                messageType ? FontIcon.of(MaterialDesignC.CHECK_CIRCLE_OUTLINE, 40, Color.BLUE) : FontIcon.of(MaterialDesignA.ALERT_RHOMBUS_OUTLINE, 40, Color.RED));
+    }
+
+    public Room getRoom() {
+        return rooms.get(roomComboBox.getSelectedIndex());
     }
 }
