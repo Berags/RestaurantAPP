@@ -31,6 +31,10 @@ public class Room {
         this.tables = tables;
     }
 
+    public void deleteTable(edu.unifi.model.entities.Table table){
+        tables.remove(table);
+    }
+
     public String getName() {
         return name;
     }

@@ -29,6 +29,10 @@ public class Notifier implements Observer {
             home.showAddedTableDialog();
             home.showTables();
         }
+        if(toDisplay.equals("TableDeleted")){
+            home.showDeletedTableDialog();
+            home.showTables();
+        }
     }
 
     public void setHome(Home home) {

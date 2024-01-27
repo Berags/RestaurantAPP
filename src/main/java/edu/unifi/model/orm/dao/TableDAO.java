@@ -1,5 +1,6 @@
 package edu.unifi.model.orm.dao;
 
+import edu.unifi.model.entities.Room;
 import edu.unifi.model.entities.Table;
 
 import java.util.List;
@@ -52,6 +53,7 @@ public class TableDAO implements IDAO<Table, Long> {
         try {
             session = DatabaseAccess.open();
             Table table = session.get(Table.class, id);
+            table.getRoom().deleteTable(table);
             session.remove(table);
         } finally {
             DatabaseAccess.close(session);
