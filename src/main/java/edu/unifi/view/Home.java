@@ -54,7 +54,8 @@ public class Home extends Window {
         JMenuItem addTableMenuItem = new JMenuItem("Add Table");
         addTableMenuItem.addActionListener(e -> {
             try {
-                new TableCreationTool();
+                //new TableCreationTool();
+                TableCreationTool.getInstance();
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
@@ -78,7 +79,7 @@ public class Home extends Window {
         JMenuItem addDishItem = new JMenuItem("Add Dish");
         addDishItem.addActionListener(e -> {
             try {
-                new DishCreationTool();
+                DishCreationTool.getInstance();
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }

@@ -1,6 +1,7 @@
 package edu.unifi.view;
 
 import edu.unifi.controller.TableController;
+import edu.unifi.Notifier;
 import edu.unifi.controller.TableCreationToolController;
 import edu.unifi.model.entities.Room;
 import edu.unifi.model.entities.Table;
@@ -45,7 +46,11 @@ public class TableCreationTool extends Window {
         setVisible(true);
     }
 
-    public TableCreationTool() throws Exception {
+    private static volatile TableCreationTool instance = null;
+    private Notifier notifier;
+
+
+    protected TableCreationTool() throws Exception {
         super("Table Creation Tool", false, JFrame.DISPOSE_ON_CLOSE, 0, 0, 400, 300);
         setUpUI();
 
@@ -185,8 +190,31 @@ public class TableCreationTool extends Window {
         createFontIcon = FontIcon.of(MaterialDesignP.PLUS_BOX_OUTLINE, 20);
         createButton.setIcon(createFontIcon);
 
+        notifier = new Notifier();
+        TableCreationToolController tableCreationToolController = new TableCreationToolController(this);
+        tableCreationToolController.addObserver(notifier);
+        createButton.addActionListener(tableCreationToolController);
+
         addComponent(titleLabel, BorderLayout.NORTH);
         addComponent(panel, BorderLayout.CENTER);
+    }
+    //singleton
+    public static TableCreationTool getInstance() throws Exception{
+
+        TableCreationTool thisInstance = instance;
+        if(instance == null) {
+            synchronized (TableCreationTool.class) {
+                if (thisInstance == null)
+                    instance = thisInstance = new TableCreationTool();
+            }
+        }
+        return thisInstance;
+    }
+    //to "reset" the singleton
+    @Override
+    public void dispose(){
+        instance = null;
+        super.dispose();
     }
 
     public JTextField getNameTextField() {

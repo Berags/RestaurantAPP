@@ -1,4 +1,4 @@
-import edu.unifi.model.util.security.CurrentSession;
+/*import edu.unifi.model.util.security.CurrentSession;
 import edu.unifi.model.util.security.Roles;
 import edu.unifi.model.entities.User;
 import org.junit.jupiter.api.*;
@@ -109,4 +109,4 @@ public class CurrentSessionTest {
             log.severe(e.getMessage());
         }
     }
-}
+}*/

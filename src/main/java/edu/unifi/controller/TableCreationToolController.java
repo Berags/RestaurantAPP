@@ -9,8 +9,15 @@ import edu.unifi.view.TableCreationTool;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
 
-public record TableCreationToolController(TableCreationTool tableCreationTool) implements ActionListener {
+public class TableCreationToolController extends Observable implements ActionListener {
+    private TableCreationTool tableCreationTool;
+
+    public TableCreationToolController(TableCreationTool tableCreationTool){
+        this.tableCreationTool = tableCreationTool;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         Table table = new Table();
@@ -23,5 +30,7 @@ public record TableCreationToolController(TableCreationTool tableCreationTool) i
         TableDAO.getInstance().insert(table);
 
         tableCreationTool.dispose();
+        setChanged();
+        notifyObservers("Table added");
     }
 }
