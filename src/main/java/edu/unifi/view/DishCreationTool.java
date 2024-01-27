@@ -20,8 +20,9 @@ public class DishCreationTool extends Window {
     private JLabel nameLabel;
     private JLabel descriptionLabel;
     private JLabel typeLabel;
+    private static volatile DishCreationTool instance = null;
 
-    public DishCreationTool() throws Exception {
+    private DishCreationTool() throws Exception {
         super("Dish Creation Tool", false, JFrame.DISPOSE_ON_CLOSE, 0, 0, 400, 300);
         setUpUI();
         pack();
@@ -161,4 +162,23 @@ public class DishCreationTool extends Window {
 
         setVisible(true);
     }
+    //singleton
+    public static DishCreationTool getInstance() throws Exception{
+
+        DishCreationTool thisInstance = instance;
+        if(instance == null) {
+            synchronized (DishCreationTool.class) {
+                if (thisInstance == null)
+                    instance = thisInstance = new DishCreationTool();
+            }
+        }
+        return thisInstance;
+    }
+    //to "reset" the singleton
+    @Override
+    public void dispose(){
+        instance = null;
+        super.dispose();
+    }
+
 }
