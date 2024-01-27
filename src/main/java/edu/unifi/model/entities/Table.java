@@ -22,10 +22,10 @@ public class Table {
     @Column(name = "state", nullable = false)
     private TableState state;
 
-    @ManyToOne(cascade = {CascadeType.REMOVE, CascadeType.REFRESH}, optional = false)
+    @ManyToOne(optional = false)
     private Room room;
 
-    @OneToMany(mappedBy = "table", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "table", orphanRemoval = true)
     private List<Check> checks = new ArrayList<>();
 
     @Column(name = "name")

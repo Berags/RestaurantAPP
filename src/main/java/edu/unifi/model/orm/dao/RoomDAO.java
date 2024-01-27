@@ -14,7 +14,7 @@ public class RoomDAO implements IDAO<Room, String>{
     private static volatile RoomDAO instance = null;
 
 
-    public static RoomDAO getinstance(){
+    public static RoomDAO getInstance(){
         //Thread-safe, lazy load singleton
         RoomDAO thisInstance = instance;
         if(instance == null){

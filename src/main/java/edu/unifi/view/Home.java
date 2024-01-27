@@ -1,7 +1,10 @@
 package edu.unifi.view;
 
+import edu.unifi.model.orm.dao.RoomDAO;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Home extends Window {
     public Home(String title) throws Exception {
@@ -10,13 +13,14 @@ public class Home extends Window {
         setRootLayout(Layout.BORDER, 0, 0);
 
         JTabbedPane roomsTabbedPane = new JTabbedPane();
-        final JPanel panelRoom1 = new JPanel();
-        final JPanel panelRoom2 = new JPanel();
+        ArrayList<JPanel> panels = new ArrayList<>();
+        for (var room : RoomDAO.getInstance().getAll()) {
+            JPanel panel = new JPanel();
+            panel.setLayout(new BorderLayout(0, 0));
+            roomsTabbedPane.addTab(room.getName(), panel);
+            panels.add(panel);
+        }
 
-        panelRoom1.setLayout(new BorderLayout(0, 0));
-        roomsTabbedPane.addTab("Room 1", panelRoom1);
-        panelRoom2.setLayout(new BorderLayout(0, 0));
-        roomsTabbedPane.addTab("Room 2", panelRoom2);
         addComponent(roomsTabbedPane, BorderLayout.CENTER);
 
         /* MENU*/
@@ -52,7 +56,13 @@ public class Home extends Window {
 
         //menu option to remove a table
         JMenuItem removeTableMenuItem = new JMenuItem("Remove Table");
-
+        removeTableMenuItem.addActionListener(e -> {
+            try {
+                new TableDeletionTool();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        });
 
         tablesMenu.add(removeTableMenuItem);
 
