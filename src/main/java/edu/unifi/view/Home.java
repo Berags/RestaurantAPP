@@ -4,6 +4,9 @@ import edu.unifi.Notifier;
 import edu.unifi.controller.TableController;
 import edu.unifi.model.entities.Room;
 import edu.unifi.model.orm.dao.RoomDAO;
+import org.kordamp.ikonli.materialdesign2.MaterialDesignA;
+import org.kordamp.ikonli.materialdesign2.MaterialDesignC;
+import org.kordamp.ikonli.swing.FontIcon;
 
 import javax.swing.*;
 import java.awt.*;
@@ -121,15 +124,9 @@ public class Home extends Window {
         }
     }
 
-    public void showAddedTableDialog() {
-        JOptionPane.showMessageDialog(this, "Table added successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    public void showDeletedTableDialog() {
-        JOptionPane.showMessageDialog(this, "Table deleted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    public void showUpdatedTableDialog() {
-        JOptionPane.showMessageDialog(this, "Table updated successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+    public void showResultDialog(String message, boolean messageType) {
+        JOptionPane.showMessageDialog(null, message, messageType ? "Action successful" : "Severe Error!",
+                messageType ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE,
+                messageType ? FontIcon.of(MaterialDesignC.CHECK_CIRCLE_OUTLINE, 40, Color.BLUE) : FontIcon.of(MaterialDesignA.ALERT_RHOMBUS_OUTLINE, 40, Color.RED));
     }
 }

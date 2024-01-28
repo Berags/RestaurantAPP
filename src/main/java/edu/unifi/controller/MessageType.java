@@ -6,5 +6,6 @@ public enum MessageType {
     UPDATE_TABLE,
     DELETE_DISH,
     ADD_DISH,
-    EDIT_DISH,
+    UPDATE_DISH,
+    ERROR, UPDATE_ROOM, DELETE_ROOM, ADD_ROOM,
 }

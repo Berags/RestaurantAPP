@@ -1,5 +1,6 @@
 package edu.unifi.view;
 
+import edu.unifi.Notifier;
 import edu.unifi.controller.TableController;
 import edu.unifi.model.entities.Table;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
@@ -24,6 +25,7 @@ public class TableUpdateTool extends TableCreationTool {
     private JLabel receiptTotalLabel;
     private JPanel bottomActionsLabel;
     private Table table;
+    private final TableController tableController;
 
     public TableUpdateTool(Table table) throws Exception {
         super(table);
@@ -41,7 +43,9 @@ public class TableUpdateTool extends TableCreationTool {
         setUpRightUI();
 
         addComponent(rightPanel, BorderLayout.EAST);
-        getCreateButton().addActionListener(new TableController(table, this));
+        tableController = new TableController(table, this);
+        tableController.addObserver(Notifier.getInstance());
+        getCreateButton().addActionListener(tableController);
 
         setVisible(true);
     }

@@ -33,8 +33,9 @@ public final class TableController extends Observable implements ActionListener 
         } catch (Exception ex) {
             ok = false;
         }
-        tableUpdateTool.showResultDialog(ok ? "Table updated successfully" : "Error while updating table", ok);
-        notifyObservers(MessageType.UPDATE_TABLE);
+
+        setChanged();
+        notifyObservers(ok ? MessageType.UPDATE_TABLE : MessageType.ERROR);
     }
 
     public Table table() {
