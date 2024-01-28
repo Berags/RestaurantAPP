@@ -12,6 +12,11 @@ public class Notifier implements Observer {
     private volatile static Notifier instance = null;
     private Home home;
 
+    private Notifier() throws Exception {
+        if (instance != null)
+            throw new Exception("Singleton class");
+    }
+
     public static Notifier getInstance() throws Exception {
         Notifier thisInstance = instance;
         if (instance == null) {
@@ -58,6 +63,10 @@ public class Notifier implements Observer {
             }
             case ERROR -> {
                 home.showResultDialog("An error occurred", false);
+            }
+            case EXIT -> {
+                home.dispose();
+                Main.notifyExit();
             }
             default -> throw new IllegalStateException("Unexpected value: " + toDisplay);
         }

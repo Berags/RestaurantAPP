@@ -1,6 +1,7 @@
 package edu.unifi.view;
 
 import edu.unifi.Notifier;
+import edu.unifi.controller.ExitController;
 import edu.unifi.controller.TableController;
 import edu.unifi.model.entities.Room;
 import edu.unifi.model.orm.dao.RoomDAO;
@@ -44,13 +45,9 @@ public class Home extends Window {
         JMenuItem exitFromApplication = new JMenuItem("Exit");
 
         //menu option to exit the program
-        exitFromApplication.addActionListener(e -> {
-            try {
-                System.exit(0);
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
-            }
-        });
+        ExitController exitController = new ExitController();
+        exitController.addObserver(Notifier.getInstance());
+        exitFromApplication.addActionListener(exitController);
 
         optionsMenu.add(settings);
         optionsMenu.add(exitFromApplication);

@@ -19,7 +19,6 @@ import java.util.concurrent.CountDownLatch;
 public class Main {
     private static final Logger log = LoggerFactory.getLogger(Main.class);
     private static final CountDownLatch exitLatch = new CountDownLatch(1);
-    private static final Notifier notifier = new Notifier();
     private static Home home;
 
     static {
@@ -31,7 +30,6 @@ public class Main {
     }
 
     public static void main(String[] args) throws InterruptedException {
-
         JDialog loadingDialog = new JDialog();
         loadingDialog.setLocationRelativeTo(null);
         loadingDialog.setTitle("Loading...");
@@ -47,7 +45,6 @@ public class Main {
             loginView.getLoginLatch().await();
             home = new Home("Test");
             exitLatch.await();
-
         } catch (Exception e) {
             log.error(e.getMessage());
             JLabel label = new JLabel(e.getMessage());
@@ -55,12 +52,19 @@ public class Main {
             JOptionPane.showMessageDialog(null, label, "Severe Error!", JOptionPane.ERROR_MESSAGE, FontIcon.of(MaterialDesignA.ALERT_RHOMBUS_OUTLINE, 40, Color.RED));
         } finally {
             // Cleaning up database connection pool
+            loadingDialog.setVisible(true);
             DatabaseAccess.terminate();
+            loadingDialog.setVisible(false);
+            System.exit(0);
         }
     }
 
     @Authorize(role = Roles.ADMIN)
     private static void test() {
         log.info("test");
+    }
+
+    public static void notifyExit() {
+        exitLatch.countDown();
     }
 }
