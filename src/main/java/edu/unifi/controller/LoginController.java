@@ -2,6 +2,7 @@ package edu.unifi.controller;
 
 import edu.unifi.model.entities.User;
 import edu.unifi.model.orm.dao.UserDAO;
+import edu.unifi.model.util.security.CurrentSession;
 import edu.unifi.model.util.security.PasswordManager;
 import edu.unifi.view.Login;
 
@@ -21,6 +22,7 @@ public record LoginController(Login login) implements ActionListener {
         }
 
         if (PasswordManager.authenticate(login.getPasswordField().getPassword(), u.getPasswordHash())) {
+            CurrentSession.getInstance().login(u);
             login.dispose();
             login.getLoginLatch().countDown();
             return;

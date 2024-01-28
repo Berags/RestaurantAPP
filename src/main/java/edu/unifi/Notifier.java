@@ -1,15 +1,12 @@
 package edu.unifi;
 
 import edu.unifi.controller.MessageType;
-import edu.unifi.model.orm.DatabaseAccess;
 import edu.unifi.view.DishCreationTool;
 import edu.unifi.view.Home;
 
 import javax.swing.*;
 import java.util.Observable;
 import java.util.Observer;
-
-import static edu.unifi.controller.MessageType.*;
 
 public class Notifier implements Observer {
     private volatile static Notifier instance = null;
