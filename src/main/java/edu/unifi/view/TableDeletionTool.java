@@ -1,5 +1,7 @@
 package edu.unifi.view;
 
+import edu.unifi.Notifier;
+import edu.unifi.controller.TableCreationToolController;
 import edu.unifi.controller.TableDeletionToolController;
 import edu.unifi.model.entities.Room;
 import edu.unifi.model.entities.Table;
@@ -105,7 +107,10 @@ public class TableDeletionTool extends Window {
         Font removeButtonFont = getFont(null, Font.BOLD, 18, removeButton.getFont());
         if (removeButtonFont != null) removeButton.setFont(removeButtonFont);
         removeButton.setText("Remove");
-        removeButton.addActionListener(new TableDeletionToolController(this));
+        TableDeletionToolController tableDeletionToolController = new TableDeletionToolController(this);
+        tableDeletionToolController.addObserver(Notifier.getInstance());
+
+        removeButton.addActionListener(tableDeletionToolController);
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 4;
@@ -128,5 +133,8 @@ public class TableDeletionTool extends Window {
 
     public Long getSelectedTableId() {
         return roomTableHashMap.get((String) roomComboBox.getSelectedItem()).get(tableComboBox.getSelectedIndex()).getId();
+    }
+    public String getTableRoom(){
+        return (String) roomComboBox.getSelectedItem();
     }
 }

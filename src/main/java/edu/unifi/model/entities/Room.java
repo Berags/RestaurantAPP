@@ -14,7 +14,7 @@ public class Room {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "room", orphanRemoval = true)
     private List<edu.unifi.model.entities.Table> tables = new ArrayList<>();
 
     public Room() {

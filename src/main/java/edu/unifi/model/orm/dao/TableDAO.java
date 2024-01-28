@@ -1,5 +1,6 @@
 package edu.unifi.model.orm.dao;
 
+import edu.unifi.model.entities.Room;
 import edu.unifi.model.entities.Table;
 
 import java.util.List;

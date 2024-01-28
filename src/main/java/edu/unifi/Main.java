@@ -1,6 +1,9 @@
 package edu.unifi;
 
 import edu.unifi.model.orm.DatabaseAccess;
+import edu.unifi.model.orm.dao.RoomDAO;
+import edu.unifi.model.orm.dao.UserDAO;
+import edu.unifi.model.util.security.PasswordManager;
 import edu.unifi.model.util.security.Roles;
 import edu.unifi.model.util.security.aop.Authorize;
 import edu.unifi.view.Home;
@@ -12,6 +15,7 @@ import org.kordamp.ikonli.materialdesign2.MaterialDesignL;
 import org.kordamp.ikonli.swing.FontIcon;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import edu.unifi.model.entities.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,6 +36,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws InterruptedException {
+
         JDialog loadingDialog = new JDialog();
         loadingDialog.setLocationRelativeTo(null);
         loadingDialog.setTitle("Loading...");
@@ -40,15 +45,19 @@ public class Main {
         loadingDialog.setVisible(true);
         // Initiating database connection pool
         DatabaseAccess.initiate();
+
         loadingDialog.setVisible(false);
         try {
             Login loginView = new Login();
             loginView.getLoginLatch().await();
             home = new Home("Test");
             exitLatch.await();
+
         } catch (Exception e) {
             log.error(e.getMessage());
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Severe Error!", JOptionPane.ERROR_MESSAGE, FontIcon.of(MaterialDesignA.ALERT_RHOMBUS_OUTLINE, 40, Color.RED));
+            JLabel label = new JLabel(e.getMessage());
+            label.setFont(new Font("Arial", Font.BOLD, 18));
+            JOptionPane.showMessageDialog(null, label, "Severe Error!", JOptionPane.ERROR_MESSAGE, FontIcon.of(MaterialDesignA.ALERT_RHOMBUS_OUTLINE, 40, Color.RED));
         } finally {
             // Cleaning up database connection pool
             DatabaseAccess.terminate();
