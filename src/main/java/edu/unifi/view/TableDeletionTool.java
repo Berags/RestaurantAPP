@@ -1,30 +1,32 @@
 package edu.unifi.view;
 
 import edu.unifi.Notifier;
-import edu.unifi.controller.TableCreationToolController;
 import edu.unifi.controller.TableDeletionToolController;
-import edu.unifi.model.entities.Room;
 import edu.unifi.model.entities.Table;
-import edu.unifi.model.orm.dao.RoomDAO;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TableDeletionTool extends Window {
     private JComboBox<String> roomComboBox;
     private JComboBox<String> tableComboBox;
-    private JButton removeButton;
+    private final JButton removeButton = new JButton();
     private JLabel titleLabel;
     private JLabel roomLabel;
     private JLabel tableLabel;
-    private HashMap<String, java.util.List<Table>> roomTableHashMap = new HashMap<>();
+    private final HashMap<String, java.util.List<Table>> roomTableHashMap = new HashMap<>();
+    private final TableDeletionToolController tableDeletionToolController;
 
     public TableDeletionTool() throws Exception {
         super("Delete", false, JFrame.DISPOSE_ON_CLOSE, 0, 0, 400, 300);
 
-        for (var room : RoomDAO.getInstance().getAll()) {
+        tableDeletionToolController = new TableDeletionToolController(this);
+        tableDeletionToolController.addObserver(Notifier.getInstance());
+
+        removeButton.addActionListener(tableDeletionToolController);
+
+        for (var room : tableDeletionToolController.getRooms()) {
             roomTableHashMap.put(room.getName(), room.getTables());
         }
 
@@ -83,7 +85,7 @@ public class TableDeletionTool extends Window {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(roomComboBox, gbc);
         tableComboBox = new JComboBox<>();
-        for (var table : RoomDAO.getInstance().getById((String) roomComboBox.getSelectedItem()).getTables()) {
+        for (var table : tableDeletionToolController.getRoomByName((String) roomComboBox.getSelectedItem()).getTables()) {
             tableComboBox.addItem(table.getName());
         }
         Font tableComboBoxFont = getFont(null, -1, 18, tableComboBox.getFont());
@@ -103,14 +105,9 @@ public class TableDeletionTool extends Window {
         gbc.gridy = 2;
         gbc.anchor = GridBagConstraints.WEST;
         panel1.add(tableLabel, gbc);
-        removeButton = new JButton();
         Font removeButtonFont = getFont(null, Font.BOLD, 18, removeButton.getFont());
         if (removeButtonFont != null) removeButton.setFont(removeButtonFont);
         removeButton.setText("Remove");
-        TableDeletionToolController tableDeletionToolController = new TableDeletionToolController(this);
-        tableDeletionToolController.addObserver(Notifier.getInstance());
-
-        removeButton.addActionListener(tableDeletionToolController);
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 4;
@@ -134,7 +131,8 @@ public class TableDeletionTool extends Window {
     public Long getSelectedTableId() {
         return roomTableHashMap.get((String) roomComboBox.getSelectedItem()).get(tableComboBox.getSelectedIndex()).getId();
     }
-    public String getTableRoom(){
+
+    public String getTableRoom() {
         return (String) roomComboBox.getSelectedItem();
     }
 }

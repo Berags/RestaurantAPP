@@ -6,6 +6,7 @@ import edu.unifi.view.TableDeletionTool;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.util.Observable;
 
 import edu.unifi.model.orm.dao.TableDAO;
@@ -21,5 +22,13 @@ public class TableDeletionToolController extends Observable implements ActionLis
         setChanged();
         notifyObservers(MessageType.DELETE_TABLE);
         tableDeletionTool.dispose();
+    }
+
+    public List<Room> getRooms() {
+        return RoomDAO.getInstance().getAll();
+    }
+
+    public Room getRoomByName(String name) {
+        return RoomDAO.getInstance().getById(name);
     }
 }

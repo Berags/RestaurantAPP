@@ -24,6 +24,7 @@ public class Main {
     static {
         try {
             UIManager.setLookAndFeel(new MaterialLookAndFeel(new MaterialLiteTheme()));
+            UIManager.put("Button.mouseHoverEnable", false);
         } catch (UnsupportedLookAndFeelException e) {
             log.error(e.getMessage());
         }

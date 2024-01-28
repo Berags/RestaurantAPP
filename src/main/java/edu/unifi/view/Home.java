@@ -2,11 +2,12 @@ package edu.unifi.view;
 
 import edu.unifi.Notifier;
 import edu.unifi.controller.ExitController;
-import edu.unifi.controller.TableController;
+import edu.unifi.controller.HomeController;
 import edu.unifi.model.entities.Room;
-import edu.unifi.model.orm.dao.RoomDAO;
+import edu.unifi.model.entities.Table;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignA;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignC;
+import org.kordamp.ikonli.materialdesign2.MaterialDesignT;
 import org.kordamp.ikonli.swing.FontIcon;
 
 import javax.swing.*;
@@ -16,18 +17,21 @@ import java.util.ArrayList;
 public class Home extends Window {
     private JTabbedPane roomsTabbedPane;
     private java.util.List<Room> rooms;
+    private final HomeController homeController;
 
     public Home(String title) throws Exception {
         super(title, true, JFrame.EXIT_ON_CLOSE, 0, 0, 1000, 700);
+        homeController = new HomeController(this);
 
         setRootLayout(Layout.BORDER, 0, 0);
 
         roomsTabbedPane = new JTabbedPane();
         ArrayList<JPanel> panels = new ArrayList<>();
-        rooms = RoomDAO.getInstance().getAll();
+        rooms = homeController.getRooms();
         for (var room : rooms) {
             JPanel panel = new JPanel();
-            panel.setLayout(new FlowLayout());
+            panel.setLayout(new BorderLayout(10, 10));
+            panel.setPreferredSize(new Dimension(1000, 700));
             roomsTabbedPane.addTab(room.getName(), panel);
             panels.add(panel);
         }
@@ -42,6 +46,7 @@ public class Home extends Window {
         JMenu dishesMenu = new JMenu("Dishes");
 
         JMenuItem settings = new JMenuItem("Settings");
+        JMenuItem users = new JMenuItem("Users");
         JMenuItem exitFromApplication = new JMenuItem("Exit");
 
         //menu option to exit the program
@@ -50,6 +55,7 @@ public class Home extends Window {
         exitFromApplication.addActionListener(exitController);
 
         optionsMenu.add(settings);
+        optionsMenu.add(users);
         optionsMenu.add(exitFromApplication);
 
         //menu option to add a new table
@@ -104,21 +110,45 @@ public class Home extends Window {
     public void showTables() {
         System.out.println("Update the tables view");
         Room room = rooms.get(roomsTabbedPane.getSelectedIndex());
-        room = RoomDAO.getInstance().getById(room.getName());
+        room = homeController.getById(room.getName());
         JPanel panel = (JPanel) roomsTabbedPane.getSelectedComponent();
         panel.removeAll();
+        JPanel topPanel = new JPanel();
+        topPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        topPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
         for (var table : room.getTables()) {
-            Button button = new Button(table.getName());
-            button.addActionListener(e -> {
-                try {
-                    new TableUpdateTool(table);
-                } catch (Exception ex) {
-                    throw new RuntimeException(ex);
-                }
-            });
-            button.setBackground(table.getState().getColor());
-            panel.add(button);
+            topPanel.add(createButton(table));
         }
+        panel.add(topPanel, BorderLayout.CENTER);
+    }
+
+    private static JButton createButton(Table table) {
+        JButton button = new JButton("<html><b>" + table.getName() + "</b><br>Seats: " + table.getNOfSeats() + "<br>" + table.getState().toString() + "</html>");
+        button.setPreferredSize(new Dimension(180 + 35 * table.getNOfSeats(), 80));
+        button.setHorizontalAlignment(JButton.CENTER);
+        button.setVerticalAlignment(JButton.CENTER);
+        button.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 2, true));
+        button.setBackground(table.getState().getColor());
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                button.setBackground(table.getState().getColor().darker());
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                button.setBackground(table.getState().getColor());
+            }
+        });
+        button.setFocusPainted(false);
+        button.setOpaque(true);
+        button.setIcon(FontIcon.of(MaterialDesignT.TABLE_CHAIR, 40, Color.BLACK));
+        button.addActionListener(e -> {
+            try {
+                new TableUpdateTool(table);
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+        return button;
     }
 
     public void showResultDialog(String message, boolean messageType) {
