@@ -4,7 +4,6 @@ import edu.unifi.controller.MessageType;
 import edu.unifi.view.DishCreationTool;
 import edu.unifi.view.Home;
 
-import javax.swing.*;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -33,15 +32,15 @@ public class Notifier implements Observer {
         switch ((MessageType) toDisplay) {
             case ADD_TABLE -> {
                 home.showResultDialog("Table added successfully", true);
-                home.showTables();
+                home.updateRoom();
             }
             case DELETE_TABLE -> {
                 home.showResultDialog("Table deleted successfully", true);
-                home.showTables();
+                home.updateRoom();
             }
             case UPDATE_TABLE -> {
                 home.showResultDialog("Table updated successfully", true);
-                home.showTables();
+                home.updateRoom();
             }
             case ADD_DISH -> {
                 home.showResultDialog("Dish added successfully", true);

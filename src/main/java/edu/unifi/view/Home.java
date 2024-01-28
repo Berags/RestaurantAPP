@@ -7,21 +7,28 @@ import edu.unifi.model.entities.Room;
 import edu.unifi.model.entities.Table;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignA;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignC;
+import org.kordamp.ikonli.materialdesign2.MaterialDesignD;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignT;
 import org.kordamp.ikonli.swing.FontIcon;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class Home extends Window {
     private JTabbedPane roomsTabbedPane;
     private java.util.List<Room> rooms;
     private final HomeController homeController;
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    private final JLabel databaseMenu = new JLabel("Connected");
 
     public Home(String title) throws Exception {
         super(title, true, JFrame.EXIT_ON_CLOSE, 0, 0, 1000, 700);
         homeController = new HomeController(this);
+        scheduler.scheduleAtFixedRate(this, 1, 1, TimeUnit.MINUTES);
 
         setRootLayout(Layout.BORDER, 0, 0);
 
@@ -36,14 +43,17 @@ public class Home extends Window {
             panels.add(panel);
         }
         if (!rooms.isEmpty())
-            showTables();
-        roomsTabbedPane.addChangeListener(e -> showTables());
+            updateRoom();
+        roomsTabbedPane.addChangeListener(e -> updateRoom());
         addComponent(roomsTabbedPane, BorderLayout.CENTER);
 
         /* MENU*/
         JMenu optionsMenu = new JMenu("Options");
         JMenu tablesMenu = new JMenu("Tables");
         JMenu dishesMenu = new JMenu("Dishes");
+
+        databaseMenu.setIcon(FontIcon.of(MaterialDesignD.DATABASE_CHECK, 20, Color.GREEN));
+        databaseMenu.setPreferredSize(new Dimension(100, 20));
 
         JMenuItem settings = new JMenuItem("Settings");
         JMenuItem users = new JMenuItem("Users");
@@ -101,14 +111,13 @@ public class Home extends Window {
         dishesMenu.add(removeDishItem);
         dishesMenu.add(EditDishItem);
 
-        addMenuEntries(new JMenu[]{optionsMenu, tablesMenu, dishesMenu});
+        addMenuEntries(new Component[]{optionsMenu, tablesMenu, dishesMenu, Box.createHorizontalGlue(), databaseMenu});
         setVisible(true);
 
         Notifier.getInstance().setHome(this);
     }
 
-    public void showTables() {
-        System.out.println("Update the tables view");
+    public void updateRoom() {
         Room room = rooms.get(roomsTabbedPane.getSelectedIndex());
         room = homeController.getById(room.getName());
         JPanel panel = (JPanel) roomsTabbedPane.getSelectedComponent();
@@ -155,5 +164,14 @@ public class Home extends Window {
         JOptionPane.showMessageDialog(null, message, messageType ? "Action successful" : "Severe Error!",
                 messageType ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE,
                 messageType ? FontIcon.of(MaterialDesignC.CHECK_CIRCLE_OUTLINE, 40, Color.BLUE) : FontIcon.of(MaterialDesignA.ALERT_RHOMBUS_OUTLINE, 40, Color.RED));
+    }
+
+    @Override
+    public void run() {
+        databaseMenu.setIcon(FontIcon.of(MaterialDesignD.DATABASE_CHECK, 20, Color.BLUE));
+        databaseMenu.setText("Updating...");
+        updateRoom();
+        databaseMenu.setIcon(FontIcon.of(MaterialDesignD.DATABASE_CHECK, 20, Color.GREEN));
+        databaseMenu.setText("Connected");
     }
 }

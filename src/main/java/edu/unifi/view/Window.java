@@ -63,8 +63,8 @@ public class Window extends JFrame implements Runnable {
      *
      * @param menuEntries the menu entries to add
      */
-    public void addMenuEntries(JMenu[] menuEntries) {
-        for (JMenu entry : menuEntries)
+    public void addMenuEntries(Component[] menuEntries) {
+        for (Component entry : menuEntries)
             menuBar.add(entry);
         update();
     }
