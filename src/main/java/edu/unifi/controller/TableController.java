@@ -1,11 +1,11 @@
 package edu.unifi.controller;
 
-import edu.unifi.Notifier;
 import edu.unifi.model.entities.Table;
 import edu.unifi.model.entities.TableState;
 import edu.unifi.model.orm.dao.TableDAO;
 import edu.unifi.view.TableUpdateTool;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
@@ -24,18 +24,26 @@ public final class TableController extends Observable implements ActionListener 
     public void actionPerformed(ActionEvent e) {
         boolean ok = true;
         System.out.println("Table " + table.getName() + " updated");
-        table.setName(tableUpdateTool.getNameTextField().getText());
-        table.setNOfSeats((Integer) tableUpdateTool.getNOfSeatsSpinner().getValue());
-        table.setState((TableState) tableUpdateTool.getStateComboBox().getSelectedItem());
-        table.setRoom(tableUpdateTool.getRoom());
-        try {
-            TableDAO.getInstance().update(table);
-        } catch (Exception ex) {
-            ok = false;
-        }
 
-        setChanged();
-        notifyObservers(ok ? MessageType.UPDATE_TABLE : MessageType.ERROR);
+        String newTableName = tableUpdateTool.getNameTextField().getText();
+
+        if(!newTableName.equals("")) {
+            table.setName(newTableName);
+            table.setNOfSeats((Integer) tableUpdateTool.getNOfSeatsSpinner().getValue());
+            table.setState((TableState) tableUpdateTool.getStateComboBox().getSelectedItem());
+            table.setRoom(tableUpdateTool.getRoom());
+            try {
+                TableDAO.getInstance().update(table);
+            } catch (Exception ex) {
+                ok = false;
+            }
+
+            setChanged();
+            notifyObservers(ok ? MessageType.UPDATE_TABLE : MessageType.ERROR);
+        }else{
+            //TODO: to uniform with other error messages?
+            JOptionPane.showMessageDialog(null, "The table name must not be blank", "Error in the compilation", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public Table table() {

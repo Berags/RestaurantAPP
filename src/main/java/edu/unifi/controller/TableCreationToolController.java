@@ -7,6 +7,7 @@ import edu.unifi.model.orm.dao.RoomDAO;
 import edu.unifi.model.orm.dao.TableDAO;
 import edu.unifi.view.TableCreationTool;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
@@ -21,16 +22,23 @@ public class TableCreationToolController extends Observable implements ActionLis
     @Override
     public void actionPerformed(ActionEvent e) {
         Table table = new Table();
-        table.setName(tableCreationTool.getNameTextField().getText());
-        table.setNOfSeats((Integer) tableCreationTool.getNOfSeatsSpinner().getValue());
-        table.setState((TableState) tableCreationTool.getStateComboBox().getSelectedItem());
-        Room room = RoomDAO.getInstance().getById((String) tableCreationTool.getRoomComboBox().getSelectedItem());
-        table.setRoom(room);
+        String tableName = tableCreationTool.getNameTextField().getText();
 
-        TableDAO.getInstance().insert(table);
+        if (!tableName.equals("")) {
+            table.setName(tableName);
+            table.setNOfSeats((Integer) tableCreationTool.getNOfSeatsSpinner().getValue());
+            table.setState((TableState) tableCreationTool.getStateComboBox().getSelectedItem());
+            Room room = RoomDAO.getInstance().getById((String) tableCreationTool.getRoomComboBox().getSelectedItem());
+            table.setRoom(room);
 
-        setChanged();
-        notifyObservers(MessageType.ADD_TABLE);
-        tableCreationTool.dispose();
+            TableDAO.getInstance().insert(table);
+
+            setChanged();
+            notifyObservers(MessageType.ADD_TABLE);
+            tableCreationTool.dispose();
+        }else{
+            //TODO: to uniform with other error messages?
+            JOptionPane.showMessageDialog(null, "The table name must not be blank", "Error in the compilation", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }

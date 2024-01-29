@@ -2,7 +2,6 @@ package edu.unifi.model.orm.dao;
 
 import edu.unifi.model.orm.DatabaseAccess;
 import edu.unifi.model.entities.User;
-import jakarta.transaction.Transactional;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 

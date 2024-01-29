@@ -1,14 +1,9 @@
 package edu.unifi.model.orm;
 
-import jakarta.persistence.EntityManager;
-import org.hibernate.FlushMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.context.internal.ManagedSessionContext;
-import org.hibernate.service.ServiceRegistry;
 
 /**
  * This class manages database access using Hibernate.

@@ -40,6 +40,33 @@ public class Main {
         // Initiating database connection pool
         DatabaseAccess.initiate();
 
+        //you need to execute the queries below only one time to set the courses
+        /*
+        TypeOfCourse type1 = new TypeOfCourse();
+        TypeOfCourse type2 = new TypeOfCourse();
+        TypeOfCourse type3 = new TypeOfCourse();
+        TypeOfCourse type4 = new TypeOfCourse();
+        TypeOfCourse type5 = new TypeOfCourse();
+        TypeOfCourse type6 = new TypeOfCourse();
+        TypeOfCourse type7 = new TypeOfCourse();
+        TypeOfCourseDAO t = new TypeOfCourseDAO();
+
+        type1.setName("Appetizer");
+        t.insert(type1);
+        type2.setName("First Plate");
+        t.insert(type2);
+        type3.setName("Pizza");
+        t.insert(type3);
+        type4.setName("Second Plate");
+        t.insert(type4);
+        type5.setName("Side Dish");
+        t.insert(type5);
+        type6.setName("Dessert");
+        t.insert(type6);
+        type7.setName("Service");
+        t.insert(type7);
+        */
+
         loadingDialog.setVisible(false);
         try {
             Login loginView = new Login();

@@ -1,13 +1,13 @@
 package edu.unifi.view;
 
-import edu.unifi.model.entities.DishType;
-import edu.unifi.model.entities.TableState;
+import edu.unifi.Notifier;
+import edu.unifi.controller.DishCreationToolController;
 import edu.unifi.model.entities.TypeOfCourse;
+import edu.unifi.model.orm.dao.TypeOfCourseDAO;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 public class DishCreationTool extends Window {
     private JLabel titleLabel;
@@ -26,6 +26,9 @@ public class DishCreationTool extends Window {
     private DishCreationTool() throws Exception {
         super("Dish Creation Tool", false, JFrame.DISPOSE_ON_CLOSE, 0, 0, 400, 300);
         setUpUI();
+        DishCreationToolController dishCreationToolController = new DishCreationToolController(this);
+        dishCreationToolController.addObserver(Notifier.getInstance());
+        createButton.addActionListener(dishCreationToolController);
         pack();
     }
 
@@ -115,7 +118,7 @@ public class DishCreationTool extends Window {
         gbc.insets = new Insets(0, 0, 15, 50);
         panel.add(descriptionTextArea, gbc);
 
-        ArrayList<DishType> listOfTypes = new ArrayList<>(Arrays.asList(DishType.values()));
+        List<TypeOfCourse> listOfTypes = (new TypeOfCourseDAO().getAll());
 
         typeComboBox = new JComboBox<>(listOfTypes.toArray());
         Font typeComboBoxFont = getFont(null, -1, 18, typeComboBox.getFont());
@@ -177,4 +180,11 @@ public class DishCreationTool extends Window {
         instance = null;
         super.dispose();
     }
+
+    public JTextField getNameTextField() {
+        return nameField;
+    }
+    public JSpinner getPriceSpinner(){return priceSpinner;}
+    public JTextArea getDescriptionLabel(){return descriptionTextArea;}
+    public JComboBox getTypeComboBox(){return typeComboBox;}
 }

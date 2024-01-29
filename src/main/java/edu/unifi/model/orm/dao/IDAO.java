@@ -1,6 +1,5 @@
 package edu.unifi.model.orm.dao;
 
-
 import java.util.List;
 
 /**

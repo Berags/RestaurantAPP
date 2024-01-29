@@ -30,7 +30,7 @@ public class Dish {
     @Column(name = "picture")
     private String picture;
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "type_of_course_name", nullable = false)
     private TypeOfCourse typeOfCourse;
 
