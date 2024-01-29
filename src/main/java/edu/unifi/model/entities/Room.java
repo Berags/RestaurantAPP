@@ -3,7 +3,6 @@ package edu.unifi.model.entities;
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 

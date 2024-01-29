@@ -1,6 +1,8 @@
 package edu.unifi;
 
+import edu.unifi.model.entities.TypeOfCourse;
 import edu.unifi.model.orm.DatabaseAccess;
+import edu.unifi.model.orm.dao.TypeOfCourseDAO;
 import edu.unifi.model.util.security.Roles;
 import edu.unifi.model.util.security.aop.Authorize;
 import edu.unifi.view.Home;

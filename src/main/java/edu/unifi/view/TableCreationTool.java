@@ -1,6 +1,5 @@
 package edu.unifi.view;
 
-import edu.unifi.controller.TableController;
 import edu.unifi.Notifier;
 import edu.unifi.controller.TableCreationToolController;
 import edu.unifi.model.entities.Room;
@@ -18,7 +17,6 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Vector;
 
 public class TableCreationTool extends Window {
     private JTextField nameTextField;
@@ -153,7 +151,7 @@ public class TableCreationTool extends Window {
         panel.add(roomLabel, gbc);
 
         roomComboBox = new JComboBox<>();
-        rooms = new RoomDAO().getAll();
+        rooms = RoomDAO.getInstance().getAll();
         for (Room room : rooms) {
             roomComboBox.addItem(room.getName());
         }

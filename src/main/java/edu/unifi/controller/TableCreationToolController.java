@@ -1,5 +1,6 @@
 package edu.unifi.controller;
 
+import edu.unifi.Notifier;
 import edu.unifi.model.entities.Room;
 import edu.unifi.model.entities.Table;
 import edu.unifi.model.entities.TableState;
@@ -7,6 +8,7 @@ import edu.unifi.model.orm.dao.RoomDAO;
 import edu.unifi.model.orm.dao.TableDAO;
 import edu.unifi.view.TableCreationTool;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
@@ -21,7 +23,14 @@ public class TableCreationToolController extends Observable implements ActionLis
     @Override
     public void actionPerformed(ActionEvent e) {
         Table table = new Table();
-        table.setName(tableCreationTool.getNameTextField().getText());
+        String tableName = tableCreationTool.getNameTextField().getText();
+
+        if (tableName.isEmpty()) {
+            setChanged();
+            notifyObservers(Notifier.Message.build(MessageType.ERROR, "Table name cannot be empty"));
+            return;
+        }
+        table.setName(tableName);
         table.setNOfSeats((Integer) tableCreationTool.getNOfSeatsSpinner().getValue());
         table.setState((TableState) tableCreationTool.getStateComboBox().getSelectedItem());
         Room room = RoomDAO.getInstance().getById((String) tableCreationTool.getRoomComboBox().getSelectedItem());
@@ -30,7 +39,7 @@ public class TableCreationToolController extends Observable implements ActionLis
         TableDAO.getInstance().insert(table);
 
         setChanged();
-        notifyObservers(MessageType.ADD_TABLE);
+        notifyObservers(Notifier.Message.build(MessageType.ADD_TABLE, tableName + " successfully added!"));
         tableCreationTool.dispose();
     }
 }

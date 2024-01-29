@@ -2,7 +2,6 @@ package edu.unifi.model.orm.dao;
 
 import edu.unifi.model.orm.DatabaseAccess;
 import edu.unifi.model.entities.User;
-import jakarta.transaction.Transactional;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -12,6 +11,9 @@ import java.util.UUID;
 public class UserDAO implements IDAO<User, UUID> {
     private Session session;
     private static volatile UserDAO instance = null;
+
+    private UserDAO() {
+    }
 
     public static UserDAO getInstance() {
         // Thread-safe, lazy load singleton

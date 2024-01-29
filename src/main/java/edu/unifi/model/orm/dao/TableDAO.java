@@ -1,6 +1,5 @@
 package edu.unifi.model.orm.dao;
 
-import edu.unifi.model.entities.Room;
 import edu.unifi.model.entities.Table;
 
 import java.util.List;
@@ -15,7 +14,8 @@ public class TableDAO implements IDAO<Table, Long> {
     private Session session;
     private static volatile TableDAO instance = null;
 
-
+    private TableDAO() {
+    }
     public static TableDAO getInstance() {
         //Thread-safe, lazy load singleton
         TableDAO thisInstance = instance;
