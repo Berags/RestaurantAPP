@@ -62,6 +62,7 @@ public class DishCreationTool extends Window {
         gbc.insets = new Insets(0, 50, 15, 0);
         panel.add(priceLabel, gbc);
         priceSpinner = new JSpinner();
+        priceSpinner.setModel(new SpinnerNumberModel(0.01d, 0.01d, 1000.00d, 0.01d));
         Font priceSpinnerFont = getFont(null, -1, 18, priceSpinner.getFont());
         if (priceSpinnerFont != null) priceSpinner.setFont(priceSpinnerFont);
         gbc = new GridBagConstraints();
@@ -118,7 +119,7 @@ public class DishCreationTool extends Window {
         gbc.insets = new Insets(0, 0, 15, 50);
         panel.add(descriptionTextArea, gbc);
 
-        List<TypeOfCourse> listOfTypes = (new TypeOfCourseDAO().getAll());
+        List<TypeOfCourse> listOfTypes = (TypeOfCourseDAO.getInstance().getAll());
 
         typeComboBox = new JComboBox<>(listOfTypes.toArray());
         Font typeComboBoxFont = getFont(null, -1, 18, typeComboBox.getFont());
@@ -163,10 +164,11 @@ public class DishCreationTool extends Window {
 
         setVisible(true);
     }
+
     //singleton
-    public static DishCreationTool getInstance() throws Exception{
+    public static DishCreationTool getInstance() throws Exception {
         DishCreationTool thisInstance = instance;
-        if(instance == null) {
+        if (instance == null) {
             synchronized (DishCreationTool.class) {
                 if (thisInstance == null)
                     instance = thisInstance = new DishCreationTool();
@@ -174,9 +176,10 @@ public class DishCreationTool extends Window {
         }
         return thisInstance;
     }
+
     //to "reset" the singleton
     @Override
-    public void dispose(){
+    public void dispose() {
         instance = null;
         super.dispose();
     }
@@ -184,7 +187,16 @@ public class DishCreationTool extends Window {
     public JTextField getNameTextField() {
         return nameField;
     }
-    public JSpinner getPriceSpinner(){return priceSpinner;}
-    public JTextArea getDescriptionLabel(){return descriptionTextArea;}
-    public JComboBox getTypeComboBox(){return typeComboBox;}
+
+    public JSpinner getPriceSpinner() {
+        return priceSpinner;
+    }
+
+    public JTextArea getDescriptionLabel() {
+        return descriptionTextArea;
+    }
+
+    public JComboBox getTypeComboBox() {
+        return typeComboBox;
+    }
 }

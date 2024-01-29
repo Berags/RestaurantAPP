@@ -14,7 +14,8 @@ public class TableDAO implements IDAO<Table, Long> {
     private Session session;
     private static volatile TableDAO instance = null;
 
-
+    private TableDAO() {
+    }
     public static TableDAO getInstance() {
         //Thread-safe, lazy load singleton
         TableDAO thisInstance = instance;

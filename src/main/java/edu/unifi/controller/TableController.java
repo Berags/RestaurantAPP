@@ -1,5 +1,6 @@
 package edu.unifi.controller;
 
+import edu.unifi.Notifier;
 import edu.unifi.model.entities.Table;
 import edu.unifi.model.entities.TableState;
 import edu.unifi.model.orm.dao.TableDAO;
@@ -27,52 +28,24 @@ public final class TableController extends Observable implements ActionListener 
 
         String newTableName = tableUpdateTool.getNameTextField().getText();
 
-        if(!newTableName.equals("")) {
-            table.setName(newTableName);
-            table.setNOfSeats((Integer) tableUpdateTool.getNOfSeatsSpinner().getValue());
-            table.setState((TableState) tableUpdateTool.getStateComboBox().getSelectedItem());
-            table.setRoom(tableUpdateTool.getRoom());
-            try {
-                TableDAO.getInstance().update(table);
-            } catch (Exception ex) {
-                ok = false;
-            }
-
+        if (newTableName.isEmpty()) {
             setChanged();
-            notifyObservers(ok ? MessageType.UPDATE_TABLE : MessageType.ERROR);
-        }else{
-            //TODO: to uniform with other error messages?
-            JOptionPane.showMessageDialog(null, "The table name must not be blank", "Error in the compilation", JOptionPane.ERROR_MESSAGE);
+            notifyObservers(Notifier.Message.build(MessageType.ERROR, "Table name cannot be empty"));
+            return;
         }
-    }
+        table.setName(newTableName);
+        table.setNOfSeats((Integer) tableUpdateTool.getNOfSeatsSpinner().getValue());
+        table.setState((TableState) tableUpdateTool.getStateComboBox().getSelectedItem());
+        table.setRoom(tableUpdateTool.getRoom());
+        try {
+            TableDAO.getInstance().update(table);
+        } catch (Exception ex) {
+            setChanged();
+            notifyObservers(Notifier.Message.build(MessageType.ERROR, "Error in the compilation"));
+            return;
+        }
 
-    public Table table() {
-        return table;
+        setChanged();
+        notifyObservers(Notifier.Message.build(MessageType.UPDATE_TABLE, table.getName() + " successfully updated!"));
     }
-
-    public TableUpdateTool tableUpdateTool() {
-        return tableUpdateTool;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (obj == null || obj.getClass() != this.getClass()) return false;
-        var that = (TableController) obj;
-        return Objects.equals(this.table, that.table) &&
-                Objects.equals(this.tableUpdateTool, that.tableUpdateTool);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(table, tableUpdateTool);
-    }
-
-    @Override
-    public String toString() {
-        return "TableController[" +
-                "table=" + table + ", " +
-                "tableUpdateTool=" + tableUpdateTool + ']';
-    }
-
 }

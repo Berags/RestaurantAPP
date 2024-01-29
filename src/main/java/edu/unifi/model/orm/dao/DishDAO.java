@@ -1,25 +1,27 @@
 package edu.unifi.model.orm.dao;
 
 import edu.unifi.model.entities.Dish;
+
 import java.util.List;
+
 import edu.unifi.model.orm.DatabaseAccess;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 
-
-public class DishDAO implements IDAO<Dish, Long>{
-
+public class DishDAO implements IDAO<Dish, Long> {
     private Session session;
     private static volatile DishDAO instance = null;
 
+    private DishDAO() {
+    }
 
-    public static DishDAO getinstance(){
+    public static DishDAO getInstance() {
         //Thread-safe, lazy load singleton
         DishDAO thisInstance = instance;
-        if(instance == null){
-            synchronized (DishDAO.class){
-                if(thisInstance == null){
+        if (instance == null) {
+            synchronized (DishDAO.class) {
+                if (thisInstance == null) {
                     instance = thisInstance = new DishDAO();
                 }
             }
@@ -28,49 +30,49 @@ public class DishDAO implements IDAO<Dish, Long>{
     }
 
     @Override
-    public void insert(Dish dish){
-        try{
+    public void insert(Dish dish) {
+        try {
             session = DatabaseAccess.open();
             session.persist(dish);
-        }finally {
+        } finally {
             DatabaseAccess.close(session);
         }
     }
 
     @Override
-    public void delete(Dish dish){
+    public void delete(Dish dish) {
         try {
             session = DatabaseAccess.open();
             session.remove(session);
-        }finally {
+        } finally {
             DatabaseAccess.close(session);
         }
     }
 
     @Override
-    public void update(Dish dish){
+    public void update(Dish dish) {
         try {
             session = DatabaseAccess.open();
             session.merge(dish);
-        }finally {
+        } finally {
             DatabaseAccess.close(session);
         }
     }
 
     @Override
-    public Dish getById(Long id){
+    public Dish getById(Long id) {
         try {
             session = DatabaseAccess.open();
             Query<Dish> q = session.createQuery("from Dish d where d.id = :d_id", Dish.class);
             q.setParameter("d_id", id);
             return q.getSingleResultOrNull();
-        }finally {
+        } finally {
             DatabaseAccess.close(session);
         }
     }
 
     @Override
-    public List<Dish> getAll(){
+    public List<Dish> getAll() {
         session = DatabaseAccess.open();
         List<Dish> dishes = session.createQuery("from Dish", Dish.class).getResultList();
         DatabaseAccess.close(session);
@@ -78,12 +80,12 @@ public class DishDAO implements IDAO<Dish, Long>{
     }
 
     @Override
-    public void delete(List<Dish> dishes){
+    public void delete(List<Dish> dishes) {
 
     }
 
     @Override
-    public void update(List<Dish> dishes){
+    public void update(List<Dish> dishes) {
 
     }
 }

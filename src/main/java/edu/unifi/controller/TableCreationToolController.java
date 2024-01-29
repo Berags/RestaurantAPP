@@ -1,5 +1,6 @@
 package edu.unifi.controller;
 
+import edu.unifi.Notifier;
 import edu.unifi.model.entities.Room;
 import edu.unifi.model.entities.Table;
 import edu.unifi.model.entities.TableState;
@@ -24,21 +25,21 @@ public class TableCreationToolController extends Observable implements ActionLis
         Table table = new Table();
         String tableName = tableCreationTool.getNameTextField().getText();
 
-        if (!tableName.equals("")) {
-            table.setName(tableName);
-            table.setNOfSeats((Integer) tableCreationTool.getNOfSeatsSpinner().getValue());
-            table.setState((TableState) tableCreationTool.getStateComboBox().getSelectedItem());
-            Room room = RoomDAO.getInstance().getById((String) tableCreationTool.getRoomComboBox().getSelectedItem());
-            table.setRoom(room);
-
-            TableDAO.getInstance().insert(table);
-
+        if (tableName.isEmpty()) {
             setChanged();
-            notifyObservers(MessageType.ADD_TABLE);
-            tableCreationTool.dispose();
-        }else{
-            //TODO: to uniform with other error messages?
-            JOptionPane.showMessageDialog(null, "The table name must not be blank", "Error in the compilation", JOptionPane.ERROR_MESSAGE);
+            notifyObservers(Notifier.Message.build(MessageType.ERROR, "Table name cannot be empty"));
+            return;
         }
+        table.setName(tableName);
+        table.setNOfSeats((Integer) tableCreationTool.getNOfSeatsSpinner().getValue());
+        table.setState((TableState) tableCreationTool.getStateComboBox().getSelectedItem());
+        Room room = RoomDAO.getInstance().getById((String) tableCreationTool.getRoomComboBox().getSelectedItem());
+        table.setRoom(room);
+
+        TableDAO.getInstance().insert(table);
+
+        setChanged();
+        notifyObservers(Notifier.Message.build(MessageType.ADD_TABLE, tableName + " successfully added!"));
+        tableCreationTool.dispose();
     }
 }

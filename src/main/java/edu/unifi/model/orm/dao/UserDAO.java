@@ -12,6 +12,9 @@ public class UserDAO implements IDAO<User, UUID> {
     private Session session;
     private static volatile UserDAO instance = null;
 
+    private UserDAO() {
+    }
+
     public static UserDAO getInstance() {
         // Thread-safe, lazy load singleton
         UserDAO thisInstance = instance;

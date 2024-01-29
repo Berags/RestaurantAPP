@@ -10,15 +10,18 @@ import java.util.List;
 public class TypeOfCourseDAO implements IDAO<TypeOfCourse, String> {
 
     private Session session;
-    private static volatile TypeOfCourse instance = null;
+    private static volatile TypeOfCourseDAO instance = null;
 
-    public static TypeOfCourse getInstance() {
+    private TypeOfCourseDAO() {
+    }
+
+    public static TypeOfCourseDAO getInstance() {
         //Thread-safe, lazy load singleton
-        TypeOfCourse thisInstance = instance;
+        TypeOfCourseDAO thisInstance = instance;
         if (instance == null) {
             synchronized (TypeOfCourse.class) {
                 if (thisInstance == null) {
-                    instance = thisInstance = new TypeOfCourse();
+                    instance = thisInstance = new TypeOfCourseDAO();
                 }
             }
         }
@@ -64,6 +67,7 @@ public class TypeOfCourseDAO implements IDAO<TypeOfCourse, String> {
             DatabaseAccess.close(session);
         }
     }
+
     @Override
     public TypeOfCourse getById(String name) {
         try {
@@ -75,6 +79,7 @@ public class TypeOfCourseDAO implements IDAO<TypeOfCourse, String> {
             DatabaseAccess.close(session);
         }
     }
+
     @Override
     public List<TypeOfCourse> getAll() {
         session = DatabaseAccess.open();
@@ -93,10 +98,6 @@ public class TypeOfCourseDAO implements IDAO<TypeOfCourse, String> {
     public void update(List<TypeOfCourse> typeOfCourses) {
 
     }
-
-
-
-
 
 
 }

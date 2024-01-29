@@ -1,6 +1,7 @@
 package edu.unifi.model.orm.dao;
 
 import edu.unifi.model.entities.Order;
+
 import java.util.List;
 
 import edu.unifi.model.entities.OrderId;
@@ -9,19 +10,19 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 
-
-public class OrderDAO implements IDAO<Order, OrderId>{
-
+public class OrderDAO implements IDAO<Order, OrderId> {
     private Session session;
     private static volatile OrderDAO instance = null;
 
+    private OrderDAO() {
+    }
 
-    public static OrderDAO getinstance(){
+    public static OrderDAO getInstance() {
         //Thread-safe, lazy load singleton
         OrderDAO thisInstance = instance;
-        if(instance == null){
-            synchronized (OrderDAO.class){
-                if(thisInstance == null){
+        if (instance == null) {
+            synchronized (OrderDAO.class) {
+                if (thisInstance == null) {
                     instance = thisInstance = new OrderDAO();
                 }
             }
@@ -30,37 +31,37 @@ public class OrderDAO implements IDAO<Order, OrderId>{
     }
 
     @Override
-    public void insert(Order order){
-        try{
+    public void insert(Order order) {
+        try {
             session = DatabaseAccess.open();
             session.persist(order);
-        }finally {
+        } finally {
             DatabaseAccess.close(session);
         }
     }
 
     @Override
-    public void delete(Order order){
+    public void delete(Order order) {
         try {
             session = DatabaseAccess.open();
             session.remove(session);
-        }finally {
+        } finally {
             DatabaseAccess.close(session);
         }
     }
 
     @Override
-    public void update(Order order){
+    public void update(Order order) {
         try {
             session = DatabaseAccess.open();
             session.merge(order);
-        }finally {
+        } finally {
             DatabaseAccess.close(session);
         }
     }
 
     @Override
-    public Order getById(OrderId OID){
+    public Order getById(OrderId OID) {
         Long checkId = OID.getCheckId();
         Long dishId = OID.getDishId();
         try {
@@ -69,13 +70,13 @@ public class OrderDAO implements IDAO<Order, OrderId>{
             q.setParameter("check_id", checkId);
             q.setParameter("dish_id", dishId);
             return q.getSingleResultOrNull();
-        }finally {
+        } finally {
             DatabaseAccess.close(session);
         }
     }
 
     @Override
-    public List<Order> getAll(){
+    public List<Order> getAll() {
         session = DatabaseAccess.open();
         List<Order> orders = session.createQuery("from Order", Order.class).getResultList();
         DatabaseAccess.close(session);
@@ -83,12 +84,12 @@ public class OrderDAO implements IDAO<Order, OrderId>{
     }
 
     @Override
-    public void delete(List<Order> orders){
+    public void delete(List<Order> orders) {
 
     }
 
     @Override
-    public void update(List<Order> orders){
+    public void update(List<Order> orders) {
 
     }
 }

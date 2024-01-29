@@ -151,7 +151,7 @@ public class TableCreationTool extends Window {
         panel.add(roomLabel, gbc);
 
         roomComboBox = new JComboBox<>();
-        rooms = new RoomDAO().getAll();
+        rooms = RoomDAO.getInstance().getAll();
         for (Room room : rooms) {
             roomComboBox.addItem(room.getName());
         }

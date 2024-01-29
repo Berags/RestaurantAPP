@@ -29,21 +29,14 @@ public class Notifier implements Observer {
 
     @Override
     public void update(Observable o, Object toDisplay) {
-        switch ((MessageType) toDisplay) {
-            case ADD_TABLE -> {
-                home.showResultDialog("Table added successfully", true);
-                home.updateRoom();
-            }
-            case DELETE_TABLE -> {
-                home.showResultDialog("Table deleted successfully", true);
-                home.updateRoom();
-            }
-            case UPDATE_TABLE -> {
-                home.showResultDialog("Table updated successfully", true);
+        Message message = (Message) toDisplay;
+        switch (message.type) {
+            case ADD_TABLE, UPDATE_TABLE, DELETE_TABLE -> {
+                home.showResultDialog(message.getStringMessage(), true);
                 home.updateRoom();
             }
             case ADD_DISH -> {
-                home.showResultDialog("Dish added successfully", true);
+                home.showResultDialog(message.getStringMessage(), true);
             }
             case DELETE_DISH -> {
                 home.showResultDialog("Dish deleted successfully", true);
@@ -61,7 +54,7 @@ public class Notifier implements Observer {
                 home.showResultDialog("Room updated successfully", true);
             }
             case ERROR -> {
-                home.showResultDialog("An error occurred", false);
+                home.showResultDialog(message.getStringMessage(), false);
             }
             case EXIT -> {
                 home.dispose();
@@ -73,5 +66,17 @@ public class Notifier implements Observer {
 
     public void setHome(Home home) {
         this.home = home;
+    }
+
+    public record Message(MessageType type, Object message) {
+        public static Message build(MessageType type, String message) {
+            return new Message(type, message);
+        }
+
+        public String getStringMessage() {
+            if (message instanceof String)
+                return (String) message;
+            return null;
+        }
     }
 }

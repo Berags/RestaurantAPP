@@ -1,25 +1,27 @@
 package edu.unifi.model.orm.dao;
 
 import edu.unifi.model.entities.Check;
+
 import java.util.List;
+
 import edu.unifi.model.orm.DatabaseAccess;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 
-
-public class CheckDAO implements IDAO<Check, Long>{
-
+public class CheckDAO implements IDAO<Check, Long> {
     private Session session;
     private static volatile CheckDAO instance = null;
 
+    private CheckDAO() {
+    }
 
-    public static CheckDAO getinstance(){
+    public static CheckDAO getInstance() {
         //Thread-safe, lazy load singleton
         CheckDAO thisInstance = instance;
-        if(instance == null){
-            synchronized (CheckDAO.class){
-                if(thisInstance == null){
+        if (instance == null) {
+            synchronized (CheckDAO.class) {
+                if (thisInstance == null) {
                     instance = thisInstance = new CheckDAO();
                 }
             }
@@ -28,49 +30,49 @@ public class CheckDAO implements IDAO<Check, Long>{
     }
 
     @Override
-    public void insert(Check check){
-        try{
+    public void insert(Check check) {
+        try {
             session = DatabaseAccess.open();
             session.persist(check);
-        }finally {
+        } finally {
             DatabaseAccess.close(session);
         }
     }
 
     @Override
-    public void delete(Check check){
+    public void delete(Check check) {
         try {
             session = DatabaseAccess.open();
             session.remove(session);
-        }finally {
+        } finally {
             DatabaseAccess.close(session);
         }
     }
 
     @Override
-    public void update(Check check){
+    public void update(Check check) {
         try {
             session = DatabaseAccess.open();
             session.merge(check);
-        }finally {
+        } finally {
             DatabaseAccess.close(session);
         }
     }
 
     @Override
-    public Check getById(Long id){
+    public Check getById(Long id) {
         try {
             session = DatabaseAccess.open();
             Query<Check> q = session.createQuery("from Check c where c.id = :c_id", Check.class);
             q.setParameter("c_id", id);
             return q.getSingleResultOrNull();
-        }finally {
+        } finally {
             DatabaseAccess.close(session);
         }
     }
 
     @Override
-    public List<Check> getAll(){
+    public List<Check> getAll() {
         session = DatabaseAccess.open();
         List<Check> checks = session.createQuery("from Check ", Check.class).getResultList();
         DatabaseAccess.close(session);
@@ -78,12 +80,12 @@ public class CheckDAO implements IDAO<Check, Long>{
     }
 
     @Override
-    public void delete(List<Check> checks){
+    public void delete(List<Check> checks) {
 
     }
 
     @Override
-    public void update(List<Check> checks){
+    public void update(List<Check> checks) {
 
     }
 
