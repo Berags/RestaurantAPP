@@ -23,7 +23,7 @@ public class DishCreationTool extends Window {
     private JLabel typeLabel;
     private static volatile DishCreationTool instance = null;
 
-    private DishCreationTool() throws Exception {
+    protected DishCreationTool() throws Exception {
         super("Dish Creation Tool", false, JFrame.DISPOSE_ON_CLOSE, 0, 0, 400, 300);
         setUpUI();
         DishCreationToolController dishCreationToolController = new DishCreationToolController(this);
@@ -198,5 +198,85 @@ public class DishCreationTool extends Window {
 
     public JComboBox getTypeComboBox() {
         return typeComboBox;
+    }
+
+    public JLabel getTitleLabel() {
+        return titleLabel;
+    }
+
+    public void setTitleLabel(JLabel titleLabel) {
+        this.titleLabel = titleLabel;
+    }
+
+    public JTextField getNameField() {
+        return nameField;
+    }
+
+    public void setNameField(JTextField nameField) {
+        this.nameField = nameField;
+    }
+
+    public void setPriceSpinner(JSpinner priceSpinner) {
+        this.priceSpinner = priceSpinner;
+    }
+
+    public JTextArea getDescriptionTextArea() {
+        return descriptionTextArea;
+    }
+
+    public void setDescriptionTextArea(JTextArea descriptionTextArea) {
+        this.descriptionTextArea = descriptionTextArea;
+    }
+
+    public void setTypeComboBox(JComboBox typeComboBox) {
+        this.typeComboBox = typeComboBox;
+    }
+
+    public JButton getCreateButton() {
+        return createButton;
+    }
+
+    public void setCreateButton(JButton createButton) {
+        this.createButton = createButton;
+    }
+
+    public JPanel getPanel() {
+        return panel;
+    }
+
+    public void setPanel(JPanel panel) {
+        this.panel = panel;
+    }
+
+    public JLabel getPriceLabel() {
+        return priceLabel;
+    }
+
+    public void setPriceLabel(JLabel priceLabel) {
+        this.priceLabel = priceLabel;
+    }
+
+    public JLabel getNameLabel() {
+        return nameLabel;
+    }
+
+    public void setNameLabel(JLabel nameLabel) {
+        this.nameLabel = nameLabel;
+    }
+
+    public void setDescriptionLabel(JLabel descriptionLabel) {
+        this.descriptionLabel = descriptionLabel;
+    }
+
+    public JLabel getTypeLabel() {
+        return typeLabel;
+    }
+
+    public void setTypeLabel(JLabel typeLabel) {
+        this.typeLabel = typeLabel;
+    }
+
+    public static void setInstance(DishCreationTool instance) {
+        DishCreationTool.instance = instance;
     }
 }

@@ -1,6 +1,7 @@
 package edu.unifi.view;
 
 import edu.unifi.Notifier;
+import edu.unifi.controller.DishController;
 import edu.unifi.controller.ExitController;
 import edu.unifi.controller.HomeController;
 import edu.unifi.model.entities.Room;
@@ -104,12 +105,18 @@ public class Home extends Window {
         });
 
 
-        JMenuItem removeDishItem = new JMenuItem("Remove Dish");
-        JMenuItem EditDishItem = new JMenuItem("Edit Dish");
+        JMenuItem editDishItem = new JMenuItem("Edit Dish");
+        editDishItem.addActionListener(e -> {
+            try {
+                DishController dishController = new DishController();
+                new DishView(dishController);
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        });
 
         dishesMenu.add(addDishItem);
-        dishesMenu.add(removeDishItem);
-        dishesMenu.add(EditDishItem);
+        dishesMenu.add(editDishItem);
 
         addMenuEntries(new Component[]{optionsMenu, tablesMenu, dishesMenu, Box.createHorizontalGlue(), databaseMenu});
         setVisible(true);

@@ -289,4 +289,44 @@ public class TableCreationTool extends Window {
     public Room getRoom() {
         return rooms.get(roomComboBox.getSelectedIndex());
     }
+
+    public JSpinner getnOfSeatsSpinner() {
+        return nOfSeatsSpinner;
+    }
+
+    public void setnOfSeatsSpinner(JSpinner nOfSeatsSpinner) {
+        this.nOfSeatsSpinner = nOfSeatsSpinner;
+    }
+
+    public FontIcon getCreateFontIcon() {
+        return createFontIcon;
+    }
+
+    public void setCreateFontIcon(FontIcon createFontIcon) {
+        this.createFontIcon = createFontIcon;
+    }
+
+    public JLabel getRoomLabel() {
+        return roomLabel;
+    }
+
+    public void setRoomLabel(JLabel roomLabel) {
+        this.roomLabel = roomLabel;
+    }
+
+    public void setRoomComboBox(JComboBox<String> roomComboBox) {
+        this.roomComboBox = roomComboBox;
+    }
+
+    public List<Room> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(List<Room> rooms) {
+        this.rooms = rooms;
+    }
+
+    public static void setInstance(TableCreationTool instance) {
+        TableCreationTool.instance = instance;
+    }
 }
