@@ -23,11 +23,11 @@ public class Check {
     @JdbcTypeCode(SqlTypes.TIMESTAMP)
     private LocalDateTime issueDate;
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "table_id", nullable = false)
     private edu.unifi.model.entities.Table table;
 
-    @OneToMany(mappedBy = "check", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "check", orphanRemoval = true)
     private Set<Order> orders = new LinkedHashSet<>();
 
     public Set<Order> getOrders() {

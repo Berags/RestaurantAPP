@@ -9,12 +9,12 @@ public class Order {
     @EmbeddedId
     private OrderId id = new OrderId();
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "check_id")
     @MapsId("checkId")
     private Check check;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "dish_id")
     @MapsId("dishId")
     private Dish dish;

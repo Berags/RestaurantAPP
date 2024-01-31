@@ -16,13 +16,13 @@ public class Ingredient {
     @Column(name = "description", length = 1000)
     private String description;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    @ManyToMany()
     @JoinTable(name = "recipe",
             joinColumns = @JoinColumn(name = "ingredient_name"),
             inverseJoinColumns = @JoinColumn(name = "dishes_id"))
     private Set<Dish> dishes = new LinkedHashSet<>();
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    @ManyToMany()
     @JoinTable(name = "ingredient_allergen",
             joinColumns = @JoinColumn(name = "ingredient_name"),
             inverseJoinColumns = @JoinColumn(name = "allergens_name"))

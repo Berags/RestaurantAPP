@@ -178,6 +178,7 @@ public class DishView extends Window {
             gbc.gridx = 2;
             gbc.gridy = 0;
             gbc.weightx = 0.8;
+            gbc.fill = GridBagConstraints.HORIZONTAL;
             gbc.anchor = GridBagConstraints.WEST;
             listPanel.add(dishNameLabel, gbc);
             JLabel dishTypeLabel = new JLabel();
@@ -186,6 +187,7 @@ public class DishView extends Window {
             gbc.gridx = 3;
             gbc.gridy = 0;
             gbc.weightx = 0.6;
+            gbc.fill = GridBagConstraints.HORIZONTAL;
             gbc.anchor = GridBagConstraints.WEST;
             listPanel.add(dishTypeLabel, gbc);
             JPanel actionTestPanel = new JPanel();

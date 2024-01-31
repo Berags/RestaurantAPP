@@ -34,10 +34,10 @@ public class Dish {
     @JoinColumn(name = "type_of_course_name", nullable = false)
     private TypeOfCourse typeOfCourse;
 
-    @ManyToMany(mappedBy = "dishes", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    @ManyToMany(mappedBy = "dishes")
     private Set<Ingredient> ingredients = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "dish", orphanRemoval = true)
     private Set<Order> orders = new LinkedHashSet<>();
 
     public Set<Order> getOrders() {

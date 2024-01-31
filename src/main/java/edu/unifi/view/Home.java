@@ -51,7 +51,7 @@ public class Home extends Window {
         /* MENU*/
         JMenu optionsMenu = new JMenu("Options");
         JMenu tablesMenu = new JMenu("Tables");
-        JMenu dishesMenu = new JMenu("Dishes");
+        JMenu dishesMenu = new JMenu("Menu");
 
         databaseMenu.setIcon(FontIcon.of(MaterialDesignD.DATABASE_CHECK, 20, Color.GREEN));
         databaseMenu.setPreferredSize(new Dimension(100, 20));
@@ -105,7 +105,7 @@ public class Home extends Window {
         });
 
 
-        JMenuItem editDishItem = new JMenuItem("Edit Dish");
+        JMenuItem editDishItem = new JMenuItem("Edit Menu");
         editDishItem.addActionListener(e -> {
             try {
                 DishController dishController = new DishController();

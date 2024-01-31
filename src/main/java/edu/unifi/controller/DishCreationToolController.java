@@ -6,9 +6,17 @@ import edu.unifi.model.entities.TypeOfCourse;
 import edu.unifi.model.orm.dao.DishDAO;
 import edu.unifi.view.DishCreationTool;
 import org.apache.maven.shared.utils.StringUtils;
+import org.kordamp.ikonli.materialdesign2.MaterialDesignA;
+import org.kordamp.ikonli.materialdesign2.MaterialDesignC;
+import org.kordamp.ikonli.swing.FontIcon;
 
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.Observable;
 
@@ -31,7 +39,25 @@ public class DishCreationToolController extends Observable implements ActionList
             return;
         }
         dish.setName(dishName);
-        dish.setPrice(Integer.valueOf(String.format("%.2f", (Double) dishCreationTool.getPriceSpinner().getValue()).replace(",", "")));
+
+        String priceString = null;
+        Integer price = 0;
+
+        try {
+            priceString = dishCreationTool.getPriceTextField().getText();
+            String[] decimals = priceString.split("\\.");
+            if(decimals.length < 2 || decimals[1].length() > 2){
+                throw new NumberFormatException();
+            }
+            price = Integer.parseInt(dishCreationTool.getPriceTextField().getText().replace(".",""));
+        }catch(NumberFormatException ex) {
+
+            setChanged();
+            notifyObservers(Notifier.Message.build(MessageType.ERROR, "The price must be in \nthe format intPrice.xx"));
+            return;
+        }
+
+        dish.setPrice(price);
         dish.setDescription(dishCreationTool.getDescriptionLabel().getText());
         TypeOfCourse typeOfCourse = new TypeOfCourse();
         typeOfCourse.setName(Objects.requireNonNull(dishCreationTool.getTypeComboBox().getSelectedItem()).toString());

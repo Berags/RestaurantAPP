@@ -12,7 +12,7 @@ import java.util.List;
 public class DishCreationTool extends Window {
     private JLabel titleLabel;
     private JTextField nameField;
-    private JSpinner priceSpinner;
+    private JTextField priceTextField;
     private JTextArea descriptionTextArea;
     private JComboBox typeComboBox;
     private JButton createButton;
@@ -61,10 +61,10 @@ public class DishCreationTool extends Window {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(0, 50, 15, 0);
         panel.add(priceLabel, gbc);
-        priceSpinner = new JSpinner();
-        priceSpinner.setModel(new SpinnerNumberModel(0.01d, 0.01d, 1000.00d, 0.01d));
-        Font priceSpinnerFont = getFont(null, -1, 18, priceSpinner.getFont());
-        if (priceSpinnerFont != null) priceSpinner.setFont(priceSpinnerFont);
+        priceTextField = new JTextField();
+        Font priceTextFieldFont = getFont(null, -1, 18, priceTextField.getFont());
+        if (priceTextFieldFont != null) priceTextField.setFont(priceTextFieldFont);
+        priceTextField.setText("0.00");
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 2;
@@ -72,7 +72,7 @@ public class DishCreationTool extends Window {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(0, 0, 15, 50);
-        panel.add(priceSpinner, gbc);
+        panel.add(priceTextField, gbc);
         descriptionLabel = new JLabel();
         Font descriptionLabelFont = getFont(null, Font.BOLD, 18, descriptionLabel.getFont());
         if (descriptionLabelFont != null) descriptionLabel.setFont(descriptionLabelFont);
@@ -154,7 +154,7 @@ public class DishCreationTool extends Window {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(0, 0, 30, 50);
         panel.add(createButton, gbc);
-        priceLabel.setLabelFor(priceSpinner);
+        priceLabel.setLabelFor(priceTextField);
         descriptionLabel.setLabelFor(descriptionTextArea);
         nameLabel.setLabelFor(nameField);
         typeLabel.setLabelFor(typeComboBox);
@@ -188,8 +188,8 @@ public class DishCreationTool extends Window {
         return nameField;
     }
 
-    public JSpinner getPriceSpinner() {
-        return priceSpinner;
+    public JTextField getPriceTextField() {
+        return priceTextField;
     }
 
     public JTextArea getDescriptionLabel() {
@@ -216,8 +216,8 @@ public class DishCreationTool extends Window {
         this.nameField = nameField;
     }
 
-    public void setPriceSpinner(JSpinner priceSpinner) {
-        this.priceSpinner = priceSpinner;
+    public void setPriceTextField(JTextField priceTextField) {
+        this.priceTextField = priceTextField;
     }
 
     public JTextArea getDescriptionTextArea() {

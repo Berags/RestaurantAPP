@@ -13,7 +13,7 @@ public class TypeOfCourse {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "typeOfCourse", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "typeOfCourse", orphanRemoval = true)
     private Collection<Dish> dishes = new ArrayList<>();
 
     public Collection<Dish> getDishes() {
