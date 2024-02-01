@@ -25,15 +25,16 @@ public class DishView extends Window {
 
     private static DishView instance;
 
+    /**
+     * To have all the dishItems, complete with buildList()
+     * @param dishController
+     * @throws Exception
+     */
     private DishView(DishController dishController) throws Exception {
         super("Dishes", false, DISPOSE_ON_CLOSE, 0, 0, 600, 600);
         this.dishController = dishController;
 
         setupUi();
-        buildList();
-        listScroller.setViewportView(listPanel);
-        panel2.add(listScroller, BorderLayout.CENTER);
-
         setVisible(true);
     }
 
@@ -162,7 +163,7 @@ public class DishView extends Window {
         super.dispose();
     }
 
-    private void buildList() {
+    public void buildList() {
         java.util.List<Dish> filteredDishes = dishController.getFilteredDishes(searchTextField.getText() == null ? "" : searchTextField.getText());
         listPanel = new JPanel(new GridLayout(filteredDishes.size(), 1));
         int index = 0;
@@ -171,5 +172,18 @@ public class DishView extends Window {
             DishItem DI = new DishItem(d,index);
             this.listPanel.add(DI.getListPanel());
         }
+
+        listScroller.setViewportView(listPanel);
+        panel2.add(listScroller, BorderLayout.CENTER);
+    }
+
+    public void updateList(){
+        panel2.setVisible(false);
+        buildList();
+        listScroller.setViewportView(listPanel);
+        listScroller.invalidate();
+        listScroller.validate();
+        listScroller.repaint();
+        panel2.setVisible(true);
     }
 }

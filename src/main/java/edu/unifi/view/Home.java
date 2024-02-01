@@ -108,7 +108,7 @@ public class Home extends Window {
         editDishItem.addActionListener(e -> {
             try {
                 DishController dishController = new DishController();
-                DishView.getInstance(dishController);
+                DishView.getInstance(dishController).buildList();
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }

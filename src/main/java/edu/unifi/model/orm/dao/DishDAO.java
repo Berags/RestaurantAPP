@@ -4,6 +4,7 @@ import edu.unifi.model.entities.Dish;
 
 import java.util.List;
 
+import edu.unifi.model.entities.Table;
 import edu.unifi.model.orm.DatabaseAccess;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -43,7 +44,8 @@ public class DishDAO implements IDAO<Dish, Long> {
     public void delete(Dish dish) {
         try {
             session = DatabaseAccess.open();
-            session.remove(session);
+            Dish d = session.get(Dish.class, dish.getId());
+            session.remove(d);
         } finally {
             DatabaseAccess.close(session);
         }

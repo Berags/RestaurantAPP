@@ -71,6 +71,26 @@ public class DishController {
             DishDAO.getInstance().update(dish);
             setChanged();
             notifyObservers(Notifier.Message.build(MessageType.UPDATE_DISH, dish.getName() + " updated successfully"));
+            dishUpdateTool.dispose();
+        }
+    }
+
+    public static class DishDeletionController extends Observable implements ActionListener{
+
+        private final Dish dish;
+        public DishDeletionController(Dish dish){
+
+            this.dish = dish;
+
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            DishDAO.getInstance().delete(dish);
+            setChanged();
+            notifyObservers(Notifier.Message.build(MessageType.DELETE_DISH, dish.getName() + " deleted successfully"));
+
         }
     }
 }

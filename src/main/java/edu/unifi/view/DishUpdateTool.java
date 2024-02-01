@@ -41,7 +41,11 @@ public class DishUpdateTool extends DishCreationTool {
         getTypeComboBox().setSelectedItem(dish.getTypeOfCourse().getName());
 
         DishController.DishEditController dishEditController = new DishController.DishEditController(dish,this);
-        dishEditController.addObserver(Notifier.getInstance());
+
+        Notifier notifier = Notifier.getInstance();
+        notifier.setDishView(DishView.getInstance(new DishController()));
+
+        dishEditController.addObserver(notifier);
         updateButton.addActionListener(dishEditController);
 
     }

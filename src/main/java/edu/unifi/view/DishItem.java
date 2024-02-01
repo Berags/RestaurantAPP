@@ -1,5 +1,7 @@
 package edu.unifi.view;
 
+import edu.unifi.Notifier;
+import edu.unifi.controller.DishController;
 import edu.unifi.model.entities.Dish;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignD;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
@@ -11,8 +13,10 @@ import java.awt.*;
 public class DishItem {
 
     private JPanel listPanel;
+    private Dish dish;
 
     DishItem(Dish d, int index){
+        this.dish = d;
         GridBagConstraints gbc;
         listPanel = new JPanel();
         GridBagLayout layout = new GridBagLayout();
@@ -77,11 +81,21 @@ public class DishItem {
         });
 
         actionTestPanel.add(editButton);
+
         JButton deleteButton = new JButton();
         deleteButton.setHideActionText(false);
         deleteButton.setHorizontalAlignment(0);
         deleteButton.setHorizontalTextPosition(0);
         deleteButton.setIcon(FontIcon.of(MaterialDesignD.DELETE, 20));
+
+        DishController.DishDeletionController dishDeletionController = new DishController.DishDeletionController(dish);
+
+        try {
+            Notifier notifier = Notifier.getInstance();
+            notifier.setDishView(DishView.getInstance(new DishController()));
+            dishDeletionController.addObserver(notifier);
+        }catch (Exception e){}
+        deleteButton.addActionListener(dishDeletionController);
         actionTestPanel.add(deleteButton);
 
         gbc = new GridBagConstraints();
