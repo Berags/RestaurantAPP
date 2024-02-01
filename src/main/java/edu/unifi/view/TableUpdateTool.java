@@ -10,6 +10,7 @@ import org.kordamp.ikonli.swing.FontIcon;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class TableUpdateTool extends TableCreationTool {
     private JPanel rightPanel;
@@ -27,10 +28,16 @@ public class TableUpdateTool extends TableCreationTool {
     private Table table;
     private final TableController tableController;
 
-    public TableUpdateTool(Table table) throws Exception {
-        super(table);
+    public TableUpdateTool(String title, Table table, int width, int height) throws Exception {
+        super(title,width,height);
         this.table = table;
+        setUpRightUI();
 
+        ActionListener[] actionListeners = getCreateButton().getActionListeners();
+        for (ActionListener a : actionListeners)
+            getCreateButton().removeActionListener(a);
+
+        getTitleLabel().setText("Table Update Tool");
         getNameTextField().setText(table.getName());
         getNOfSeatsSpinner().setValue(table.getNOfSeats());
         getStateComboBox().setSelectedItem(table.getState());
@@ -38,9 +45,6 @@ public class TableUpdateTool extends TableCreationTool {
 
         getCreateButton().setText("Update");
         getCreateButton().setIcon(FontIcon.of(MaterialDesignU.UPDATE, 20));
-        getTitleLabel().setText("Table Update Tool");
-
-        setUpRightUI();
 
         addComponent(rightPanel, BorderLayout.EAST);
         tableController = new TableController(table, this);

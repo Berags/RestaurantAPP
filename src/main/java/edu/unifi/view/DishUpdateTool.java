@@ -14,8 +14,8 @@ public class DishUpdateTool extends DishCreationTool {
     private Dish dish;
     private static DishUpdateTool instance;
 
-    private DishUpdateTool(Dish dish) throws Exception {
-        super();
+    private DishUpdateTool(String title, Dish dish, int width, int height) throws Exception {
+        super(title,width,height);
         this.dish = dish;
 
         JButton updateButton = getCreateButton();
@@ -39,22 +39,19 @@ public class DishUpdateTool extends DishCreationTool {
         getDescriptionTextArea().setText(dish.getDescription());
 
         getTypeComboBox().setSelectedItem(dish.getTypeOfCourse().getName());
-        System.out.println(dish.getTypeOfCourse().getName());
 
         DishController.DishEditController dishEditController = new DishController.DishEditController(dish,this);
         dishEditController.addObserver(Notifier.getInstance());
         updateButton.addActionListener(dishEditController);
-        System.out.println(updateButton.getActionListeners().length);
-        System.out.println(dish.getId());
 
     }
 
-    public static DishUpdateTool getInstance(Dish d) throws Exception {
+    public static DishUpdateTool getInstance(String title, Dish d, int width, int height) throws Exception {
         DishUpdateTool thisInstance = instance;
         if (instance == null) {
             synchronized (DishUpdateTool.class) {
                 if (thisInstance == null)
-                    instance = thisInstance = new DishUpdateTool(d);
+                    instance = thisInstance = new DishUpdateTool(title, d, width, height);
             }
         }
         return thisInstance;

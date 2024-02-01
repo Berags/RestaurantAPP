@@ -70,7 +70,7 @@ public class DishItem {
         editButton.setIcon(FontIcon.of(MaterialDesignP.PENCIL, 20));
         editButton.addActionListener(e -> {
             try {
-                DishUpdateTool.getInstance(d).setVisible(true);
+                DishUpdateTool.getInstance("Dish update tool",d,400,300).setVisible(true);
             } catch (Exception exception) {
                 exception.printStackTrace();
             }

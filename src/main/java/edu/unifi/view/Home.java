@@ -73,8 +73,7 @@ public class Home extends Window {
         JMenuItem addTableMenuItem = new JMenuItem("Add Table");
         addTableMenuItem.addActionListener(e -> {
             try {
-                //new TableCreationTool();
-                TableCreationTool.getInstance();
+                TableCreationTool.getInstance("Table creation tool",400,300);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
@@ -98,7 +97,7 @@ public class Home extends Window {
         JMenuItem addDishItem = new JMenuItem("Add Dish");
         addDishItem.addActionListener(e -> {
             try {
-                DishCreationTool.getInstance();
+                DishCreationTool.getInstance("Dish creation tool",400,300);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
@@ -159,7 +158,7 @@ public class Home extends Window {
         button.setIcon(FontIcon.of(MaterialDesignT.TABLE_CHAIR, 40, Color.BLACK));
         button.addActionListener(e -> {
             try {
-                new TableUpdateTool(table);
+                new TableUpdateTool("Table update tool", table ,900,700);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
