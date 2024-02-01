@@ -55,6 +55,7 @@ public class DishCreationToolController extends Observable implements ActionList
         typeOfCourse.setName(Objects.requireNonNull(dishCreationTool.getTypeComboBox().getSelectedItem()).toString());
         dish.setTypeOfCourse((typeOfCourse));
 
+
         DishDAO.getInstance().insert(dish);
         setChanged();
         notifyObservers(Notifier.Message.build(MessageType.ADD_DISH, dish.getName() + " successfully added!"));

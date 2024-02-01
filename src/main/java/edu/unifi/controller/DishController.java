@@ -5,6 +5,7 @@ import edu.unifi.model.entities.Dish;
 import edu.unifi.model.entities.TypeOfCourse;
 import edu.unifi.model.orm.dao.DishDAO;
 import edu.unifi.view.DishUpdateTool;
+import edu.unifi.view.DishView;
 import org.apache.maven.shared.utils.StringUtils;
 
 import java.awt.event.ActionEvent;
@@ -14,10 +15,10 @@ import java.util.Objects;
 import java.util.Observable;
 
 public class DishController {
-    private List<Dish> dishes;
+    private static List<Dish> dishes;
 
     public List<Dish> getFilteredDishes(String filter) {
-        if (dishes == null)
+        if (dishes == null || dishes.isEmpty())
             dishes = DishDAO.getInstance().getAll();
         if (filter == null || filter.isEmpty())
             return dishes;
@@ -86,11 +87,14 @@ public class DishController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            dishes.remove(dish);
+            if (dishes.isEmpty())
+                dishes = null;
             DishDAO.getInstance().delete(dish);
             setChanged();
             notifyObservers(Notifier.Message.build(MessageType.DELETE_DISH, dish.getName() + " deleted successfully"));
 
         }
     }
+    public void setDishesToNull(){dishes = null;}
 }

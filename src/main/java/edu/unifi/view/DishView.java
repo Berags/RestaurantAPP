@@ -22,8 +22,9 @@ public class DishView extends Window {
     private final JScrollPane listScroller = new JScrollPane();
     private JPanel panel2;
     private JPanel listPanel;
-
     private static DishView instance;
+
+    private java.util.List<Dish> filteredDishes;
 
     /**
      * To have all the dishItems, complete with buildList()
@@ -46,6 +47,15 @@ public class DishView extends Window {
         addButton = new JButton();
         addButton.setText("add");
         addButton.setIcon(FontIcon.of(MaterialDesignP.PLUS_BOX, 20));
+
+        addButton.addActionListener(e -> {
+            try {
+                DishCreationTool.getInstance("Dish creation tool",400,300);
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
         GridBagConstraints gbc;
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
@@ -164,7 +174,7 @@ public class DishView extends Window {
     }
 
     public void buildList() {
-        java.util.List<Dish> filteredDishes = dishController.getFilteredDishes(searchTextField.getText() == null ? "" : searchTextField.getText());
+        filteredDishes = dishController.getFilteredDishes(searchTextField.getText() == null ? "" : searchTextField.getText());
         listPanel = new JPanel(new GridLayout(filteredDishes.size(), 1));
         int index = 0;
 
@@ -178,12 +188,8 @@ public class DishView extends Window {
     }
 
     public void updateList(){
-        panel2.setVisible(false);
         buildList();
         listScroller.setViewportView(listPanel);
-        listScroller.invalidate();
-        listScroller.validate();
-        listScroller.repaint();
-        panel2.setVisible(true);
     }
+    public DishController getDishController(){return dishController;}
 }
