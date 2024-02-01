@@ -6,17 +6,9 @@ import edu.unifi.model.entities.TypeOfCourse;
 import edu.unifi.model.orm.dao.DishDAO;
 import edu.unifi.view.DishCreationTool;
 import org.apache.maven.shared.utils.StringUtils;
-import org.kordamp.ikonli.materialdesign2.MaterialDesignA;
-import org.kordamp.ikonli.materialdesign2.MaterialDesignC;
-import org.kordamp.ikonli.swing.FontIcon;
 
-import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.Observable;
 

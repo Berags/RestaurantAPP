@@ -23,7 +23,9 @@ public class DishView extends Window {
     private JPanel panel2;
     private JPanel listPanel;
 
-    public DishView(DishController dishController) throws Exception {
+    private static DishView instance;
+
+    private DishView(DishController dishController) throws Exception {
         super("Dishes", false, DISPOSE_ON_CLOSE, 0, 0, 600, 600);
         this.dishController = dishController;
 
@@ -142,89 +144,32 @@ public class DishView extends Window {
         panel3.add(typeLabel, gbc);
     }
 
+    public static DishView getInstance(DishController dishController) throws Exception {
+        DishView thisInstance = instance;
+        if (instance == null) {
+            synchronized (DishView.class) {
+                if (thisInstance == null)
+                    instance = thisInstance = new DishView(dishController);
+            }
+        }
+        return thisInstance;
+    }
+
+    //to "reset" the singleton
+    @Override
+    public void dispose() {
+        instance = null;
+        super.dispose();
+    }
+
     private void buildList() {
         java.util.List<Dish> filteredDishes = dishController.getFilteredDishes(searchTextField.getText() == null ? "" : searchTextField.getText());
         listPanel = new JPanel(new GridLayout(filteredDishes.size(), 1));
         int index = 0;
 
         for (var d : filteredDishes) {
-            GridBagConstraints gbc;
-            JPanel listPanel = new JPanel();
-            GridBagLayout layout = new GridBagLayout();
-            listPanel.setLayout(layout);
-            JLabel dishIdLabel = new JLabel();
-            dishIdLabel.setText(d.getId().toString());
-            gbc = new GridBagConstraints();
-            gbc.gridx = 0;
-            gbc.gridy = 0;
-            gbc.weightx = 0.2;
-            gbc.fill = GridBagConstraints.BOTH;
-            listPanel.add(dishIdLabel, gbc);
-            final JPanel spacer5 = new JPanel();
-            gbc = new GridBagConstraints();
-            gbc.gridx = 1;
-            gbc.gridy = 0;
-            gbc.fill = GridBagConstraints.HORIZONTAL;
-            listPanel.add(spacer5, gbc);
-            final JPanel spacer6 = new JPanel();
-            gbc = new GridBagConstraints();
-            gbc.gridx = 0;
-            gbc.gridy = 1;
-            gbc.fill = GridBagConstraints.VERTICAL;
-            listPanel.add(spacer6, gbc);
-            JLabel dishNameLabel = new JLabel();
-            dishNameLabel.setText(d.getName());
-            gbc = new GridBagConstraints();
-            gbc.gridx = 2;
-            gbc.gridy = 0;
-            gbc.weightx = 0.8;
-            gbc.fill = GridBagConstraints.HORIZONTAL;
-            gbc.anchor = GridBagConstraints.WEST;
-            listPanel.add(dishNameLabel, gbc);
-            JLabel dishTypeLabel = new JLabel();
-            dishTypeLabel.setText(d.getTypeOfCourse().getName());
-            gbc = new GridBagConstraints();
-            gbc.gridx = 3;
-            gbc.gridy = 0;
-            gbc.weightx = 0.6;
-            gbc.fill = GridBagConstraints.HORIZONTAL;
-            gbc.anchor = GridBagConstraints.WEST;
-            listPanel.add(dishTypeLabel, gbc);
-            JPanel actionTestPanel = new JPanel();
-            actionTestPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-            gbc = new GridBagConstraints();
-            gbc.gridx = 4;
-            gbc.gridy = 0;
-            gbc.weightx = 0.2;
-            gbc.fill = GridBagConstraints.BOTH;
-            listPanel.add(actionTestPanel, gbc);
-            JButton editButton = new JButton();
-            editButton.setHideActionText(false);
-            editButton.setHorizontalAlignment(0);
-            editButton.setHorizontalTextPosition(0);
-            editButton.setIcon(FontIcon.of(MaterialDesignP.PENCIL, 20));
-            editButton.addActionListener(e -> {
-                try {
-                    new DishUpdateTool(d).setVisible(true);
-                } catch (Exception exception) {
-                    exception.printStackTrace();
-                }
-            });
-
-            actionTestPanel.add(editButton);
-            JButton deleteButton = new JButton();
-            deleteButton.setHideActionText(false);
-            deleteButton.setHorizontalAlignment(0);
-            deleteButton.setHorizontalTextPosition(0);
-            deleteButton.setIcon(FontIcon.of(MaterialDesignD.DELETE, 20));
-            actionTestPanel.add(deleteButton);
-
-            gbc = new GridBagConstraints();
-            gbc.gridx = 0;
-            gbc.gridy = index++;
-            gbc.weighty = 0.1;
-            listPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
-            this.listPanel.add(listPanel);
+            DishItem DI = new DishItem(d,index);
+            this.listPanel.add(DI.getListPanel());
         }
     }
 }

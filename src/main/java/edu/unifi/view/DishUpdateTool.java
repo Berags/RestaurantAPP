@@ -12,8 +12,9 @@ import java.awt.event.ActionListener;
 public class DishUpdateTool extends DishCreationTool {
 
     private Dish dish;
+    private static DishUpdateTool instance;
 
-    public DishUpdateTool(Dish dish) throws Exception {
+    private DishUpdateTool(Dish dish) throws Exception {
         super();
         this.dish = dish;
 
@@ -46,6 +47,24 @@ public class DishUpdateTool extends DishCreationTool {
         System.out.println(updateButton.getActionListeners().length);
         System.out.println(dish.getId());
 
+    }
+
+    public static DishUpdateTool getInstance(Dish d) throws Exception {
+        DishUpdateTool thisInstance = instance;
+        if (instance == null) {
+            synchronized (DishUpdateTool.class) {
+                if (thisInstance == null)
+                    instance = thisInstance = new DishUpdateTool(d);
+            }
+        }
+        return thisInstance;
+    }
+
+    //to "reset" the singleton
+    @Override
+    public void dispose() {
+        instance = null;
+        super.dispose();
     }
 
     public Dish getDish() {

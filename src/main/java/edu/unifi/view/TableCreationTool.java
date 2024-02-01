@@ -32,15 +32,14 @@ public class TableCreationTool extends Window {
     private JComboBox<String> roomComboBox;
     private List<Room> rooms;
 
+    /**
+     * constructor created to allow TableUpdateTool to inherit
+     * @param table
+     * @throws Exception
+     */
     protected TableCreationTool(Table table) throws Exception {
         super("Table Update Tool", false, JFrame.DISPOSE_ON_CLOSE, 0, 0, 900, 700);
         setUpUI();
-        nameTextField.setText(table.getName());
-        nOfSeatsSpinner.setValue(table.getNOfSeats());
-        stateComboBox.setSelectedItem(table.getState());
-        roomComboBox.setSelectedItem(table.getRoom().getName());
-        createButton.setText("Update");
-
         setVisible(true);
     }
 
@@ -193,7 +192,12 @@ public class TableCreationTool extends Window {
         addComponent(panel, BorderLayout.CENTER);
     }
 
-    //singleton
+    /**
+     * To implement the Singleton: we don't want to create a window
+     * every time the user clicks on "add table", we need only one.
+     * @return
+     * @throws Exception
+     */
     public static TableCreationTool getInstance() throws Exception {
         TableCreationTool thisInstance = instance;
         if (instance == null) {
@@ -205,7 +209,9 @@ public class TableCreationTool extends Window {
         return thisInstance;
     }
 
-    //to "reset" the singleton
+    /**
+     * to "reset" the Singleton
+     */
     @Override
     public void dispose() {
         instance = null;

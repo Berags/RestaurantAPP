@@ -85,7 +85,7 @@ public class Home extends Window {
         JMenuItem removeTableMenuItem = new JMenuItem("Remove Table");
         removeTableMenuItem.addActionListener(e -> {
             try {
-                new TableDeletionTool();
+                TableDeletionTool.getInstance();
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
@@ -109,7 +109,7 @@ public class Home extends Window {
         editDishItem.addActionListener(e -> {
             try {
                 DishController dishController = new DishController();
-                new DishView(dishController);
+                DishView.getInstance(dishController);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
