@@ -29,7 +29,7 @@ public class TableUpdateTool extends TableCreationTool {
     private final TableController tableController;
 
     public TableUpdateTool(String title, Table table, int width, int height) throws Exception {
-        super(title,width,height);
+        super(title, width, height);
         this.table = table;
         setUpRightUI();
 

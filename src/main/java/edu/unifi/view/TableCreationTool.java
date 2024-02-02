@@ -31,9 +31,7 @@ public class TableCreationTool extends Window {
     private JLabel roomLabel;
     private JComboBox<String> roomComboBox;
     private List<Room> rooms;
-
     private JPanel panel;
-
     private static volatile TableCreationTool instance = null;
 
     protected TableCreationTool(String title, int width, int height) throws Exception {
@@ -185,6 +183,7 @@ public class TableCreationTool extends Window {
     /**
      * To implement the Singleton: we don't want to create a window
      * every time the user clicks on "add table", we need only one.
+     *
      * @return
      * @throws Exception
      */
@@ -326,5 +325,7 @@ public class TableCreationTool extends Window {
         TableCreationTool.instance = instance;
     }
 
-    public JPanel getPanel(){return panel;}
+    public JPanel getPanel() {
+        return panel;
+    }
 }

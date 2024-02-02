@@ -4,13 +4,17 @@ import edu.unifi.controller.MessageType;
 import edu.unifi.view.DishCreationTool;
 import edu.unifi.view.DishView;
 import edu.unifi.view.Home;
+import edu.unifi.view.Login;
 
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 
 public class Notifier implements Observer {
     private volatile static Notifier instance = null;
     private Home home;
+    private Login login;
 
     private DishView dishView;
 
@@ -40,7 +44,7 @@ public class Notifier implements Observer {
             }
             case ADD_DISH -> {
                 home.showResultDialog(message.getStringMessage(), true);
-                if(!(dishView == null)) {
+                if (!Objects.isNull(dishView)) {
                     dishView.getDishController().setDishesToNull();
                     dishView.updateList();
                 }
@@ -69,6 +73,9 @@ public class Notifier implements Observer {
                 home.dispose();
                 Main.notifyExit();
             }
+            case WRONG_CREDENTIALS -> {
+                login.showResultDialog("Username or password is not correct!");
+            }
             default -> throw new IllegalStateException("Unexpected value: " + toDisplay);
         }
     }
@@ -76,7 +83,14 @@ public class Notifier implements Observer {
     public void setHome(Home home) {
         this.home = home;
     }
-    public void setDishView(DishView dishView){this.dishView = dishView;}
+
+    public void setDishView(DishView dishView) {
+        this.dishView = dishView;
+    }
+
+    public void setLogin(Login login) {
+        this.login = login;
+    }
 
     public record Message(MessageType type, Object message) {
         public static Message build(MessageType type, String message) {

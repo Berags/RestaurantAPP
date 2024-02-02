@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 public class DishUpdateTool extends DishCreationTool {
 
     private Dish dish;
-    private static DishUpdateTool instance;
+    private static volatile DishUpdateTool instance;
 
     private DishUpdateTool(String title, Dish dish, int width, int height) throws Exception {
         super(title,width,height);
@@ -47,7 +47,6 @@ public class DishUpdateTool extends DishCreationTool {
 
         dishEditController.addObserver(notifier);
         updateButton.addActionListener(dishEditController);
-
     }
 
     public static DishUpdateTool getInstance(String title, Dish d, int width, int height) throws Exception {

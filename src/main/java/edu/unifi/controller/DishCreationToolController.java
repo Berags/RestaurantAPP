@@ -13,7 +13,6 @@ import java.util.Objects;
 import java.util.Observable;
 
 public class DishCreationToolController extends Observable implements ActionListener {
-
     private final DishCreationTool dishCreationTool;
 
     public DishCreationToolController(DishCreationTool dishCreationTool) {
@@ -33,7 +32,7 @@ public class DishCreationToolController extends Observable implements ActionList
         dish.setName(dishName);
 
         String priceString = null;
-        Integer price = 0;
+        int price = 0;
 
         try {
             priceString = dishCreationTool.getPriceTextField().getText();

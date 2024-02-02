@@ -12,10 +12,10 @@ import java.awt.*;
 
 public class DishItem {
 
-    private JPanel listPanel;
-    private Dish dish;
+    private final JPanel listPanel;
+    private final Dish dish;
 
-    DishItem(Dish d, int index){
+    DishItem(Dish d, int index) {
         this.dish = d;
         GridBagConstraints gbc;
         listPanel = new JPanel();
@@ -74,7 +74,7 @@ public class DishItem {
         editButton.setIcon(FontIcon.of(MaterialDesignP.PENCIL, 20));
         editButton.addActionListener(e -> {
             try {
-                DishUpdateTool.getInstance("Dish update tool",d,400,300).setVisible(true);
+                DishUpdateTool.getInstance("Dish update tool", d, 400, 300).setVisible(true);
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
@@ -94,7 +94,8 @@ public class DishItem {
             Notifier notifier = Notifier.getInstance();
             notifier.setDishView(DishView.getInstance(new DishController()));
             dishDeletionController.addObserver(notifier);
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
         deleteButton.addActionListener(dishDeletionController);
         actionTestPanel.add(deleteButton);
 
@@ -105,5 +106,7 @@ public class DishItem {
         listPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
     }
 
-    JPanel getListPanel(){return listPanel;}
+    JPanel getListPanel() {
+        return listPanel;
+    }
 }

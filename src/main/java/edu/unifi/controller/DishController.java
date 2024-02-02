@@ -27,7 +27,7 @@ public class DishController {
 
     public static class DishEditController extends Observable implements ActionListener {
         private final Dish dish;
-        private DishUpdateTool dishUpdateTool;
+        private final DishUpdateTool dishUpdateTool;
 
         public DishEditController(Dish dish, DishUpdateTool dishUpdateTool) {
             this.dish = dish;
@@ -36,7 +36,6 @@ public class DishController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-
             String dishName = dishUpdateTool.getNameTextField().getText();
             if (StringUtils.isBlank(dishName)) {
                 setChanged();
@@ -46,16 +45,16 @@ public class DishController {
             dish.setName(dishName);
 
             String priceString = null;
-            Integer price = 0;
+            int price = 0;
 
             try {
                 priceString = dishUpdateTool.getPriceTextField().getText();
                 String[] decimals = priceString.split("\\.");
-                if(decimals.length < 2 || decimals[1].length() > 2){
+                if (decimals.length < 2 || decimals[1].length() > 2) {
                     throw new NumberFormatException();
                 }
-                price = Integer.parseInt(dishUpdateTool.getPriceTextField().getText().replace(".",""));
-            }catch(NumberFormatException ex) {
+                price = Integer.parseInt(dishUpdateTool.getPriceTextField().getText().replace(".", ""));
+            } catch (NumberFormatException ex) {
 
                 setChanged();
                 notifyObservers(Notifier.Message.build(MessageType.ERROR, "The price must be in \nthe format intPrice.xx"));
@@ -76,13 +75,11 @@ public class DishController {
         }
     }
 
-    public static class DishDeletionController extends Observable implements ActionListener{
-
+    public static class DishDeletionController extends Observable implements ActionListener {
         private final Dish dish;
-        public DishDeletionController(Dish dish){
 
+        public DishDeletionController(Dish dish) {
             this.dish = dish;
-
         }
 
         @Override
@@ -93,8 +90,10 @@ public class DishController {
             DishDAO.getInstance().delete(dish);
             setChanged();
             notifyObservers(Notifier.Message.build(MessageType.DELETE_DISH, dish.getName() + " deleted successfully"));
-
         }
     }
-    public void setDishesToNull(){dishes = null;}
+
+    public void setDishesToNull() {
+        dishes = null;
+    }
 }

@@ -35,11 +35,11 @@ public class DishView extends Window {
         super("Dishes", false, DISPOSE_ON_CLOSE, 0, 0, 600, 600);
         this.dishController = dishController;
 
-        setupUi();
+        setupUI();
         setVisible(true);
     }
 
-    private void setupUi() throws Exception {
+    private void setupUI() throws Exception {
         setRootLayout(Layout.BORDER);
         final JPanel panel1 = new JPanel();
         panel1.setLayout(new GridBagLayout());
@@ -181,6 +181,7 @@ public class DishView extends Window {
         for (var d : filteredDishes) {
             DishItem DI = new DishItem(d,index);
             this.listPanel.add(DI.getListPanel());
+            index++;
         }
 
         listScroller.setViewportView(listPanel);
