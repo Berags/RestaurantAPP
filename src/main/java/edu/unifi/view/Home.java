@@ -1,6 +1,7 @@
 package edu.unifi.view;
 
 import edu.unifi.Notifier;
+import edu.unifi.controller.DishController;
 import edu.unifi.controller.ExitController;
 import edu.unifi.controller.HomeController;
 import edu.unifi.model.entities.Room;
@@ -50,7 +51,7 @@ public class Home extends Window {
         /* MENU*/
         JMenu optionsMenu = new JMenu("Options");
         JMenu tablesMenu = new JMenu("Tables");
-        JMenu dishesMenu = new JMenu("Dishes");
+        JMenu dishesMenu = new JMenu("Menu");
 
         databaseMenu.setIcon(FontIcon.of(MaterialDesignD.DATABASE_CHECK, 20, Color.GREEN));
         databaseMenu.setPreferredSize(new Dimension(100, 20));
@@ -72,8 +73,7 @@ public class Home extends Window {
         JMenuItem addTableMenuItem = new JMenuItem("Add Table");
         addTableMenuItem.addActionListener(e -> {
             try {
-                //new TableCreationTool();
-                TableCreationTool.getInstance();
+                TableCreationTool.getInstance("Table creation tool",400,300);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
@@ -84,7 +84,7 @@ public class Home extends Window {
         JMenuItem removeTableMenuItem = new JMenuItem("Remove Table");
         removeTableMenuItem.addActionListener(e -> {
             try {
-                new TableDeletionTool();
+                TableDeletionTool.getInstance();
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
@@ -97,19 +97,25 @@ public class Home extends Window {
         JMenuItem addDishItem = new JMenuItem("Add Dish");
         addDishItem.addActionListener(e -> {
             try {
-                DishCreationTool.getInstance();
+                DishCreationTool.getInstance("Dish creation tool",400,300);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
         });
 
 
-        JMenuItem removeDishItem = new JMenuItem("Remove Dish");
-        JMenuItem EditDishItem = new JMenuItem("Edit Dish");
+        JMenuItem editDishItem = new JMenuItem("Edit Menu");
+        editDishItem.addActionListener(e -> {
+            try {
+                DishController dishController = new DishController();
+                DishView.getInstance(dishController).buildList();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        });
 
         dishesMenu.add(addDishItem);
-        dishesMenu.add(removeDishItem);
-        dishesMenu.add(EditDishItem);
+        dishesMenu.add(editDishItem);
 
         addMenuEntries(new Component[]{optionsMenu, tablesMenu, dishesMenu, Box.createHorizontalGlue(), databaseMenu});
         setVisible(true);
@@ -152,7 +158,7 @@ public class Home extends Window {
         button.setIcon(FontIcon.of(MaterialDesignT.TABLE_CHAIR, 40, Color.BLACK));
         button.addActionListener(e -> {
             try {
-                new TableUpdateTool(table);
+                new TableUpdateTool("Table update tool", table ,900,700);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }

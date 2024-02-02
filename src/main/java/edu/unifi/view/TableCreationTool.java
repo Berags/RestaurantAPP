@@ -19,10 +19,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class TableCreationTool extends Window {
-    private JTextField nameTextField;
-    private JSpinner nOfSeatsSpinner;
+    protected JTextField nameTextField;
+    protected JSpinner nOfSeatsSpinner;
     private JComboBox stateComboBox;
-    private JLabel nameLabel;
+    protected JLabel nameLabel;
     private JLabel nOfSeatsLabel;
     private JButton createButton;
     private JLabel stateLabel;
@@ -31,24 +31,11 @@ public class TableCreationTool extends Window {
     private JLabel roomLabel;
     private JComboBox<String> roomComboBox;
     private List<Room> rooms;
-
-    protected TableCreationTool(Table table) throws Exception {
-        super("Table Update Tool", false, JFrame.DISPOSE_ON_CLOSE, 0, 0, 900, 700);
-        setUpUI();
-        nameTextField.setText(table.getName());
-        nOfSeatsSpinner.setValue(table.getNOfSeats());
-        stateComboBox.setSelectedItem(table.getState());
-        roomComboBox.setSelectedItem(table.getRoom().getName());
-        createButton.setText("Update");
-
-        setVisible(true);
-    }
-
+    private JPanel panel;
     private static volatile TableCreationTool instance = null;
 
-
-    protected TableCreationTool() throws Exception {
-        super("Table Creation Tool", false, JFrame.DISPOSE_ON_CLOSE, 0, 0, 400, 300);
+    protected TableCreationTool(String title, int width, int height) throws Exception {
+        super(title, false, JFrame.DISPOSE_ON_CLOSE, 0, 0, width, height);
         setUpUI();
 
         TableCreationToolController tableCreationToolController = new TableCreationToolController(this);
@@ -65,7 +52,7 @@ public class TableCreationTool extends Window {
         if (titleLabelFont != null) titleLabel.setFont(titleLabelFont);
         titleLabel.setHorizontalAlignment(0);
         titleLabel.setText("Table Creation Tool");
-        final JPanel panel = new JPanel();
+        panel = new JPanel();
         panel.setLayout(new GridBagLayout());
         panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
         nameLabel = new JLabel();
@@ -193,19 +180,27 @@ public class TableCreationTool extends Window {
         addComponent(panel, BorderLayout.CENTER);
     }
 
-    //singleton
-    public static TableCreationTool getInstance() throws Exception {
+    /**
+     * To implement the Singleton: we don't want to create a window
+     * every time the user clicks on "add table", we need only one.
+     *
+     * @return
+     * @throws Exception
+     */
+    public static TableCreationTool getInstance(String title, int width, int height) throws Exception {
         TableCreationTool thisInstance = instance;
         if (instance == null) {
             synchronized (TableCreationTool.class) {
                 if (thisInstance == null)
-                    instance = thisInstance = new TableCreationTool();
+                    instance = thisInstance = new TableCreationTool(title, width, height);
             }
         }
         return thisInstance;
     }
 
-    //to "reset" the singleton
+    /**
+     * to "reset" the Singleton
+     */
     @Override
     public void dispose() {
         instance = null;
@@ -288,5 +283,49 @@ public class TableCreationTool extends Window {
 
     public Room getRoom() {
         return rooms.get(roomComboBox.getSelectedIndex());
+    }
+
+    public JSpinner getnOfSeatsSpinner() {
+        return nOfSeatsSpinner;
+    }
+
+    public void setnOfSeatsSpinner(JSpinner nOfSeatsSpinner) {
+        this.nOfSeatsSpinner = nOfSeatsSpinner;
+    }
+
+    public FontIcon getCreateFontIcon() {
+        return createFontIcon;
+    }
+
+    public void setCreateFontIcon(FontIcon createFontIcon) {
+        this.createFontIcon = createFontIcon;
+    }
+
+    public JLabel getRoomLabel() {
+        return roomLabel;
+    }
+
+    public void setRoomLabel(JLabel roomLabel) {
+        this.roomLabel = roomLabel;
+    }
+
+    public void setRoomComboBox(JComboBox<String> roomComboBox) {
+        this.roomComboBox = roomComboBox;
+    }
+
+    public List<Room> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(List<Room> rooms) {
+        this.rooms = rooms;
+    }
+
+    public static void setInstance(TableCreationTool instance) {
+        TableCreationTool.instance = instance;
+    }
+
+    public JPanel getPanel() {
+        return panel;
     }
 }

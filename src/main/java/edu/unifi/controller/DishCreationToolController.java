@@ -13,7 +13,6 @@ import java.util.Objects;
 import java.util.Observable;
 
 public class DishCreationToolController extends Observable implements ActionListener {
-
     private final DishCreationTool dishCreationTool;
 
     public DishCreationToolController(DishCreationTool dishCreationTool) {
@@ -31,11 +30,30 @@ public class DishCreationToolController extends Observable implements ActionList
             return;
         }
         dish.setName(dishName);
-        dish.setPrice(Integer.valueOf(String.format("%.2f", (Double) dishCreationTool.getPriceSpinner().getValue()).replace(",", "")));
+
+        String priceString = null;
+        int price = 0;
+
+        try {
+            priceString = dishCreationTool.getPriceTextField().getText();
+            String[] decimals = priceString.split("\\.");
+            if(decimals.length < 2 || decimals[1].length() > 2){
+                throw new NumberFormatException();
+            }
+            price = Integer.parseInt(dishCreationTool.getPriceTextField().getText().replace(".",""));
+        }catch(NumberFormatException ex) {
+
+            setChanged();
+            notifyObservers(Notifier.Message.build(MessageType.ERROR, "The price must be in \nthe format intPrice.xx"));
+            return;
+        }
+
+        dish.setPrice(price);
         dish.setDescription(dishCreationTool.getDescriptionLabel().getText());
         TypeOfCourse typeOfCourse = new TypeOfCourse();
         typeOfCourse.setName(Objects.requireNonNull(dishCreationTool.getTypeComboBox().getSelectedItem()).toString());
         dish.setTypeOfCourse((typeOfCourse));
+
 
         DishDAO.getInstance().insert(dish);
         setChanged();

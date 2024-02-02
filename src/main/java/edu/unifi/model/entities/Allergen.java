@@ -15,7 +15,7 @@ public class Allergen {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @ManyToMany(mappedBy = "allergens", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    @ManyToMany(mappedBy = "allergens")
     private Set<Ingredient> ingredients = new LinkedHashSet<>();
 
     public Set<Ingredient> getIngredients() {

@@ -2,14 +2,21 @@ package edu.unifi;
 
 import edu.unifi.controller.MessageType;
 import edu.unifi.view.DishCreationTool;
+import edu.unifi.view.DishView;
 import edu.unifi.view.Home;
+import edu.unifi.view.Login;
 
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 
 public class Notifier implements Observer {
     private volatile static Notifier instance = null;
     private Home home;
+    private Login login;
+
+    private DishView dishView;
 
     private Notifier() throws Exception {
         if (instance != null)
@@ -37,12 +44,18 @@ public class Notifier implements Observer {
             }
             case ADD_DISH -> {
                 home.showResultDialog(message.getStringMessage(), true);
+                if (!Objects.isNull(dishView)) {
+                    dishView.getDishController().setDishesToNull();
+                    dishView.updateList();
+                }
             }
             case DELETE_DISH -> {
                 home.showResultDialog("Dish deleted successfully", true);
+                dishView.updateList();
             }
             case UPDATE_DISH -> {
                 home.showResultDialog("Dish updated successfully", true);
+                dishView.updateList();
             }
             case ADD_ROOM -> {
                 home.showResultDialog("Room added successfully", true);
@@ -60,12 +73,23 @@ public class Notifier implements Observer {
                 home.dispose();
                 Main.notifyExit();
             }
+            case WRONG_CREDENTIALS -> {
+                login.showResultDialog("Username or password is not correct!");
+            }
             default -> throw new IllegalStateException("Unexpected value: " + toDisplay);
         }
     }
 
     public void setHome(Home home) {
         this.home = home;
+    }
+
+    public void setDishView(DishView dishView) {
+        this.dishView = dishView;
+    }
+
+    public void setLogin(Login login) {
+        this.login = login;
     }
 
     public record Message(MessageType type, Object message) {

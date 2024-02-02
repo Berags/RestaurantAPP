@@ -1,6 +1,10 @@
 package edu.unifi.view;
 
+import edu.unifi.Notifier;
 import edu.unifi.controller.LoginController;
+import org.kordamp.ikonli.materialdesign2.MaterialDesignA;
+import org.kordamp.ikonli.materialdesign2.MaterialDesignC;
+import org.kordamp.ikonli.swing.FontIcon;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -75,7 +79,12 @@ public class Login extends Window {
         loginPane.add(usernameLabel, gbc);
         loginButton = new JButton();
         loginButton.setText("Login");
-        loginButton.addActionListener(new LoginController(this));
+
+        LoginController loginController = new LoginController(this);
+        loginController.addObserver(Notifier.getInstance());
+        Notifier.getInstance().setLogin(this);
+
+        loginButton.addActionListener(loginController);
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 3;
@@ -102,5 +111,11 @@ public class Login extends Window {
 
     public CountDownLatch getLoginLatch() {
         return loginLatch;
+    }
+
+    public void showResultDialog(String message) {
+        JOptionPane.showMessageDialog(null, message, "Wrong Credentials!",
+                JOptionPane.ERROR_MESSAGE,
+                FontIcon.of(MaterialDesignA.ALERT_RHOMBUS_OUTLINE, 40, Color.RED));
     }
 }

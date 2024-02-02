@@ -18,7 +18,9 @@ public class TableDeletionTool extends Window {
     private final HashMap<String, java.util.List<Table>> roomTableHashMap = new HashMap<>();
     private final TableDeletionToolController tableDeletionToolController;
 
-    public TableDeletionTool() throws Exception {
+    private static TableDeletionTool instance;
+
+    private TableDeletionTool() throws Exception {
         super("Delete", false, JFrame.DISPOSE_ON_CLOSE, 0, 0, 400, 300);
 
         tableDeletionToolController = new TableDeletionToolController(this);
@@ -126,6 +128,32 @@ public class TableDeletionTool extends Window {
         addComponent(panel1, BorderLayout.CENTER);
 
         setVisible(true);
+    }
+
+    /**
+     * To implement the Singleton: we don't want to create a window
+     * every time the user clicks on "remove table", we need only one.
+     * @return
+     * @throws Exception
+     */
+    public static TableDeletionTool getInstance() throws Exception {
+        TableDeletionTool thisInstance = instance;
+        if (instance == null) {
+            synchronized (TableDeletionTool.class) {
+                if (thisInstance == null)
+                    instance = thisInstance = new TableDeletionTool();
+            }
+        }
+        return thisInstance;
+    }
+
+    /**
+     * to "reset" the Singleton
+     */
+    @Override
+    public void dispose() {
+        instance = null;
+        super.dispose();
     }
 
     public Long getSelectedTableId() {
