@@ -1,6 +1,7 @@
 package edu.unifi.view;
 
 import edu.unifi.Notifier;
+import edu.unifi.controller.OrderController;
 import edu.unifi.controller.TableController;
 import edu.unifi.model.entities.Table;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
@@ -24,7 +25,6 @@ public class TableUpdateTool extends TableCreationTool {
     private JLabel actionsLabel;
     private JPanel bottomPanel;
     private JLabel receiptTotalLabel;
-    private JPanel bottomActionsLabel;
     private Table table;
     private final TableController tableController;
 
@@ -46,7 +46,6 @@ public class TableUpdateTool extends TableCreationTool {
         getCreateButton().setText("Update");
         getCreateButton().setIcon(FontIcon.of(MaterialDesignU.UPDATE, 20));
 
-        addComponent(rightPanel, BorderLayout.EAST);
         tableController = new TableController(table, this);
         tableController.addObserver(Notifier.getInstance());
         getCreateButton().addActionListener(tableController);
@@ -55,7 +54,16 @@ public class TableUpdateTool extends TableCreationTool {
     }
 
     private void setUpRightUI() {
+
+        JPanel leftPanel = getLeftPanel();
+        JPanel gridPanel = getGridPanel();
+        gridPanel.removeAll();
+        gridPanel.setLayout(new GridLayout(0,2));
+
+        gridPanel.add(leftPanel);
+
         rightPanel = new JPanel();
+
         rightPanel.setLayout(new BorderLayout(0, 0));
         Font rightPanelFont = getFont(null, Font.BOLD, 18, rightPanel.getFont());
         if (rightPanelFont != null) rightPanel.setFont(rightPanelFont);
@@ -69,7 +77,9 @@ public class TableUpdateTool extends TableCreationTool {
         Font dishLabelFont = getFont(null, Font.BOLD, 18, dishLabel.getFont());
         if (dishLabelFont != null) dishLabel.setFont(dishLabelFont);
         dishLabel.setText("Dish");
+
         GridBagConstraints gbc;
+
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 1;
@@ -136,48 +146,59 @@ public class TableUpdateTool extends TableCreationTool {
         gbc.gridy = 0;
         gbc.fill = GridBagConstraints.VERTICAL;
         labelPanel.add(spacer5, gbc);
+
+
+        JPanel orderPanel = new JPanel();
+        rightPanel.add(orderPanel, BorderLayout.CENTER);
+
+
         bottomPanel = new JPanel();
-        bottomPanel.setLayout(new BorderLayout(0, 0));
+        bottomPanel.setLayout(new GridBagLayout());
         rightPanel.add(bottomPanel, BorderLayout.SOUTH);
-        bottomActionsLabel = new JPanel();
-        bottomActionsLabel.setLayout(new GridBagLayout());
-        bottomPanel.add(bottomActionsLabel, BorderLayout.SOUTH);
         addButton = new JButton();
         addButton.setText("Add");
         addButton.setIcon(FontIcon.of(MaterialDesignP.PLUS_BOX_OUTLINE, 20));
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.weightx = 1.0;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        bottomActionsLabel.add(addButton, gbc);
-        final JPanel spacer6 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        bottomActionsLabel.add(spacer6, gbc);
-        final JPanel spacer7 = new JPanel();
+        addButton.addActionListener(e -> {
+            try {
+                //TODO add get instance with singleton
+                new OrderCreationTool(new OrderController());
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        });
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 1;
+        gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        bottomPanel.add(addButton, gbc);
+        final JPanel spacer6 = new JPanel();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        bottomPanel.add(spacer6,gbc);
+        final JPanel spacer7 = new JPanel();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 2;
         gbc.fill = GridBagConstraints.VERTICAL;
-        bottomActionsLabel.add(spacer7, gbc);
+        bottomPanel.add(spacer7,gbc);
         printReceiptButton = new JButton();
         printReceiptButton.setText("Print Receipt");
         printReceiptButton.setIcon(FontIcon.of(MaterialDesignP.PRINTER, 20));
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
-        gbc.gridy = 0;
+        gbc.gridy = 1;
         gbc.weightx = 1.0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        bottomActionsLabel.add(printReceiptButton, gbc);
+        bottomPanel.add(printReceiptButton,gbc);
         final JPanel spacer8 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
-        gbc.gridy = 0;
+        gbc.gridy = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        bottomActionsLabel.add(spacer8, gbc);
+        bottomPanel.add(spacer8,gbc);
         totalField = new JFormattedTextField();
         totalField.setDragEnabled(false);
         totalField.setEditable(false);
@@ -186,15 +207,23 @@ public class TableUpdateTool extends TableCreationTool {
         totalField.setVisible(true);
         gbc = new GridBagConstraints();
         gbc.gridx = 4;
-        gbc.gridy = 0;
+        gbc.gridy = 1;
         gbc.weightx = 1.0;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        bottomActionsLabel.add(totalField, gbc);
+        bottomPanel.add(totalField, gbc);
         receiptTotalLabel = new JLabel();
-        receiptTotalLabel.setHorizontalAlignment(4);
-        receiptTotalLabel.setHorizontalTextPosition(4);
         receiptTotalLabel.setText("TOTAL");
-        bottomPanel.add(receiptTotalLabel, BorderLayout.NORTH);
+        gbc = new GridBagConstraints();
+        gbc.gridx = 4;
+        gbc.gridy = 0;
+        gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        bottomPanel.add(receiptTotalLabel, gbc);
+        rightPanel.setVisible(true);
+        gridPanel.add(rightPanel);
+        setRightPanel(rightPanel);
+        setGridPanel(gridPanel);
+        setGridPanel(gridPanel);
     }
 }

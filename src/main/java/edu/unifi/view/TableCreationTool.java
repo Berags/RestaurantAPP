@@ -31,7 +31,12 @@ public class TableCreationTool extends Window {
     private JLabel roomLabel;
     private JComboBox<String> roomComboBox;
     private List<Room> rooms;
-    private JPanel panel;
+    private JPanel gridPanel;
+
+    private JPanel rightPanel;
+
+    private JPanel leftPanel;
+
     private static volatile TableCreationTool instance = null;
 
     protected TableCreationTool(String title, int width, int height) throws Exception {
@@ -46,15 +51,21 @@ public class TableCreationTool extends Window {
     }
 
     private void setUpUI() throws Exception {
-        setRootLayout(Layout.BORDER, 0, 0);
+
+        gridPanel = (JPanel) getContentPane();
+        gridPanel.setLayout(new BorderLayout());
+
         titleLabel = new JLabel();
         Font titleLabelFont = getFont(null, Font.BOLD, 22, titleLabel.getFont());
         if (titleLabelFont != null) titleLabel.setFont(titleLabelFont);
         titleLabel.setHorizontalAlignment(0);
         titleLabel.setText("Table Creation Tool");
-        panel = new JPanel();
-        panel.setLayout(new GridBagLayout());
-        panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
+        leftPanel = new JPanel();
+
+        gridPanel.add(leftPanel);
+
+        leftPanel.setLayout(new GridBagLayout());
+        leftPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
         nameLabel = new JLabel();
         Font nameLabelFont = getFont(null, -1, 18, nameLabel.getFont());
         if (nameLabelFont != null) nameLabel.setFont(nameLabelFont);
@@ -66,13 +77,13 @@ public class TableCreationTool extends Window {
         gbc.weightx = 0.2;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(0, 50, 0, 0);
-        panel.add(nameLabel, gbc);
+        leftPanel.add(nameLabel, gbc);
         final JPanel spacer1 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel.add(spacer1, gbc);
+        leftPanel.add(spacer1, gbc);
         nameTextField = new JTextField();
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
@@ -81,7 +92,7 @@ public class TableCreationTool extends Window {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(0, 0, 0, 50);
-        panel.add(nameTextField, gbc);
+        leftPanel.add(nameTextField, gbc);
         nOfSeatsLabel = new JLabel();
         Font nOfSeatsLabelFont = getFont(null, -1, 18, nOfSeatsLabel.getFont());
         if (nOfSeatsLabelFont != null) nOfSeatsLabel.setFont(nOfSeatsLabelFont);
@@ -92,7 +103,7 @@ public class TableCreationTool extends Window {
         gbc.weightx = 0.2;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(15, 50, 0, 0);
-        panel.add(nOfSeatsLabel, gbc);
+        leftPanel.add(nOfSeatsLabel, gbc);
         nOfSeatsSpinner = new JSpinner(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1));
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
@@ -101,7 +112,7 @@ public class TableCreationTool extends Window {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(15, 0, 0, 50);
-        panel.add(nOfSeatsSpinner, gbc);
+        leftPanel.add(nOfSeatsSpinner, gbc);
 
         ArrayList<TableState> listOfState = new ArrayList<>(Arrays.asList(TableState.values()));
         stateComboBox = new JComboBox<>(listOfState.toArray());
@@ -113,7 +124,7 @@ public class TableCreationTool extends Window {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(15, 0, 0, 50);
-        panel.add(stateComboBox, gbc);
+        leftPanel.add(stateComboBox, gbc);
         stateLabel = new JLabel();
         Font stateLabelFont = getFont(null, -1, 18, stateLabel.getFont());
         if (stateLabelFont != null) stateLabel.setFont(stateLabelFont);
@@ -124,7 +135,7 @@ public class TableCreationTool extends Window {
         gbc.weightx = 0.2;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(15, 50, 0, 0);
-        panel.add(stateLabel, gbc);
+        leftPanel.add(stateLabel, gbc);
 
         roomLabel = new JLabel("Room");
         Font roomLabelFont = getFont(null, -1, 18, roomLabel.getFont());
@@ -135,7 +146,7 @@ public class TableCreationTool extends Window {
         gbc.weightx = 0.2;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(15, 50, 0, 0);
-        panel.add(roomLabel, gbc);
+        leftPanel.add(roomLabel, gbc);
 
         roomComboBox = new JComboBox<>();
         rooms = RoomDAO.getInstance().getAll();
@@ -149,7 +160,7 @@ public class TableCreationTool extends Window {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(15, 0, 0, 50);
-        panel.add(roomComboBox, gbc);
+        leftPanel.add(roomComboBox, gbc);
 
         createButton = new JButton();
         Font createButtonFont = getFont(null, Font.BOLD, 18, createButton.getFont());
@@ -161,13 +172,13 @@ public class TableCreationTool extends Window {
         gbc.weightx = 1.0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(20, 0, 0, 50);
-        panel.add(createButton, gbc);
+        leftPanel.add(createButton, gbc);
         final JPanel spacer2 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 3;
         gbc.fill = GridBagConstraints.VERTICAL;
-        panel.add(spacer2, gbc);
+        leftPanel.add(spacer2, gbc);
         nameLabel.setLabelFor(nameTextField);
         nOfSeatsLabel.setLabelFor(nOfSeatsSpinner);
         stateLabel.setLabelFor(stateComboBox);
@@ -176,8 +187,10 @@ public class TableCreationTool extends Window {
         createFontIcon = FontIcon.of(MaterialDesignP.PLUS_BOX_OUTLINE, 20);
         createButton.setIcon(createFontIcon);
 
-        addComponent(titleLabel, BorderLayout.NORTH);
-        addComponent(panel, BorderLayout.CENTER);
+
+
+        //addComponent(titleLabel, BorderLayout.NORTH);
+        //addComponent(gridPanel, BorderLayout.CENTER);
     }
 
     /**
@@ -325,7 +338,15 @@ public class TableCreationTool extends Window {
         TableCreationTool.instance = instance;
     }
 
-    public JPanel getPanel() {
-        return panel;
-    }
+    public JPanel getGridPanel(){return gridPanel;}
+
+    protected void setGridPanel(JPanel panel){gridPanel = panel;}
+
+    protected JPanel getLeftPanel(){return leftPanel;}
+
+    protected void setLeftPanel(JPanel leftPanel){this.leftPanel = leftPanel;}
+
+    protected void setRightPanel(JPanel rightPanel){this.rightPanel = rightPanel;}
+
+    protected JPanel getParentContentPane(){ return (JPanel) this.getContentPane();}
 }

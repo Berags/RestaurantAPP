@@ -12,10 +12,37 @@ import java.awt.*;
 
 public class DishItem {
 
-    private final JPanel listPanel;
-    private final Dish dish;
+    private  JPanel listPanel;
+    private  Dish dish;
+
+    private JButton editButton;
+
+    private JButton deleteButton;
+
+    private JPanel actionTestPanel;
 
     DishItem(Dish d, int index) {
+
+        setUp(d,index);
+
+        DishController.DishDeletionController dishDeletionController = new DishController.DishDeletionController(dish);
+
+        try {
+            Notifier notifier = Notifier.getInstance();
+            notifier.setDishView(DishView.getInstance(new DishController()));
+            dishDeletionController.addObserver(notifier);
+        } catch (Exception e) {}
+
+        deleteButton.addActionListener(dishDeletionController);
+        actionTestPanel.add(deleteButton);
+    }
+
+    DishItem(Dish d){
+        int index = 0;
+        setUp(d, index);
+    }
+
+    private void setUp(Dish d, int index){
         this.dish = d;
         GridBagConstraints gbc;
         listPanel = new JPanel();
@@ -59,7 +86,7 @@ public class DishItem {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.WEST;
         listPanel.add(dishTypeLabel, gbc);
-        JPanel actionTestPanel = new JPanel();
+        actionTestPanel = new JPanel();
         actionTestPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         gbc = new GridBagConstraints();
         gbc.gridx = 4;
@@ -67,7 +94,7 @@ public class DishItem {
         gbc.weightx = 0.2;
         gbc.fill = GridBagConstraints.BOTH;
         listPanel.add(actionTestPanel, gbc);
-        JButton editButton = new JButton();
+        editButton = new JButton();
         editButton.setHideActionText(false);
         editButton.setHorizontalAlignment(0);
         editButton.setHorizontalTextPosition(0);
@@ -82,22 +109,11 @@ public class DishItem {
 
         actionTestPanel.add(editButton);
 
-        JButton deleteButton = new JButton();
+        deleteButton = new JButton();
         deleteButton.setHideActionText(false);
         deleteButton.setHorizontalAlignment(0);
         deleteButton.setHorizontalTextPosition(0);
         deleteButton.setIcon(FontIcon.of(MaterialDesignD.DELETE, 20));
-
-        DishController.DishDeletionController dishDeletionController = new DishController.DishDeletionController(dish);
-
-        try {
-            Notifier notifier = Notifier.getInstance();
-            notifier.setDishView(DishView.getInstance(new DishController()));
-            dishDeletionController.addObserver(notifier);
-        } catch (Exception e) {
-        }
-        deleteButton.addActionListener(dishDeletionController);
-        actionTestPanel.add(deleteButton);
 
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -109,4 +125,9 @@ public class DishItem {
     JPanel getListPanel() {
         return listPanel;
     }
+
+    JButton getEditList(){return editButton;}
+    JButton getDeleteButton(){return deleteButton;}
+
+    JPanel getActionTestPanel(){return actionTestPanel;}
 }
