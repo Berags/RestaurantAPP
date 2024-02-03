@@ -66,7 +66,7 @@ public class OrderDAO implements IDAO<Order, OrderId> {
         Long dishId = OID.getDishId();
         try {
             session = DatabaseAccess.open();
-            Query<Order> q = session.createQuery("from Order o where (o.id.checkId = :check_id and o.id.dishId = :dish_id) ", Order.class);
+            Query<Order> q = session.createQuery("from Order o where (o.id.check.id = :check_id and o.id.dish.id = :dish_id) ", Order.class);
             q.setParameter("check_id", checkId);
             q.setParameter("dish_id", dishId);
             return q.getSingleResultOrNull();

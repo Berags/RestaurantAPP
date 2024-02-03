@@ -4,6 +4,7 @@ import edu.unifi.model.entities.*;
 import edu.unifi.model.orm.dao.CheckDAO;
 import edu.unifi.model.orm.dao.DishDAO;
 import edu.unifi.model.orm.dao.OrderDAO;
+import edu.unifi.model.orm.dao.TableDAO;
 import edu.unifi.view.OrderCreationItem;
 
 import java.awt.event.ActionEvent;
@@ -25,56 +26,34 @@ public class OrderController {
 
         private OrderCreationItem orderCreationItem;
 
-        public OrderCreationController(Table table, Dish dish, OrderCreationItem orderCreationItem){
+        public OrderCreationController(Table table, Dish dish, OrderCreationItem orderCreationItem) {
             this.table = table;
             this.dish = dish;
             this.orderCreationItem = orderCreationItem;
-
         }
 
         @Override
-        public void actionPerformed(ActionEvent e){
-
+        public void actionPerformed(ActionEvent e) {
+            // TODO: Add button to create check
             Check check;
-
-            if(table.getChecks().isEmpty()){
-                check = new Check();
-                check.setIssueDate(java.time.LocalDateTime.now());
-                check.setTable(table);
-                table.getChecks().add(check);
-            }else check = table.getChecks().getLast();
+            table = TableDAO.getInstance().getById(table.getId());
+            dish = DishDAO.getInstance().getById(dish.getId());
+            check = new Check();
+            check.setIssueDate(java.time.LocalDateTime.now());
+            check.setTable(table);
+            table.getChecks().add(check);
 
             CheckDAO.getInstance().insert(check);
 
-            Order order = new Order();
+            OrderId oid = new OrderId(check, dish);
+            Order order = new Order(oid);
 
-
-
-            //OrderId oid = new OrderId();
-           // oid.setCheckId(check.getId());
-            order.getId().setCheckId(check.getId());
-
-            if(!java.util.Objects.isNull(dish)) {
-                order.getId().setDishId(dish.getId());
-                //oid.setDishId(dish.getId());
-                order.setDish(dish);
-            }
-            else throw new RuntimeException("Order controller must have a dish associated");
-
-            //order.setId(oid);
-
-
-            order.setQuantity((Integer)orderCreationItem.getQuantitySpinner().getValue());
-
-            order.setCheck(check);
+            order.setQuantity((Integer) orderCreationItem.getQuantitySpinner().getValue());
             OrderDAO.getInstance().insert(order);
-
-            check.getOrders().add(order);
-            CheckDAO.getInstance().update(check);
-
-
         }
 
-        public void setDish(Dish dish){this.dish = dish;}
+        public void setDish(Dish dish) {
+            this.dish = dish;
+        }
     }
 }

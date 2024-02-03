@@ -9,18 +9,16 @@ public class Order {
     @EmbeddedId
     private OrderId id = new OrderId();
 
-    @ManyToOne()
-    @JoinColumn(name = "check_id")
-    @MapsId("checkId")
-    private Check check;
-
-    @ManyToOne()
-    @JoinColumn(name = "dish_id")
-    @MapsId("dishId")
-    private Dish dish;
-
     @Column(name = "quantity", nullable = false)
     private int quantity;
+
+    public Order(OrderId id) {
+        this.id = id;
+    }
+
+    public Order() {
+
+    }
 
     public int getQuantity() {
         return quantity;
@@ -30,25 +28,11 @@ public class Order {
         this.quantity = quantity;
     }
 
-    public Dish getDish() {
-        return dish;
-    }
-
-    public void setDish(Dish dish) {
-        this.dish = dish;
-    }
-
-    public Check getCheck() {
-        return check;
-    }
-
-    public void setCheck(Check check) {
-        this.check = check;
-    }
-
     public OrderId getId() {
         return id;
     }
 
-    public void setId(OrderId id){this.id = id;}
+    public void setId(OrderId id) {
+        this.id = id;
+    }
 }

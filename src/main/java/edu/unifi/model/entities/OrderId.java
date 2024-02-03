@@ -1,6 +1,7 @@
 package edu.unifi.model.entities;
 
-import jakarta.persistence.Embeddable;
+import jakarta.persistence.*;
+import org.hibernate.proxy.HibernateProxy;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -10,46 +11,60 @@ import java.util.Objects;
 public class OrderId implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
-    private Long checkId;
-    private Long dishId;
+    @ManyToOne(cascade = CascadeType.ALL, targetEntity = Check.class)
+    @JoinColumn(name = "check_id")
+    private Check check;
+    @ManyToOne(cascade = CascadeType.ALL, targetEntity = Dish.class)
+    @JoinColumn(name = "dish_id")
+    private Dish dish;
 
-    public OrderId(Long checkId, Long dishId) {
+    public OrderId(Check checkId, Dish dishId) {
         super();
-        this.checkId = checkId;
-        this.dishId = dishId;
+        this.check = checkId;
+        this.dish = dishId;
     }
 
     public OrderId() {
         super();
+    }
 
+    public Check getCheck() {
+        return check;
+    }
+
+    public void setCheck(Check check) {
+        this.check = check;
+    }
+
+    public Dish getDish() {
+        return dish;
+    }
+
+    public void setDish(Dish dish) {
+        this.dish = dish;
+    }
+
+    @Override
+    public final boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null) return false;
+        Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
+        Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
+        if (thisEffectiveClass != oEffectiveClass) return false;
+        OrderId orderId = (OrderId) o;
+        return getCheck() != null && Objects.equals(getCheck(), orderId.getCheck())
+                && getDish() != null && Objects.equals(getDish(), orderId.getDish());
+    }
+
+    @Override
+    public final int hashCode() {
+        return Objects.hash(check, dish);
     }
 
     public Long getCheckId() {
-        return checkId;
+        return check.getId();
     }
-
-    public void setCheckId(Long checkId) {
-        this.checkId = checkId;
-    }
-
     public Long getDishId() {
-        return dishId;
-    }
-
-    public void setDishId(Long dishId) {
-        this.dishId = dishId;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        OrderId orderId = (OrderId) o;
-        return Objects.equals(getCheckId(), orderId.getCheckId()) && Objects.equals(getDishId(), orderId.getDishId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getCheckId(), getDishId());
+        return dish.getId();
     }
 }
