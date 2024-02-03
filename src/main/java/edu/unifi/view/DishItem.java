@@ -15,11 +15,11 @@ public class DishItem {
     private  JPanel listPanel;
     private  Dish dish;
 
-    private JButton editButton;
+    protected JButton editButton;
 
-    private JButton deleteButton;
+    protected JButton deleteButton;
 
-    private JPanel actionTestPanel;
+    protected JPanel actionTestPanel;
 
     DishItem(Dish d, int index) {
 
@@ -126,8 +126,4 @@ public class DishItem {
         return listPanel;
     }
 
-    JButton getEditList(){return editButton;}
-    JButton getDeleteButton(){return deleteButton;}
-
-    JPanel getActionTestPanel(){return actionTestPanel;}
 }

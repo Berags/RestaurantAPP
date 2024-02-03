@@ -25,7 +25,7 @@ public class Table {
     @ManyToOne(optional = false)
     private Room room;
 
-    @OneToMany(mappedBy = "table", orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "table", orphanRemoval = true)
     private List<Check> checks = new ArrayList<>();
 
     @Column(name = "name")

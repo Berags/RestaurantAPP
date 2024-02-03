@@ -12,7 +12,7 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 
 public class DishView extends Window {
-    private JButton addButton;
+    protected JButton addButton;
     protected JTextField searchTextField;
     private JLabel idLabel;
     private JLabel nameLabel;
@@ -21,7 +21,7 @@ public class DishView extends Window {
     private DishController dishController;
     protected final JScrollPane listScroller = new JScrollPane();
 
-    private JPanel panel1;
+    protected JPanel panel1;
     protected JPanel panel2;
     protected JPanel listPanel;
     private static DishView instance;

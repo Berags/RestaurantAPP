@@ -21,15 +21,15 @@ import java.util.List;
 public class TableCreationTool extends Window {
     protected JTextField nameTextField;
     protected JSpinner nOfSeatsSpinner;
-    private JComboBox stateComboBox;
+    protected JComboBox stateComboBox;
     protected JLabel nameLabel;
     private JLabel nOfSeatsLabel;
-    private JButton createButton;
+    protected JButton createButton;
     private JLabel stateLabel;
-    private JLabel titleLabel;
+    protected JLabel titleLabel;
     private FontIcon createFontIcon;
     private JLabel roomLabel;
-    private JComboBox<String> roomComboBox;
+    protected JComboBox<String> roomComboBox;
     private List<Room> rooms;
     private JPanel gridPanel;
 
@@ -114,6 +114,7 @@ public class TableCreationTool extends Window {
         gbc.insets = new Insets(15, 0, 0, 50);
         leftPanel.add(nOfSeatsSpinner, gbc);
 
+
         ArrayList<TableState> listOfState = new ArrayList<>(Arrays.asList(TableState.values()));
         stateComboBox = new JComboBox<>(listOfState.toArray());
 
@@ -184,7 +185,7 @@ public class TableCreationTool extends Window {
         stateLabel.setLabelFor(stateComboBox);
 
         createFontIcon = FontIcon.of(MaterialDesignP.PLUS_BOX_OUTLINE, 20);
-        createFontIcon = FontIcon.of(MaterialDesignP.PLUS_BOX_OUTLINE, 20);
+
         createButton.setIcon(createFontIcon);
 
 
@@ -298,42 +299,6 @@ public class TableCreationTool extends Window {
         return rooms.get(roomComboBox.getSelectedIndex());
     }
 
-    public JSpinner getnOfSeatsSpinner() {
-        return nOfSeatsSpinner;
-    }
-
-    public void setnOfSeatsSpinner(JSpinner nOfSeatsSpinner) {
-        this.nOfSeatsSpinner = nOfSeatsSpinner;
-    }
-
-    public FontIcon getCreateFontIcon() {
-        return createFontIcon;
-    }
-
-    public void setCreateFontIcon(FontIcon createFontIcon) {
-        this.createFontIcon = createFontIcon;
-    }
-
-    public JLabel getRoomLabel() {
-        return roomLabel;
-    }
-
-    public void setRoomLabel(JLabel roomLabel) {
-        this.roomLabel = roomLabel;
-    }
-
-    public void setRoomComboBox(JComboBox<String> roomComboBox) {
-        this.roomComboBox = roomComboBox;
-    }
-
-    public List<Room> getRooms() {
-        return rooms;
-    }
-
-    public void setRooms(List<Room> rooms) {
-        this.rooms = rooms;
-    }
-
     public static void setInstance(TableCreationTool instance) {
         TableCreationTool.instance = instance;
     }
@@ -344,9 +309,5 @@ public class TableCreationTool extends Window {
 
     protected JPanel getLeftPanel(){return leftPanel;}
 
-    protected void setLeftPanel(JPanel leftPanel){this.leftPanel = leftPanel;}
-
     protected void setRightPanel(JPanel rightPanel){this.rightPanel = rightPanel;}
-
-    protected JPanel getParentContentPane(){ return (JPanel) this.getContentPane();}
 }

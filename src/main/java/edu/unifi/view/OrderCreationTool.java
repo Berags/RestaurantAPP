@@ -1,6 +1,7 @@
 package edu.unifi.view;
 
 import edu.unifi.controller.OrderController;
+import edu.unifi.model.entities.Table;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,11 +9,13 @@ import java.awt.*;
 public class OrderCreationTool extends DishView {
 
     private OrderController orderController;
+    private Table table;
 
-    public OrderCreationTool(OrderController orderController) throws Exception{
+    public OrderCreationTool(OrderController orderController, Table table) throws Exception{
         super();
         this.orderController = orderController;
-        getPanel1().remove(getAddButton());
+        this.table = table;
+        panel1.remove(addButton);
         buildList();
         setVisible(true);
     }
@@ -24,7 +27,7 @@ public class OrderCreationTool extends DishView {
         int index = 0;
 
         for (var d : filteredDishes) {
-            OrderCreationItem OCI = new OrderCreationItem(d,index);
+            OrderCreationItem OCI = new OrderCreationItem(table,d,index);
             this.listPanel.add(OCI.getListPanel());
             index++;
         }

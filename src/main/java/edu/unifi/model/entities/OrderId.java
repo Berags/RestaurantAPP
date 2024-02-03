@@ -20,6 +20,7 @@ public class OrderId implements Serializable {
     }
 
     public OrderId() {
+        super();
 
     }
 

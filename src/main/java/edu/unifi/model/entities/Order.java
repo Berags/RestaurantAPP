@@ -49,4 +49,6 @@ public class Order {
     public OrderId getId() {
         return id;
     }
+
+    public void setId(OrderId id){this.id = id;}
 }

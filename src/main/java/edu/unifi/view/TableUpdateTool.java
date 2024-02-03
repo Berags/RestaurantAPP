@@ -3,6 +3,8 @@ package edu.unifi.view;
 import edu.unifi.Notifier;
 import edu.unifi.controller.OrderController;
 import edu.unifi.controller.TableController;
+import edu.unifi.model.entities.Dish;
+import edu.unifi.model.entities.Order;
 import edu.unifi.model.entities.Table;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignU;
@@ -25,35 +27,36 @@ public class TableUpdateTool extends TableCreationTool {
     private JLabel actionsLabel;
     private JPanel bottomPanel;
     private JLabel receiptTotalLabel;
-    private Table table;
-    private final TableController tableController;
+    //private Table table;
+    //private final TableController tableController;
+
+    private java.util.List<Order> orders;
 
     public TableUpdateTool(String title, Table table, int width, int height) throws Exception {
         super(title, width, height);
-        this.table = table;
-        setUpRightUI();
-
+       // this.table = table;
+        setUpRightUI(table);
         ActionListener[] actionListeners = getCreateButton().getActionListeners();
         for (ActionListener a : actionListeners)
             getCreateButton().removeActionListener(a);
 
-        getTitleLabel().setText("Table Update Tool");
-        getNameTextField().setText(table.getName());
-        getNOfSeatsSpinner().setValue(table.getNOfSeats());
-        getStateComboBox().setSelectedItem(table.getState());
-        getRoomComboBox().setSelectedItem(table.getRoom().getName());
+        titleLabel.setText("Table Update Tool");
+        nameTextField.setText(table.getName());
+        nOfSeatsSpinner.setValue(table.getNOfSeats());
+        stateComboBox.setSelectedItem(table.getState());
+        roomComboBox.setSelectedItem(table.getRoom().getName());
 
-        getCreateButton().setText("Update");
-        getCreateButton().setIcon(FontIcon.of(MaterialDesignU.UPDATE, 20));
+        createButton.setText("Update");
+        createButton.setIcon(FontIcon.of(MaterialDesignU.UPDATE, 20));
 
-        tableController = new TableController(table, this);
+        TableController tableController = new TableController(table, this);
         tableController.addObserver(Notifier.getInstance());
-        getCreateButton().addActionListener(tableController);
+        createButton.addActionListener(tableController);
 
         setVisible(true);
     }
 
-    private void setUpRightUI() {
+    private void setUpRightUI(Table table) {
 
         JPanel leftPanel = getLeftPanel();
         JPanel gridPanel = getGridPanel();
@@ -161,7 +164,7 @@ public class TableUpdateTool extends TableCreationTool {
         addButton.addActionListener(e -> {
             try {
                 //TODO add get instance with singleton
-                new OrderCreationTool(new OrderController());
+                new OrderCreationTool(new OrderController(),table);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
