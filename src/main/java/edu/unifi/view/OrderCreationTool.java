@@ -9,11 +9,15 @@ import java.awt.*;
 public class OrderCreationTool extends DishView {
 
     private OrderController orderController;
+
+    private TableUpdateTool tableUpdateTool;
+
     private Table table;
 
-    public OrderCreationTool(OrderController orderController, Table table) throws Exception{
+    public OrderCreationTool(OrderController orderController, TableUpdateTool tableUpdateTool, Table table) throws Exception{
         super();
         this.orderController = orderController;
+        this.tableUpdateTool = tableUpdateTool;
         this.table = table;
         panel1.remove(addButton);
         buildList();
@@ -27,7 +31,7 @@ public class OrderCreationTool extends DishView {
         int index = 0;
 
         for (var d : filteredDishes) {
-            OrderCreationItem OCI = new OrderCreationItem(table,d,index);
+            OrderCreationItem OCI = new OrderCreationItem(tableUpdateTool,table,d,index);
             this.listPanel.add(OCI.getListPanel());
             index++;
         }

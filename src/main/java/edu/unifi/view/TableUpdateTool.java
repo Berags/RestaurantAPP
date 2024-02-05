@@ -14,10 +14,13 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class TableUpdateTool extends TableCreationTool {
     private JPanel rightPanel;
     private JButton addButton;
+
+    private JButton checkButton;
     private JButton printReceiptButton;
     private JFormattedTextField totalField;
     private JPanel labelPanel;
@@ -25,12 +28,19 @@ public class TableUpdateTool extends TableCreationTool {
     private JLabel quantityLabel;
     private JLabel totalLabel;
     private JLabel actionsLabel;
+    private JPanel orderPanel;
+    private JScrollPane listScroller;
+
+    private int orderIndex = 0;
+
+    private JPanel listPanel;
     private JPanel bottomPanel;
     private JLabel receiptTotalLabel;
-    //private Table table;
-    //private final TableController tableController;
 
-    private java.util.List<Order> orders;
+    private TableController tableController;
+
+    private java.util.List<Order> orders = new ArrayList<>();
+    private java.util.List<OrderListItem> orderItems = new ArrayList<>();
 
     public TableUpdateTool(String title, Table table, int width, int height) throws Exception {
         super(title, width, height);
@@ -49,9 +59,11 @@ public class TableUpdateTool extends TableCreationTool {
         createButton.setText("Update");
         createButton.setIcon(FontIcon.of(MaterialDesignU.UPDATE, 20));
 
-        TableController tableController = new TableController(table, this);
+        tableController = new TableController(table, this);
         tableController.addObserver(Notifier.getInstance());
         createButton.addActionListener(tableController);
+
+       buildOrdersList(table);
 
         setVisible(true);
     }
@@ -73,9 +85,10 @@ public class TableUpdateTool extends TableCreationTool {
         rightPanel.setForeground(new Color(-12875280));
         rightPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(-16777216))));
         labelPanel = new JPanel();
-        labelPanel.setLayout(new GridBagLayout());
+        labelPanel.setLayout(new GridLayout(1,4));
+
         rightPanel.add(labelPanel, BorderLayout.NORTH);
-        labelPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(-2104859)), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
+       // labelPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(-2104859)), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
         dishLabel = new JLabel();
         Font dishLabelFont = getFont(null, Font.BOLD, 18, dishLabel.getFont());
         if (dishLabelFont != null) dishLabel.setFont(dishLabelFont);
@@ -87,73 +100,45 @@ public class TableUpdateTool extends TableCreationTool {
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.weightx = 1.0;
-        gbc.anchor = GridBagConstraints.WEST;
+        gbc.anchor = GridBagConstraints.CENTER;
         labelPanel.add(dishLabel, gbc);
-        final JPanel spacer1 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        labelPanel.add(spacer1, gbc);
         quantityLabel = new JLabel();
         Font quantityLabelFont = getFont(null, Font.BOLD, 18, quantityLabel.getFont());
         if (quantityLabelFont != null) quantityLabel.setFont(quantityLabelFont);
         quantityLabel.setText("Quantity");
         gbc = new GridBagConstraints();
-        gbc.gridx = 2;
+        gbc.gridx = 1;
         gbc.gridy = 1;
         gbc.weightx = 1.0;
-        gbc.anchor = GridBagConstraints.WEST;
+        gbc.anchor = GridBagConstraints.CENTER;
         labelPanel.add(quantityLabel, gbc);
-        final JPanel spacer2 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 3;
-        gbc.gridy = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        labelPanel.add(spacer2, gbc);
         totalLabel = new JLabel();
         Font totalLabelFont = getFont(null, Font.BOLD, 18, totalLabel.getFont());
         if (totalLabelFont != null) totalLabel.setFont(totalLabelFont);
         totalLabel.setText("Total");
         gbc = new GridBagConstraints();
-        gbc.gridx = 4;
+        gbc.gridx = 3;
         gbc.gridy = 1;
         gbc.weightx = 1.0;
-        gbc.anchor = GridBagConstraints.WEST;
+        gbc.anchor = GridBagConstraints.CENTER;
         labelPanel.add(totalLabel, gbc);
-        final JPanel spacer3 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 5;
-        gbc.gridy = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        labelPanel.add(spacer3, gbc);
         actionsLabel = new JLabel();
         Font actionsLabelFont = getFont(null, Font.BOLD, 18, actionsLabel.getFont());
         if (actionsLabelFont != null) actionsLabel.setFont(actionsLabelFont);
         actionsLabel.setText("Actions");
         gbc = new GridBagConstraints();
-        gbc.gridx = 6;
+        gbc.gridx = 4;
         gbc.gridy = 1;
         gbc.weightx = 1.0;
-        gbc.anchor = GridBagConstraints.WEST;
+        gbc.anchor = GridBagConstraints.CENTER;
         labelPanel.add(actionsLabel, gbc);
-        final JPanel spacer4 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 3;
-        gbc.gridy = 2;
-        gbc.fill = GridBagConstraints.VERTICAL;
-        labelPanel.add(spacer4, gbc);
-        final JPanel spacer5 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 3;
-        gbc.gridy = 0;
-        gbc.fill = GridBagConstraints.VERTICAL;
-        labelPanel.add(spacer5, gbc);
 
+        listScroller = new JScrollPane();
 
-        JPanel orderPanel = new JPanel();
+        orderPanel = new JPanel();
+        orderPanel.setLayout(new BorderLayout(0,0));
+        orderPanel.add(listScroller);
         rightPanel.add(orderPanel, BorderLayout.CENTER);
-
 
         bottomPanel = new JPanel();
         bottomPanel.setLayout(new GridBagLayout());
@@ -164,7 +149,7 @@ public class TableUpdateTool extends TableCreationTool {
         addButton.addActionListener(e -> {
             try {
                 //TODO add get instance with singleton
-                new OrderCreationTool(new OrderController(),table);
+                new OrderCreationTool(new OrderController(),this,table);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
@@ -175,6 +160,16 @@ public class TableUpdateTool extends TableCreationTool {
         gbc.weightx = 1.0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         bottomPanel.add(addButton, gbc);
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        checkButton = new JButton();
+        checkButton.setText("New check");
+        checkButton.setIcon(FontIcon.of(MaterialDesignP.PLUS_BOX_OUTLINE, 20));
+        checkButton.addActionListener(new OrderController.CheckCreationController(table));
+        bottomPanel.add(checkButton, gbc);
         final JPanel spacer6 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
@@ -229,4 +224,27 @@ public class TableUpdateTool extends TableCreationTool {
         setGridPanel(gridPanel);
         setGridPanel(gridPanel);
     }
+
+    public void buildOrdersList(Table table){
+
+        orders = tableController.getTableOrders(table);
+        listPanel = new JPanel();
+        listPanel.setLayout(new GridLayout(orders.size(),1));
+        listScroller.setViewportView(listPanel);
+
+        for(var o:orders){
+            OrderCreationItem OCI = new OrderCreationItem(this, table, o.getId().getDish(), 0);
+            OrderListItem OLI = new OrderListItem(o.getId().getDish(),OCI);
+            orderItems.add(OLI);
+            listPanel.add(OLI.getListPanel());
+        }
+
+    }
+
+    public JScrollPane getListScroller(){return listScroller;}
+    public JPanel getListPanel(){return listPanel;}
+
+    public int getOrderIndex(){return orderIndex;}
+    public void setOrderIndex(int orderIndex){this.orderIndex = orderIndex;}
+    public java.util.List<OrderListItem> getOrderItems(){return orderItems;}
 }

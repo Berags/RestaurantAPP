@@ -1,10 +1,12 @@
 package edu.unifi.model.orm.dao;
 
+import edu.unifi.model.entities.Check;
 import edu.unifi.model.entities.Order;
 
 import java.util.List;
 
 import edu.unifi.model.entities.OrderId;
+import edu.unifi.model.entities.Table;
 import edu.unifi.model.orm.DatabaseAccess;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -79,6 +81,15 @@ public class OrderDAO implements IDAO<Order, OrderId> {
     public List<Order> getAll() {
         session = DatabaseAccess.open();
         List<Order> orders = session.createQuery("from Order", Order.class).getResultList();
+        DatabaseAccess.close(session);
+        return orders;
+    }
+
+    public List<Order> getAllTableOrders(Table table, Check check) {
+        session = DatabaseAccess.open();
+        List<Order> orders = session.createQuery("from Order o join Check c on o.id.check = :check join table t on table = :table",
+                Order.class).setParameter("table", table).setParameter("check", check).getResultList();
+
         DatabaseAccess.close(session);
         return orders;
     }
