@@ -227,6 +227,8 @@ public class TableUpdateTool extends TableCreationTool {
 
     public void buildOrdersList(Table table){
 
+        float total=0;
+
         orders = tableController.getTableOrders(table);
         listPanel = new JPanel();
         listPanel.setLayout(new GridLayout(orders.size(),1));
@@ -235,9 +237,12 @@ public class TableUpdateTool extends TableCreationTool {
         for(var o:orders){
             //OrderCreationItem OCI = new OrderCreationItem(this, table, o.getId().getDish(), 0);
             OrderListItem OLI = new OrderListItem(o.getId().getDish(),o.getQuantity(),o.getId(),this, table);
+            total+= (Float.parseFloat(OLI.quantityLabel.getText())*o.getId().getDish().getPrice())*10;
             orderItems.add(OLI);
             listPanel.add(OLI.getListPanel());
         }
+
+        totalField.setValue(total);
 
     }
 

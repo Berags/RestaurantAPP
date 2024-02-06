@@ -67,7 +67,7 @@ public class Notifier implements Observer {
                 home.showResultDialog("Room updated successfully", true);
             }
             case ERROR -> {
-                home.showResultDialog(message.getStringMessage(), true);
+                home.showResultDialog(message.getStringMessage(), false);
             }
             case EXIT -> {
                 home.dispose();
