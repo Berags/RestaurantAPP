@@ -37,7 +37,7 @@ public class Dish {
     @ManyToMany(mappedBy = "dishes")
     private Set<Ingredient> ingredients = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "dish", orphanRemoval = true)
+    @OneToMany(orphanRemoval = true)
     private Set<Order> orders = new LinkedHashSet<>();
 
     public Set<Order> getOrders() {

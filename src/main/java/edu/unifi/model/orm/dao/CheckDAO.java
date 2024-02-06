@@ -4,6 +4,7 @@ import edu.unifi.model.entities.Check;
 
 import java.util.List;
 
+import edu.unifi.model.entities.Table;
 import edu.unifi.model.orm.DatabaseAccess;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -77,6 +78,19 @@ public class CheckDAO implements IDAO<Check, Long> {
         List<Check> checks = session.createQuery("from Check ", Check.class).getResultList();
         DatabaseAccess.close(session);
         return checks;
+    }
+
+    public Check getValideCheckByTable(Table table){
+
+        try {
+            session = DatabaseAccess.open();
+            Query<Check> q = session.createQuery("from Check c where table = :table and closed = false", Check.class);
+            q.setParameter("table", table);
+            return q.getSingleResultOrNull();
+        } finally {
+            DatabaseAccess.close(session);
+        }
+
     }
 
     @Override

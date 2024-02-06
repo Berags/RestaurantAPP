@@ -1,10 +1,12 @@
 package edu.unifi.model.orm.dao;
 
+import edu.unifi.model.entities.Check;
 import edu.unifi.model.entities.Order;
 
 import java.util.List;
 
 import edu.unifi.model.entities.OrderId;
+import edu.unifi.model.entities.Table;
 import edu.unifi.model.orm.DatabaseAccess;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -44,7 +46,7 @@ public class OrderDAO implements IDAO<Order, OrderId> {
     public void delete(Order order) {
         try {
             session = DatabaseAccess.open();
-            session.remove(session);
+            session.remove(order);
         } finally {
             DatabaseAccess.close(session);
         }
@@ -66,7 +68,7 @@ public class OrderDAO implements IDAO<Order, OrderId> {
         Long dishId = OID.getDishId();
         try {
             session = DatabaseAccess.open();
-            Query<Order> q = session.createQuery("from Order o where (o.id.checkId = :check_id and o.id.dishId = :dish_id) ", Order.class);
+            Query<Order> q = session.createQuery("from Order o where (o.id.check.id = :check_id and o.id.dish.id = :dish_id) ", Order.class);
             q.setParameter("check_id", checkId);
             q.setParameter("dish_id", dishId);
             return q.getSingleResultOrNull();
@@ -75,10 +77,45 @@ public class OrderDAO implements IDAO<Order, OrderId> {
         }
     }
 
+    public Order getByDish(long dishId){
+
+        try {
+            session = DatabaseAccess.open();
+            Query<Order> q = session.createQuery("from Order o where o.id.dish.id = :dish_id  ", Order.class);
+            q.setParameter("dish_id", dishId);
+            return q.getSingleResultOrNull();
+        } finally {
+            DatabaseAccess.close(session);
+        }
+
+    }
+    public Order getByDishValideCheck(long dishId){
+
+        try {
+            session = DatabaseAccess.open();
+            Query<Order> q = session.createQuery("from Order o join Check c on o.id.check = :check where o.id.dish.id = :dish_id " +
+                    "and check.closed=false", Order.class);
+            q.setParameter("dish_id", dishId);
+            return q.getSingleResultOrNull();
+        } finally {
+            DatabaseAccess.close(session);
+        }
+
+    }
+
     @Override
     public List<Order> getAll() {
         session = DatabaseAccess.open();
         List<Order> orders = session.createQuery("from Order", Order.class).getResultList();
+        DatabaseAccess.close(session);
+        return orders;
+    }
+
+    public List<Order> getAllTableOrders(Table table, Check check) {
+        session = DatabaseAccess.open();
+        List<Order> orders = session.createQuery("from Order o join Check c on o.id.check = :check join table t on table = :table",
+                Order.class).setParameter("table", table).setParameter("check", check).getResultList();
+
         DatabaseAccess.close(session);
         return orders;
     }

@@ -19,15 +19,18 @@ public class Check {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column(name = "closed", nullable = false)
+    private boolean closed=false;
+
     @Column(name = "issue_date", nullable = false)
     @JdbcTypeCode(SqlTypes.TIMESTAMP)
     private LocalDateTime issueDate;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     @JoinColumn(name = "table_id", nullable = false)
     private edu.unifi.model.entities.Table table;
 
-    @OneToMany(mappedBy = "check", orphanRemoval = true)
+    @OneToMany
     private Set<Order> orders = new LinkedHashSet<>();
 
     public Set<Order> getOrders() {

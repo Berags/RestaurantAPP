@@ -12,19 +12,21 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 
 public class DishView extends Window {
-    private JButton addButton;
-    private JTextField searchTextField;
+    protected JButton addButton;
+    protected JTextField searchTextField;
     private JLabel idLabel;
     private JLabel nameLabel;
     private JLabel typeLabel;
     private JLabel actionLabel;
-    private final DishController dishController;
-    private final JScrollPane listScroller = new JScrollPane();
-    private JPanel panel2;
-    private JPanel listPanel;
+    private DishController dishController;
+    protected final JScrollPane listScroller = new JScrollPane();
+
+    protected JPanel panel1;
+    protected JPanel panel2;
+    protected JPanel listPanel;
     private static DishView instance;
 
-    private java.util.List<Dish> filteredDishes;
+    protected java.util.List<Dish> filteredDishes;
 
     /**
      * To have all the dishItems, complete with buildList()
@@ -39,9 +41,14 @@ public class DishView extends Window {
         setVisible(true);
     }
 
+    protected DishView() throws Exception{
+        super("Order creation tool",false,DISPOSE_ON_CLOSE,0,0,600,600);
+        setupUI();
+    }
+
     private void setupUI() throws Exception {
         setRootLayout(Layout.BORDER);
-        final JPanel panel1 = new JPanel();
+        panel1 = new JPanel();
         panel1.setLayout(new GridBagLayout());
         addComponent(panel1, BorderLayout.NORTH);
         addButton = new JButton();
@@ -179,11 +186,12 @@ public class DishView extends Window {
         int index = 0;
 
         for (var d : filteredDishes) {
-            DishItem DI = new DishItem(d,index);
-            this.listPanel.add(DI.getListPanel());
-            index++;
+            try {
+                DishItem DI = new DishItem(d,index);
+                this.listPanel.add(DI.getListPanel());
+                index++;
+            }catch (Exception e){}
         }
-
         listScroller.setViewportView(listPanel);
         panel2.add(listScroller, BorderLayout.CENTER);
     }
@@ -193,4 +201,15 @@ public class DishView extends Window {
         listScroller.setViewportView(listPanel);
     }
     public DishController getDishController(){return dishController;}
+
+    protected JPanel getPanel1(){return panel1;}
+    protected JButton getAddButton(){return addButton;}
+    protected java.util.List<Dish> getFilteredDishes(){return filteredDishes;}
+    protected void setFilteredDishes(java.util.List<Dish> filteredDishes){this.filteredDishes = filteredDishes;}
+    protected JTextField getSearchTextField(){return searchTextField;}
+    protected JScrollPane getListScroller(){return listScroller;}
+    protected JPanel getListPanel(){return listPanel;}
+    protected JPanel getPanel2(){return panel2;}
+
+    protected void setListPanel(JPanel listPanel){this.listPanel = listPanel;}
 }
