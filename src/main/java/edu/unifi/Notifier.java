@@ -54,7 +54,7 @@ public class Notifier implements Observer {
                 dishView.updateList();
             }
             case UPDATE_DISH -> {
-                home.showResultDialog("Dish updated successfully", true);
+                home.showResultDialog(message.getStringMessage(), true);
                 dishView.updateList();
             }
             case ADD_ROOM -> {
@@ -67,7 +67,7 @@ public class Notifier implements Observer {
                 home.showResultDialog("Room updated successfully", true);
             }
             case ERROR -> {
-                home.showResultDialog(message.getStringMessage(), false);
+                home.showResultDialog(message.getStringMessage(), true);
             }
             case EXIT -> {
                 home.dispose();

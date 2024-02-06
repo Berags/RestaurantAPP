@@ -1,6 +1,9 @@
 package edu.unifi.view;
 
+import edu.unifi.controller.OrderController;
 import edu.unifi.model.entities.Dish;
+import edu.unifi.model.entities.OrderId;
+import edu.unifi.model.entities.Table;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignD;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
 import org.kordamp.ikonli.swing.FontIcon;
@@ -10,9 +13,12 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class OrderListItem extends DishItem{
+    JLabel quantityLabel;
+    OrderId oid;
 
-    public OrderListItem(Dish dish, OrderCreationItem orderCreationItem){
+    public OrderListItem(Dish dish, int orderQuantity, OrderId oid, TableUpdateTool tableUpdateTool, Table table){
         super(dish);
+        this.oid = oid;
 
         for (var a: deleteButton.getActionListeners())
             deleteButton.removeActionListener(a);
@@ -39,7 +45,7 @@ public class OrderListItem extends DishItem{
 
         listPanel.add(dishNameLabel);
 
-        JLabel quantityLabel = new JLabel(String.valueOf(orderCreationItem.getQuantitySpinner().getValue()));
+        quantityLabel = new JLabel(String.valueOf(orderQuantity));
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 0;
@@ -51,7 +57,7 @@ public class OrderListItem extends DishItem{
         float quantity = Float.parseFloat(quantityLabel.getText());
         float price = dish.getPrice();
 
-        JLabel totalLabel = new JLabel(Float.toString(quantity*price));
+        JLabel totalLabel = new JLabel(Float.toString(quantity*price/100));
         gbc.gridx = 2;
         gbc.gridy = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -71,6 +77,7 @@ public class OrderListItem extends DishItem{
         gbc.gridy = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
+        editButton.addActionListener(new OrderController.OrderEditController(oid, tableUpdateTool, table));
         actionTestPanel.add(editButton, gbc);
 
 
@@ -79,6 +86,7 @@ public class OrderListItem extends DishItem{
         deleteButton.setHorizontalAlignment(0);
         deleteButton.setHorizontalTextPosition(0);
         deleteButton.setIcon(FontIcon.of(MaterialDesignD.DELETE, 20));
+        deleteButton.addActionListener(new OrderController.OrderDeletionController(oid, tableUpdateTool, table));
 
         gbc.gridx = 1;
         gbc.gridy = 0;
@@ -93,4 +101,6 @@ public class OrderListItem extends DishItem{
         listPanel.add(actionTestPanel, gbc);
 
     }
+    public JLabel getQuantityLabel(){return quantityLabel; }
+    public JLabel getDishNameLabel(){return dishNameLabel;}
 }

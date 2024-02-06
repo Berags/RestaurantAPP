@@ -233,8 +233,8 @@ public class TableUpdateTool extends TableCreationTool {
         listScroller.setViewportView(listPanel);
 
         for(var o:orders){
-            OrderCreationItem OCI = new OrderCreationItem(this, table, o.getId().getDish(), 0);
-            OrderListItem OLI = new OrderListItem(o.getId().getDish(),OCI);
+            //OrderCreationItem OCI = new OrderCreationItem(this, table, o.getId().getDish(), 0);
+            OrderListItem OLI = new OrderListItem(o.getId().getDish(),o.getQuantity(),o.getId(),this, table);
             orderItems.add(OLI);
             listPanel.add(OLI.getListPanel());
         }

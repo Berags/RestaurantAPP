@@ -46,7 +46,7 @@ public class OrderDAO implements IDAO<Order, OrderId> {
     public void delete(Order order) {
         try {
             session = DatabaseAccess.open();
-            session.remove(session);
+            session.remove(order);
         } finally {
             DatabaseAccess.close(session);
         }
@@ -75,6 +75,19 @@ public class OrderDAO implements IDAO<Order, OrderId> {
         } finally {
             DatabaseAccess.close(session);
         }
+    }
+
+    public Order getByDish(long dishId){
+
+        try {
+            session = DatabaseAccess.open();
+            Query<Order> q = session.createQuery("from Order o where o.id.dish.id = :dish_id  ", Order.class);
+            q.setParameter("dish_id", dishId);
+            return q.getSingleResultOrNull();
+        } finally {
+            DatabaseAccess.close(session);
+        }
+
     }
 
     @Override
