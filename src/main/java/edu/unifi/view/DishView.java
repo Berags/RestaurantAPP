@@ -10,6 +10,7 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class DishView extends Window {
     protected JButton addButton;
@@ -26,7 +27,7 @@ public class DishView extends Window {
     protected JPanel listPanel;
     private static DishView instance;
 
-    protected java.util.List<Dish> filteredDishes;
+    protected java.util.List<Dish> filteredDishes = new ArrayList<>();
 
     /**
      * To have all the dishItems, complete with buildList()
@@ -196,10 +197,6 @@ public class DishView extends Window {
         panel2.add(listScroller, BorderLayout.CENTER);
     }
 
-    public void updateList(){
-        buildList();
-        listScroller.setViewportView(listPanel);
-    }
     public DishController getDishController(){return dishController;}
 
     protected JPanel getPanel1(){return panel1;}

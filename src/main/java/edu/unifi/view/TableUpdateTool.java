@@ -21,6 +21,8 @@ public class TableUpdateTool extends TableCreationTool {
     private JButton addButton;
 
     private JButton checkButton;
+
+    private JButton resetButton;
     private JButton printReceiptButton;
     private JFormattedTextField totalField;
     private JPanel labelPanel;
@@ -210,6 +212,20 @@ public class TableUpdateTool extends TableCreationTool {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         bottomPanel.add(totalField, gbc);
+
+        //TODO: find the right icon
+        resetButton = new JButton();
+        resetButton.setText("Reset Receipt");
+        resetButton.setIcon(FontIcon.of(MaterialDesignP.POKEBALL, 20));
+        gbc = new GridBagConstraints();
+        gbc.gridx = 2;
+        gbc.gridy = 0;
+        gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        resetButton.addActionListener(new OrderController.CheckResetController(this, table));
+        bottomPanel.add(resetButton,gbc);
+
+
         receiptTotalLabel = new JLabel();
         receiptTotalLabel.setText("TOTAL");
         gbc = new GridBagConstraints();
@@ -235,15 +251,20 @@ public class TableUpdateTool extends TableCreationTool {
         listScroller.setViewportView(listPanel);
 
         for(var o:orders){
-            //OrderCreationItem OCI = new OrderCreationItem(this, table, o.getId().getDish(), 0);
             OrderListItem OLI = new OrderListItem(o.getId().getDish(),o.getQuantity(),o.getId(),this, table);
-            total+= (Float.parseFloat(OLI.quantityLabel.getText())*o.getId().getDish().getPrice())*10;
+            total+= (Float.parseFloat(OLI.quantityLabel.getText())*o.getId().getDish().getPrice()/10);
             orderItems.add(OLI);
             listPanel.add(OLI.getListPanel());
         }
 
-        totalField.setValue(total);
+        System.out.println(total);
 
+        String totalString = ((Float)total).toString();
+        totalString = totalString.replace(".", "");
+        String intString = totalString.substring(0,totalString.length()-2);
+        String decimalString = totalString.substring(totalString.length()-2);
+
+        totalField.setText(intString + "." + decimalString);
     }
 
     public JScrollPane getListScroller(){return listScroller;}
@@ -252,4 +273,6 @@ public class TableUpdateTool extends TableCreationTool {
     public int getOrderIndex(){return orderIndex;}
     public void setOrderIndex(int orderIndex){this.orderIndex = orderIndex;}
     public java.util.List<OrderListItem> getOrderItems(){return orderItems;}
+
+    public java.util.List<Order> getOrders(){return orders;}
 }

@@ -20,10 +20,7 @@ public class DishController {
     private static List<Dish> dishes;
 
     public List<Dish> getFilteredDishes(String filter) {
-        if (dishes == null || dishes.isEmpty())
-            dishes = DishDAO.getInstance().getAll();
-        if (filter == null || filter.isEmpty())
-            return dishes;
+        dishes = DishDAO.getInstance().getAll();
         return dishes.stream().filter(dish -> dish.getName().toLowerCase().contains(filter.toLowerCase())).toList();
     }
 
@@ -111,9 +108,5 @@ public class DishController {
             }
 
         }
-    }
-
-    public void setDishesToNull() {
-        dishes = null;
     }
 }

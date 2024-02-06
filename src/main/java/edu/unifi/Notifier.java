@@ -45,17 +45,16 @@ public class Notifier implements Observer {
             case ADD_DISH -> {
                 home.showResultDialog(message.getStringMessage(), true);
                 if (!Objects.isNull(dishView)) {
-                    dishView.getDishController().setDishesToNull();
-                    dishView.updateList();
+                    dishView.buildList();
                 }
             }
             case DELETE_DISH -> {
                 home.showResultDialog("Dish deleted successfully", true);
-                dishView.updateList();
+                dishView.buildList();
             }
             case UPDATE_DISH -> {
                 home.showResultDialog(message.getStringMessage(), true);
-                dishView.updateList();
+                dishView.buildList();
             }
             case ADD_ROOM -> {
                 home.showResultDialog("Room added successfully", true);

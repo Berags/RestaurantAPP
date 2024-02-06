@@ -109,6 +109,32 @@ public class OrderController {
 
         }
     }
+    public static class CheckResetController implements ActionListener{
+
+        private TableUpdateTool tableUpdateTool;
+        private Table table;
+
+        public CheckResetController(TableUpdateTool tableUpdateTool, Table table){
+
+            this.tableUpdateTool = tableUpdateTool;
+            this.table = table;
+
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e){
+
+            //TODO add all checks
+
+            for (var a:tableUpdateTool.getOrders())
+                OrderDAO.getInstance().delete(a);
+
+            CheckDAO.getInstance().delete(CheckDAO.getInstance().getValideCheckByTable(table));
+
+            //TODO add notification to the user
+
+        }
+    }
 
     public static class OrderEditController implements ActionListener{
 

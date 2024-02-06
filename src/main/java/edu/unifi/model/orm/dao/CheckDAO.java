@@ -44,7 +44,7 @@ public class CheckDAO implements IDAO<Check, Long> {
     public void delete(Check check) {
         try {
             session = DatabaseAccess.open();
-            session.remove(session);
+            session.remove(check);
         } finally {
             DatabaseAccess.close(session);
         }
