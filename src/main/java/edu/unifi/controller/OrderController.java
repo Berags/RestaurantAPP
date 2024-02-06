@@ -136,9 +136,7 @@ public class OrderController {
                 OrderDAO.getInstance().update(order);
                 tableUpdateTool.buildOrdersList(commonTable);
             }
-
         }
-
     }
 
     public static class OrderDeletionController implements ActionListener{

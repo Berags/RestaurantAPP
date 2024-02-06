@@ -58,7 +58,7 @@ public final class TableController extends Observable implements ActionListener 
 
     public java.util.List<Order> getTableOrders(Table table){
 
-        Check check = CheckDAO.getInstance().getCheckByTable(table);
+        Check check = CheckDAO.getInstance().getValideCheckByTable(table);
         table.getChecks().add(check);
 
         if(!java.util.Objects.isNull(check))
