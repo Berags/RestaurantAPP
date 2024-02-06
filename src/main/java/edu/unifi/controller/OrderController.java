@@ -41,36 +41,36 @@ public class OrderController {
         @Override
         public void actionPerformed(ActionEvent e) {
 
-            check = CheckDAO.getInstance().getCheckByTable(commonTable);
-            if(!java.util.Objects.isNull(check)){
-                dish = DishDAO.getInstance().getById(dish.getId());
+            check = CheckDAO.getInstance().getValideCheckByTable(commonTable);
+            if(java.util.Objects.isNull(check)){
 
-                OrderId oid = new OrderId(check, dish);
-                Order order = new Order(oid);
-
-                order.setQuantity((Integer) orderCreationItem.getQuantitySpinner().getValue());
-
-                java.util.List<Order> tableOrders = OrderDAO.getInstance().getAllTableOrders(commonTable,check);
-
-                boolean contained = false;
-
-                for(var a : tableOrders){
-                    if(Objects.equals(a.getId().getDish().getId(), dish.getId())){
-                        order.setQuantity( ((Integer) orderCreationItem.getQuantitySpinner().getValue()).intValue() + a.getQuantity());
-                        contained = true;
-                    }
-                }
-                if(contained){
-                    OrderDAO.getInstance().update(order);
-                }else{
-                    OrderDAO.getInstance().insert(order);
-                }
-                tableUpdateTool.buildOrdersList(commonTable);
-
-            }else{
                 //TODO:uniform with others and passing through notifier?
                 JOptionPane.showMessageDialog(null,"You must create a new check", "Error!",JOptionPane.INFORMATION_MESSAGE);
+                return;
             }
+            dish = DishDAO.getInstance().getById(dish.getId());
+
+            OrderId oid = new OrderId(check, dish);
+            Order order = new Order(oid);
+
+            order.setQuantity((Integer) orderCreationItem.getQuantitySpinner().getValue());
+
+            java.util.List<Order> tableOrders = OrderDAO.getInstance().getAllTableOrders(commonTable,check);
+
+            boolean contained = false;
+
+            for(var a : tableOrders){
+                if(Objects.equals(a.getId().getDish().getId(), dish.getId())){
+                    order.setQuantity( ((Integer) orderCreationItem.getQuantitySpinner().getValue()).intValue() + a.getQuantity());
+                    contained = true;
+                }
+            }
+            if(contained){
+                OrderDAO.getInstance().update(order);
+            }else{
+                OrderDAO.getInstance().insert(order);
+            }
+            tableUpdateTool.buildOrdersList(commonTable);
 
         }
 
@@ -88,22 +88,25 @@ public class OrderController {
         @Override
         public void actionPerformed(ActionEvent e) {
 
-            if(java.util.Objects.isNull(CheckDAO.getInstance().getCheckByTable(commonTable))) {
-                commonTable = TableDAO.getInstance().getById(commonTable.getId());
-                check = new Check();
-                check.setIssueDate(java.time.LocalDateTime.now());
-                check.setTable(commonTable);
-                commonTable.getChecks().add(check);
-                CheckDAO.getInstance().insert(check);
+            if(!java.util.Objects.isNull(CheckDAO.getInstance().getValideCheckByTable(commonTable))) {
 
-                //TODO:uniform with others and passing through notifier?
-                JOptionPane.showMessageDialog(null,"New check created successfully", "Attention!",JOptionPane.INFORMATION_MESSAGE);
-
-            }else {
                 //TODO:uniform with others and passing through notifier?
                 JOptionPane.showMessageDialog(null,"This table already has an associated check.\n " +
-                                "You can reset it using the decicated button", "Attention!",JOptionPane.INFORMATION_MESSAGE);
+                        "You can reset it using the decicated button", "Attention!",JOptionPane.INFORMATION_MESSAGE);
+                return;
             }
+
+            commonTable = TableDAO.getInstance().getById(commonTable.getId());
+            check = new Check();
+            check.setIssueDate(java.time.LocalDateTime.now());
+            check.setTable(commonTable);
+            commonTable.getChecks().add(check);
+            CheckDAO.getInstance().insert(check);
+
+            //TODO:uniform with others and passing through notifier?
+            JOptionPane.showMessageDialog(null,"New check created successfully", "Attention!",JOptionPane.INFORMATION_MESSAGE);
+
+
         }
     }
 
@@ -126,14 +129,12 @@ public class OrderController {
             int option = JOptionPane.showOptionDialog(null, spinner, "Enter the new quantity",
                     JOptionPane.OK_CANCEL_OPTION,JOptionPane.INFORMATION_MESSAGE,null,null,null);
 
-            if (option == JOptionPane.CANCEL_OPTION) {
-                return;
-            } else if (option == JOptionPane.OK_OPTION) {
+
+            if (option == JOptionPane.OK_OPTION) {
                 Order order = OrderDAO.getInstance().getById(oid);
                 order.setQuantity(Integer.parseInt(spinner.getValue().toString()));
                 OrderDAO.getInstance().update(order);
                 tableUpdateTool.buildOrdersList(commonTable);
-
             }
 
         }
@@ -158,6 +159,5 @@ public class OrderController {
             tableUpdateTool.buildOrdersList(commonTable);
 
         }
-
     }
 }

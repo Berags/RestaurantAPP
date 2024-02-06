@@ -89,6 +89,19 @@ public class OrderDAO implements IDAO<Order, OrderId> {
         }
 
     }
+    public Order getByDishValideCheck(long dishId){
+
+        try {
+            session = DatabaseAccess.open();
+            Query<Order> q = session.createQuery("from Order o join Check c on o.id.check = :check where o.id.dish.id = :dish_id " +
+                    "and check.closed=false", Order.class);
+            q.setParameter("dish_id", dishId);
+            return q.getSingleResultOrNull();
+        } finally {
+            DatabaseAccess.close(session);
+        }
+
+    }
 
     @Override
     public List<Order> getAll() {

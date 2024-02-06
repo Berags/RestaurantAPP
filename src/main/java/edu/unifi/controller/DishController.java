@@ -40,9 +40,9 @@ public class DishController {
         public void actionPerformed(ActionEvent e) {
             String dishName = dishUpdateTool.getNameTextField().getText();
 
-            if(!java.util.Objects.isNull(OrderDAO.getInstance().getByDish(dish.getId()))){
+            if(!java.util.Objects.isNull(OrderDAO.getInstance().getByDishValideCheck(dish.getId()))){
                 setChanged();
-                notifyObservers(Notifier.Message.build(MessageType.UPDATE_DISH, dish.getName() +
+                notifyObservers(Notifier.Message.build(MessageType.ERROR, dish.getName() +
                         " The dish can't be updated because is part \n of some open orders"));
                 return;
             }
