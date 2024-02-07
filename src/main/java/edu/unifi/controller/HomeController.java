@@ -1,7 +1,9 @@
 package edu.unifi.controller;
 
 import edu.unifi.model.entities.Room;
+import edu.unifi.model.entities.User;
 import edu.unifi.model.orm.dao.RoomDAO;
+import edu.unifi.model.orm.dao.UserDAO;
 import edu.unifi.view.Home;
 
 import java.util.List;
@@ -20,4 +22,6 @@ public class HomeController {
     public Room getById(String name) {
         return RoomDAO.getInstance().getById(name);
     }
+
+    public User getUserRoleByUsername(String name) { return UserDAO.getInstance().getByUsername(name); }
 }

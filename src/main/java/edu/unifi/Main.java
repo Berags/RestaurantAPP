@@ -1,6 +1,9 @@
 package edu.unifi;
 
+import edu.unifi.model.entities.User;
 import edu.unifi.model.orm.DatabaseAccess;
+import edu.unifi.model.orm.dao.UserDAO;
+import edu.unifi.model.util.security.PasswordManager;
 import edu.unifi.model.util.security.Roles;
 import edu.unifi.model.util.security.aop.Authorize;
 import edu.unifi.view.Home;
@@ -40,11 +43,12 @@ public class Main {
         // Initiating database connection pool
         DatabaseAccess.initiate();
 
+
         loadingDialog.setVisible(false);
         try {
             Login loginView = new Login();
             loginView.getLoginLatch().await();
-            home = new Home("Test");
+            home = new Home("Test", loginView.getUsernameField().getText());
             exitLatch.await();
         } catch (Exception e) {
             log.error(e.getMessage());

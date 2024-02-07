@@ -1,10 +1,7 @@
 package edu.unifi;
 
 import edu.unifi.controller.MessageType;
-import edu.unifi.view.DishCreationTool;
-import edu.unifi.view.DishView;
-import edu.unifi.view.Home;
-import edu.unifi.view.Login;
+import edu.unifi.view.*;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -17,6 +14,7 @@ public class Notifier implements Observer {
     private Login login;
 
     private DishView dishView;
+    private RoomView roomView;
 
     private Notifier() throws Exception {
         if (instance != null)
@@ -59,12 +57,15 @@ public class Notifier implements Observer {
             }
             case ADD_ROOM -> {
                 home.showResultDialog("Room added successfully", true);
+                home.updateHomeRooms();
             }
             case DELETE_ROOM -> {
                 home.showResultDialog("Room deleted successfully", true);
+                roomView.updateList();
             }
             case UPDATE_ROOM -> {
                 home.showResultDialog("Room updated successfully", true);
+                roomView.updateList();
             }
             case ERROR -> {
                 home.showResultDialog(message.getStringMessage(), false);
@@ -86,6 +87,10 @@ public class Notifier implements Observer {
 
     public void setDishView(DishView dishView) {
         this.dishView = dishView;
+    }
+
+    public void setRoomView(RoomView roomView) {
+        this.roomView = roomView;
     }
 
     public void setLogin(Login login) {
