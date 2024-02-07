@@ -48,7 +48,7 @@ public class Main {
         try {
             Login loginView = new Login();
             loginView.getLoginLatch().await();
-            home = new Home("Test", loginView.getUsernameField().getText());
+            home = new Home("Test");
             exitLatch.await();
         } catch (Exception e) {
             log.error(e.getMessage());

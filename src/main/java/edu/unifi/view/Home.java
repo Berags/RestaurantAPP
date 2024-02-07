@@ -7,7 +7,7 @@ import edu.unifi.controller.HomeController;
 import edu.unifi.controller.RoomEditDeletionToolController;
 import edu.unifi.model.entities.Room;
 import edu.unifi.model.entities.Table;
-import edu.unifi.model.entities.User;
+import edu.unifi.model.util.security.CurrentSession;
 import edu.unifi.model.util.security.Roles;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignA;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignC;
@@ -17,7 +17,6 @@ import org.kordamp.ikonli.swing.FontIcon;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -28,11 +27,9 @@ public class Home extends Window {
     private final HomeController homeController;
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private final JLabel databaseMenu = new JLabel("Connected");
-    private String username;
 
-    public Home(String title, String username) throws Exception {
+    public Home(String title) throws Exception {
         super(title, true, JFrame.EXIT_ON_CLOSE, 0, 0, 1000, 700);
-        this.username = username;
         homeController = new HomeController(this);
         scheduler.scheduleAtFixedRate(this, 1, 1, TimeUnit.MINUTES);
 
@@ -62,7 +59,7 @@ public class Home extends Window {
 
 
 
-        if (homeController.getUserRoleByUsername(username).getRole() == Roles.ADMIN) {
+        if (CurrentSession.getInstance().isAuthorized(Roles.ADMIN)) {
             JMenu tablesMenu = new JMenu("Tables");
             JMenu dishesMenu = new JMenu("Menu");
             JMenu roomsMenu = new JMenu("Rooms");
@@ -135,7 +132,7 @@ public class Home extends Window {
 
             addMenuEntries(new Component[]{optionsMenu, tablesMenu, dishesMenu,roomsMenu, Box.createHorizontalGlue(), databaseMenu});
         }
-        else if (homeController.getUserRoleByUsername(username).getRole() == Roles.WAITER)
+        else if (CurrentSession.getInstance().isAuthorized(Roles.WAITER))
             addMenuEntries(new Component[]{optionsMenu, Box.createHorizontalGlue(), databaseMenu});
 
         setVisible(true);

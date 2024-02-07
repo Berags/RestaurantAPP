@@ -23,5 +23,5 @@ public class HomeController {
         return RoomDAO.getInstance().getById(name);
     }
 
-    public User getUserRoleByUsername(String name) { return UserDAO.getInstance().getByUsername(name); }
+    public User getUserByUsername(String username) { return UserDAO.getInstance().getByUsername(username); }
 }
