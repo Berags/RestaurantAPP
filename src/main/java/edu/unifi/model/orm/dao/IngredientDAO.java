@@ -44,7 +44,7 @@ public class IngredientDAO implements IDAO<Ingredient, String> {
     public void delete(Ingredient ingredient) {
         try {
             session = DatabaseAccess.open();
-            session.remove(session);
+            session.remove(ingredient);
         } finally {
             DatabaseAccess.close(session);
         }

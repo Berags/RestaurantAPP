@@ -158,19 +158,23 @@ public class Home extends Window {
     }
 
     public void updateHomeRooms() {
+
+        if (!java.util.Objects.isNull(roomsTabbedPane)){
+            roomsTabbedPane.setVisible(false);
+            remove(roomsTabbedPane);
+        }
         roomsTabbedPane = new JTabbedPane();
-        ArrayList<JPanel> panels = new ArrayList<>();
         rooms = homeController.getRooms();
         for (var room : rooms) {
             JPanel panel = new JPanel();
             panel.setLayout(new BorderLayout(10, 10));
             panel.setPreferredSize(new Dimension(1000, 700));
             roomsTabbedPane.addTab(room.getName(), panel);
-            panels.add(panel);
         }
         if (!rooms.isEmpty())
             updateRoom();
         roomsTabbedPane.addChangeListener(e -> updateRoom());
+        roomsTabbedPane.setVisible(true);
         addComponent(roomsTabbedPane, BorderLayout.CENTER);
     }
 

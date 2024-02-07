@@ -42,7 +42,7 @@ public class TypeOfCourseDAO implements IDAO<TypeOfCourse, String> {
     public void delete(TypeOfCourse typeOfCourse) {
         try {
             session = DatabaseAccess.open();
-            session.remove(session);
+            session.remove(typeOfCourse);
         } finally {
             DatabaseAccess.close(session);
         }

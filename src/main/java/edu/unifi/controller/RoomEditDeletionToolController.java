@@ -53,6 +53,7 @@ public class RoomEditDeletionToolController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+
             rooms.remove(room);
             if (rooms.isEmpty())
                 rooms = null;

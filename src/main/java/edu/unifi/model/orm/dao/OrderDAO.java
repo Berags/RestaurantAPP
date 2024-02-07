@@ -46,7 +46,7 @@ public class OrderDAO implements IDAO<Order, OrderId> {
     public void delete(Order order) {
         try {
             session = DatabaseAccess.open();
-            session.remove(session);
+            session.remove(order);
         } finally {
             DatabaseAccess.close(session);
         }

@@ -36,7 +36,7 @@ public class RoomCreationTool extends Window {
 
     private void setUpUI() throws Exception {
 
-        gridPanel = (JPanel) getContentPane();
+        gridPanel = rootPane;
         gridPanel.setLayout(new BorderLayout());
 
         titleLabel = new JLabel();
