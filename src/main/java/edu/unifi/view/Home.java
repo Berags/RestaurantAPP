@@ -4,8 +4,11 @@ import edu.unifi.Notifier;
 import edu.unifi.controller.DishController;
 import edu.unifi.controller.ExitController;
 import edu.unifi.controller.HomeController;
+import edu.unifi.controller.RoomEditDeletionToolController;
 import edu.unifi.model.entities.Room;
 import edu.unifi.model.entities.Table;
+import edu.unifi.model.util.security.CurrentSession;
+import edu.unifi.model.util.security.Roles;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignA;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignC;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignD;
@@ -14,7 +17,6 @@ import org.kordamp.ikonli.swing.FontIcon;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -33,25 +35,11 @@ public class Home extends Window {
 
         setRootLayout(Layout.BORDER, 0, 0);
 
-        roomsTabbedPane = new JTabbedPane();
-        ArrayList<JPanel> panels = new ArrayList<>();
-        rooms = homeController.getRooms();
-        for (var room : rooms) {
-            JPanel panel = new JPanel();
-            panel.setLayout(new BorderLayout(10, 10));
-            panel.setPreferredSize(new Dimension(1000, 700));
-            roomsTabbedPane.addTab(room.getName(), panel);
-            panels.add(panel);
-        }
-        if (!rooms.isEmpty())
-            updateRoom();
-        roomsTabbedPane.addChangeListener(e -> updateRoom());
-        addComponent(roomsTabbedPane, BorderLayout.CENTER);
+        updateHomeRooms();
 
         /* MENU*/
         JMenu optionsMenu = new JMenu("Options");
-        JMenu tablesMenu = new JMenu("Tables");
-        JMenu dishesMenu = new JMenu("Menu");
+
 
         databaseMenu.setIcon(FontIcon.of(MaterialDesignD.DATABASE_CHECK, 20, Color.GREEN));
         databaseMenu.setPreferredSize(new Dimension(100, 20));
@@ -69,55 +57,84 @@ public class Home extends Window {
         optionsMenu.add(users);
         optionsMenu.add(exitFromApplication);
 
-        //menu option to add a new table
-        JMenuItem addTableMenuItem = new JMenuItem("Add Table");
-        addTableMenuItem.addActionListener(e -> {
-            try {
-                TableCreationTool.getInstance("Table creation tool",400,300);
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
-            }
-        });
-        tablesMenu.add(addTableMenuItem);
-
-        //menu option to remove a table
-        JMenuItem removeTableMenuItem = new JMenuItem("Remove Table");
-        removeTableMenuItem.addActionListener(e -> {
-            try {
-                TableDeletionTool.getInstance();
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
-            }
-        });
-
-        tablesMenu.add(removeTableMenuItem);
 
 
-        //menu option to add a new dish
-        JMenuItem addDishItem = new JMenuItem("Add Dish");
-        addDishItem.addActionListener(e -> {
-            try {
-                DishCreationTool.getInstance("Dish creation tool",400,300);
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
-            }
-        });
+        if (CurrentSession.getInstance().isAuthorized(Roles.ADMIN)) {
+            JMenu tablesMenu = new JMenu("Tables");
+            JMenu dishesMenu = new JMenu("Menu");
+            JMenu roomsMenu = new JMenu("Rooms");
+            //menu option to add a new dish
+            JMenuItem addDishItem = new JMenuItem("Add Dish");
+            addDishItem.addActionListener(e -> {
+                try {
+                    DishCreationTool.getInstance("Dish creation tool",400,300);
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            });
 
 
-        JMenuItem editDishItem = new JMenuItem("Edit Menu");
-        editDishItem.addActionListener(e -> {
-            try {
-                DishController dishController = new DishController();
-                DishView.getInstance(dishController).buildList();
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
-            }
-        });
+            JMenuItem editDishItem = new JMenuItem("Edit Menu");
+            editDishItem.addActionListener(e -> {
+                try {
+                    DishController dishController = new DishController();
+                    DishView.getInstance(dishController).buildList();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            });
 
-        dishesMenu.add(addDishItem);
-        dishesMenu.add(editDishItem);
+            //menu option to add a new table
+            JMenuItem addTableMenuItem = new JMenuItem("Add Table");
+            addTableMenuItem.addActionListener(e -> {
+                try {
+                    TableCreationTool.getInstance("Table creation tool",400,300);
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            });
 
-        addMenuEntries(new Component[]{optionsMenu, tablesMenu, dishesMenu, Box.createHorizontalGlue(), databaseMenu});
+            //menu option to remove a table
+            JMenuItem removeTableMenuItem = new JMenuItem("Remove Table");
+            removeTableMenuItem.addActionListener(e -> {
+                try {
+                    TableDeletionTool.getInstance();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            });
+
+            JMenuItem addRoomMenuItem = new JMenuItem("Add Room");
+            addRoomMenuItem.addActionListener(e -> {
+                try {
+                    RoomCreationTool.getInstance("Room creation tool", 400, 300);
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            });
+
+            JMenuItem editRoomMenuItem = new JMenuItem("Edit Room");
+            editRoomMenuItem.addActionListener(e -> {
+                try {
+                    RoomEditDeletionToolController roomEditDeletionToolController = new RoomEditDeletionToolController();
+                    RoomView.getInstance(roomEditDeletionToolController).buildList();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            });
+
+            tablesMenu.add(addTableMenuItem);
+            tablesMenu.add(removeTableMenuItem);
+            dishesMenu.add(addDishItem);
+            dishesMenu.add(editDishItem);
+            roomsMenu.add(addRoomMenuItem);
+            roomsMenu.add(editRoomMenuItem);
+
+            addMenuEntries(new Component[]{optionsMenu, tablesMenu, dishesMenu,roomsMenu, Box.createHorizontalGlue(), databaseMenu});
+        }
+        else if (CurrentSession.getInstance().isAuthorized(Roles.WAITER))
+            addMenuEntries(new Component[]{optionsMenu, Box.createHorizontalGlue(), databaseMenu});
+
         setVisible(true);
 
         Notifier.getInstance().setHome(this);
@@ -135,6 +152,27 @@ public class Home extends Window {
             topPanel.add(createButton(table));
         }
         panel.add(topPanel, BorderLayout.CENTER);
+    }
+
+    public void updateHomeRooms() {
+
+        if (!java.util.Objects.isNull(roomsTabbedPane)){
+            roomsTabbedPane.setVisible(false);
+            remove(roomsTabbedPane);
+        }
+        roomsTabbedPane = new JTabbedPane();
+        rooms = homeController.getRooms();
+        for (var room : rooms) {
+            JPanel panel = new JPanel();
+            panel.setLayout(new BorderLayout(10, 10));
+            panel.setPreferredSize(new Dimension(1000, 700));
+            roomsTabbedPane.addTab(room.getName(), panel);
+        }
+        if (!rooms.isEmpty())
+            updateRoom();
+        roomsTabbedPane.addChangeListener(e -> updateRoom());
+        roomsTabbedPane.setVisible(true);
+        addComponent(roomsTabbedPane, BorderLayout.CENTER);
     }
 
     private static JButton createButton(Table table) {

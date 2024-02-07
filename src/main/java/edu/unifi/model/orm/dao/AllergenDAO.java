@@ -43,7 +43,7 @@ public class AllergenDAO implements IDAO<Allergen, String> {
     public void delete(Allergen allergen) {
         try {
             session = DatabaseAccess.open();
-            session.remove(session);
+            session.remove(allergen);
         } finally {
             DatabaseAccess.close(session);
         }

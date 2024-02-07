@@ -44,7 +44,7 @@ public class RoomDAO implements IDAO<Room, String> {
     public void delete(Room room) {
         try {
             session = DatabaseAccess.open();
-            session.remove(session);
+            session.remove(room);
         } finally {
             DatabaseAccess.close(session);
         }
