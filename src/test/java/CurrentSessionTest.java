@@ -10,8 +10,8 @@ import edu.unifi.model.entities.User;
 import edu.unifi.view.TableCreationTool;
 import org.junit.jupiter.api.*;
 import org.mockito.*;
-import java.util.*;
 
+import java.util.*;
 
 
 import javax.sql.DataSource;
@@ -33,7 +33,7 @@ public class CurrentSessionTest {
 
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         MockitoAnnotations.openMocks(this);
         when(mockUser.getRole()).thenReturn(Roles.ADMIN);
     }
@@ -117,7 +117,7 @@ public class CurrentSessionTest {
 
         executorService.shutdown();
         try {
-            executorService.awaitTermination(5, TimeUnit.SECONDS);
+            boolean res = executorService.awaitTermination(5, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             log.severe(e.getMessage());
         }
