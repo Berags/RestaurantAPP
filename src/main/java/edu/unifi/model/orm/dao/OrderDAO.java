@@ -89,12 +89,12 @@ public class OrderDAO implements IDAO<Order, OrderId> {
         }
 
     }
-    public Order getByDishValideCheck(long dishId){
+    public Order getByDishValidCheck(long dishId){
 
         try {
             session = DatabaseAccess.open();
-            Query<Order> q = session.createQuery("from Order o join Check c on o.id.check = :check where o.id.dish.id = :dish_id " +
-                    "and check.closed=false", Order.class);
+            Query<Order> q = session.createQuery("from Order o join Check c on o.id.check.id = c.id where o.id.dish.id = :dish_id " +
+                    " and c.closed=false", Order.class);
             q.setParameter("dish_id", dishId);
             return q.getSingleResultOrNull();
         } finally {
@@ -113,7 +113,7 @@ public class OrderDAO implements IDAO<Order, OrderId> {
 
     public List<Order> getAllTableOrders(Table table, Check check) {
         session = DatabaseAccess.open();
-        List<Order> orders = session.createQuery("from Order o join Check c on o.id.check = :check join table t on table = :table",
+        List<Order> orders = session.createQuery("from Order o join Check c on o.id.check = :check join Table t on t = :table",
                 Order.class).setParameter("table", table).setParameter("check", check).getResultList();
 
         DatabaseAccess.close(session);

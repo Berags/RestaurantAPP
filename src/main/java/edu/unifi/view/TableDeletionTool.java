@@ -21,7 +21,7 @@ public class TableDeletionTool extends Window {
     private static TableDeletionTool instance;
 
     private TableDeletionTool() throws Exception {
-        super("Delete", false, JFrame.DISPOSE_ON_CLOSE, 0, 0, 400, 300);
+        super("Table Deletion Tool", false, JFrame.DISPOSE_ON_CLOSE, 0, 0, 400, 300);
 
         tableDeletionToolController = new TableDeletionToolController(this);
         tableDeletionToolController.addObserver(Notifier.getInstance());
@@ -123,6 +123,10 @@ public class TableDeletionTool extends Window {
         panel1.add(spacer3, gbc);
         roomLabel.setLabelFor(roomComboBox);
         tableLabel.setLabelFor(tableComboBox);
+
+        roomComboBox.setName("RoomComboBox");
+        tableComboBox.setName("TableComboBox");
+        removeButton.setName("RemoveButton");
 
         addComponent(titleLabel, BorderLayout.NORTH);
         addComponent(panel1, BorderLayout.CENTER);
