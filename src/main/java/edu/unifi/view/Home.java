@@ -130,6 +130,9 @@ public class Home extends Window {
             roomsMenu.add(addRoomMenuItem);
             roomsMenu.add(editRoomMenuItem);
 
+            editDishItem.setName("EditDish");
+            removeTableMenuItem.setName("RemoveTable");
+
             addMenuEntries(new Component[]{optionsMenu, tablesMenu, dishesMenu,roomsMenu, Box.createHorizontalGlue(), databaseMenu});
         }
         else if (CurrentSession.getInstance().isAuthorized(Roles.WAITER))
@@ -201,6 +204,7 @@ public class Home extends Window {
                 throw new RuntimeException(ex);
             }
         });
+        button.setName(table.getName());
         return button;
     }
 

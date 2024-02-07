@@ -13,6 +13,7 @@ import org.hibernate.cfg.Configuration;
 public class DatabaseAccess {
     // SessionFactory instance for creating database sessions
     private static SessionFactory sessionFactory;
+    private static String hibernateConfigFile = "hibernate.cfg.xml";
 
     /**
      * Opens a new database session and begins a transaction.
@@ -42,7 +43,7 @@ public class DatabaseAccess {
      */
     public static void initiate() {
         // Build the SessionFactory from the Hibernate configuration file
-        sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+        sessionFactory = new Configuration().configure(hibernateConfigFile).buildSessionFactory();
     }
 
     /**
@@ -51,5 +52,9 @@ public class DatabaseAccess {
     public static void terminate() {
         // Close the SessionFactory
         sessionFactory.close();
+    }
+
+    public static void setHibernateConfigFileToTest() {
+        DatabaseAccess.hibernateConfigFile = "hibernate-test.cfg.xml";
     }
 }

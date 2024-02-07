@@ -184,6 +184,12 @@ public class TableCreationTool extends Window {
         nOfSeatsLabel.setLabelFor(nOfSeatsSpinner);
         stateLabel.setLabelFor(stateComboBox);
 
+        nameTextField.setName("nameTextField");
+        nOfSeatsSpinner.setName("nOfSeatsSpinner");
+        roomComboBox.setName("roomComboBox");
+        stateComboBox.setName("stateComboBox");
+        createButton.setName("createButton");
+
         createFontIcon = FontIcon.of(MaterialDesignP.PLUS_BOX_OUTLINE, 20);
 
         createButton.setIcon(createFontIcon);

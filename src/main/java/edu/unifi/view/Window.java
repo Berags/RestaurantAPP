@@ -44,6 +44,7 @@ public class Window extends JFrame implements Runnable {
         if (hasMenu) setJMenuBar(menuBar);
 
         t.setName(title);
+        setName(title);
         setLocationRelativeTo(null);
     }
 

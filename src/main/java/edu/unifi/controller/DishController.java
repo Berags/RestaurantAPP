@@ -2,12 +2,10 @@ package edu.unifi.controller;
 
 import edu.unifi.Notifier;
 import edu.unifi.model.entities.Dish;
-import edu.unifi.model.entities.Order;
 import edu.unifi.model.entities.TypeOfCourse;
 import edu.unifi.model.orm.dao.DishDAO;
 import edu.unifi.model.orm.dao.OrderDAO;
 import edu.unifi.view.DishUpdateTool;
-import edu.unifi.view.DishView;
 import org.apache.maven.shared.utils.StringUtils;
 
 import java.awt.event.ActionEvent;
@@ -40,7 +38,7 @@ public class DishController {
         public void actionPerformed(ActionEvent e) {
             String dishName = dishUpdateTool.getNameTextField().getText();
 
-            if(!java.util.Objects.isNull(OrderDAO.getInstance().getByDishValideCheck(dish.getId()))){
+            if(!java.util.Objects.isNull(OrderDAO.getInstance().getByDishValidCheck(dish.getId()))){
                 setChanged();
                 notifyObservers(Notifier.Message.build(MessageType.ERROR, dish.getName() +
                         " The dish can't be updated because is part \n of some open orders"));

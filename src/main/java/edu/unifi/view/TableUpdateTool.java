@@ -43,7 +43,7 @@ public class TableUpdateTool extends TableCreationTool {
     private java.util.List<OrderListItem> orderItems = new ArrayList<>();
 
     public TableUpdateTool(String title, Table table, int width, int height) throws Exception {
-        super(title, width, height);
+        super("Table Update Tool", width, height);
        // this.table = table;
         setUpRightUI(table);
         ActionListener[] actionListeners = getCreateButton().getActionListeners();

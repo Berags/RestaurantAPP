@@ -103,6 +103,7 @@ public class DishItem {
         gbc.fill = GridBagConstraints.BOTH;
         listPanel.add(actionTestPanel, gbc);
         editButton = new JButton();
+        editButton.setName("EditDish" + d.getId());
         editButton.setHideActionText(false);
         editButton.setHorizontalAlignment(0);
         editButton.setHorizontalTextPosition(0);

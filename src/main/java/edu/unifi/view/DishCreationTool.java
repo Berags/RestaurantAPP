@@ -24,7 +24,7 @@ public class DishCreationTool extends Window {
     private static volatile DishCreationTool instance = null;
 
     protected DishCreationTool(String title, int width, int height) throws Exception {
-        super(title, false, JFrame.DISPOSE_ON_CLOSE, 0, 0, width, height);
+        super("Dish Creation Tool",false, JFrame.DISPOSE_ON_CLOSE, 0, 0, width, height);
         setUpUI();
         DishCreationToolController dishCreationToolController = new DishCreationToolController(this);
         dishCreationToolController.addObserver(Notifier.getInstance());
@@ -158,6 +158,12 @@ public class DishCreationTool extends Window {
         descriptionLabel.setLabelFor(descriptionTextArea);
         nameLabel.setLabelFor(nameField);
         typeLabel.setLabelFor(typeComboBox);
+
+        createButton.setName("CreateDish");
+        priceTextField.setName("PriceTextField");
+        descriptionTextArea.setName("DescriptionTextArea");
+        typeComboBox.setName("TypeComboBox");
+        nameField.setName("NameField");
 
         addComponent(titleLabel, BorderLayout.NORTH);
         addComponent(panel, BorderLayout.CENTER);
