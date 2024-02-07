@@ -32,7 +32,6 @@ public class RoomUpdateTool extends RoomCreationTool {
         getNameTextField().setText(room.getName());
 
         Notifier notifier = Notifier.getInstance();
-        notifier.setRoomView(RoomView.getInstance(new RoomEditDeletionToolController()));
 
         RoomEditDeletionToolController.RoomEditController roomEditController = new RoomEditDeletionToolController.RoomEditController(room,this);
 

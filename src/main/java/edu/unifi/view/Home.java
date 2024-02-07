@@ -117,7 +117,7 @@ public class Home extends Window {
             editRoomMenuItem.addActionListener(e -> {
                 try {
                     RoomEditDeletionToolController roomEditDeletionToolController = new RoomEditDeletionToolController();
-                    RoomView.getInstance(roomEditDeletionToolController).buildList();
+                    RoomView.getInstance().buildList();
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
                 }

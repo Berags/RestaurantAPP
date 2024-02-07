@@ -41,7 +41,6 @@ public class RoomItem {
 
         try {
             Notifier notifier = Notifier.getInstance();
-            notifier.setRoomView(RoomView.getInstance(new RoomEditDeletionToolController()));
             roomDeletionController.addObserver(notifier);
         } catch (Exception e) {}
 
