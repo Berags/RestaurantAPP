@@ -19,6 +19,12 @@ import java.util.Observable;
 public class DishController {
     private static List<Dish> dishes;
 
+    /**
+     *
+     * @param filter
+     * @return the list of dishes currently in the menu and filtered using the filter String
+     */
+
     public List<Dish> getFilteredDishes(String filter) {
         dishes = DishDAO.getInstance().getAll();
         return dishes.stream().filter(dish -> dish.getName().toLowerCase().contains(filter.toLowerCase())).toList();
@@ -37,13 +43,14 @@ public class DishController {
         public void actionPerformed(ActionEvent e) {
             String dishName = dishUpdateTool.getNameTextField().getText();
 
+            //if the table hasn't an open check associated
             if(!java.util.Objects.isNull(OrderDAO.getInstance().getByDishValideCheck(dish.getId()))){
                 setChanged();
                 notifyObservers(Notifier.Message.build(MessageType.ERROR, dish.getName() +
                         " The dish can't be updated because is part \n of some open orders"));
                 return;
             }
-
+            //if the table name inserted is blank
             if (StringUtils.isBlank(dishName)) {
                 setChanged();
                 notifyObservers(Notifier.Message.build(MessageType.ERROR, "Dish name cannot be empty"));
@@ -54,6 +61,7 @@ public class DishController {
             String priceString = null;
             int price = 0;
 
+            //to assure the correct format of the price with intPart.xx
             try {
                 priceString = dishUpdateTool.getPriceTextField().getText();
                 String[] decimals = priceString.split("\\.");
@@ -92,15 +100,14 @@ public class DishController {
         @Override
         public void actionPerformed(ActionEvent e) {
 
+            //to check if the dish has been ordinated
             if(java.util.Objects.isNull(OrderDAO.getInstance().getByDish(dish.getId()))){
-
                 dishes.remove(dish);
                 if (dishes.isEmpty())
                     dishes = null;
                 DishDAO.getInstance().delete(dish);
                 setChanged();
                 notifyObservers(Notifier.Message.build(MessageType.DELETE_DISH, dish.getName() + " deleted successfully"));
-
             }else {
                 setChanged();
                 notifyObservers(Notifier.Message.build(MessageType.ERROR, dish.getName() +

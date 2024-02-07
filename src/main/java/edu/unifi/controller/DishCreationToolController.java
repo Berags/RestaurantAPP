@@ -23,6 +23,7 @@ public class DishCreationToolController extends Observable implements ActionList
     public void actionPerformed(ActionEvent e) {
         Dish dish = new Dish();
 
+        //to check if the dish name is empty
         String dishName = dishCreationTool.getNameTextField().getText();
         if (StringUtils.isBlank(dishName)) {
             setChanged();
@@ -34,6 +35,7 @@ public class DishCreationToolController extends Observable implements ActionList
         String priceString = null;
         int price = 0;
 
+        //to assure the correct format of the price with intPart.xx 
         try {
             priceString = dishCreationTool.getPriceTextField().getText();
             String[] decimals = priceString.split("\\.");

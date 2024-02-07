@@ -30,6 +30,7 @@ public class TableCreationToolController extends Observable implements ActionLis
             notifyObservers(Notifier.Message.build(MessageType.ERROR, "Table name cannot be empty"));
             return;
         }
+
         table.setName(tableName);
         table.setNOfSeats((Integer) tableCreationTool.getNOfSeatsSpinner().getValue());
         table.setState((TableState) tableCreationTool.getStateComboBox().getSelectedItem());

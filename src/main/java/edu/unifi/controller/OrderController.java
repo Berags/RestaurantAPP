@@ -1,5 +1,6 @@
 package edu.unifi.controller;
 
+import edu.unifi.Notifier;
 import edu.unifi.model.entities.*;
 import edu.unifi.model.orm.dao.CheckDAO;
 import edu.unifi.model.orm.dao.DishDAO;
@@ -12,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Objects;
+import java.util.Observable;
 
 public class OrderController {
 
@@ -27,7 +29,7 @@ public class OrderController {
         return dishes.stream().filter(dish -> dish.getName().toLowerCase().contains(filter.toLowerCase())).toList();
     }
 
-    public static class OrderCreationController implements ActionListener {
+    public static class OrderCreationController extends Observable implements ActionListener {
         private Dish dish;
         private OrderCreationItem orderCreationItem;
 
@@ -41,11 +43,12 @@ public class OrderController {
         @Override
         public void actionPerformed(ActionEvent e) {
 
-            check = CheckDAO.getInstance().getValideCheckByTable(commonTable);
+            //to check if the table has an open check associated
+            check = CheckDAO.getInstance().getValidCheckByTable(commonTable);
             if(java.util.Objects.isNull(check)){
 
-                //TODO:uniform with others and passing through notifier?
-                JOptionPane.showMessageDialog(null,"You must create a new check", "Error!",JOptionPane.INFORMATION_MESSAGE);
+                setChanged();
+                notifyObservers(Notifier.Message.build(MessageType.ERROR, "You must create a new check"));
                 return;
             }
             dish = DishDAO.getInstance().getById(dish.getId());
@@ -79,7 +82,7 @@ public class OrderController {
         }
     }
 
-    public static class CheckCreationController implements ActionListener{
+    public static class CheckCreationController extends Observable implements ActionListener{
 
         public CheckCreationController(Table table){
             commonTable = table;
@@ -88,28 +91,27 @@ public class OrderController {
         @Override
         public void actionPerformed(ActionEvent e) {
 
-            if(!java.util.Objects.isNull(CheckDAO.getInstance().getValideCheckByTable(commonTable))) {
-
-                //TODO:uniform with others and passing through notifier?
-                JOptionPane.showMessageDialog(null,"This table already has an associated check.\n " +
-                        "You can reset it using the decicated button", "Attention!",JOptionPane.INFORMATION_MESSAGE);
+            if(!java.util.Objects.isNull(CheckDAO.getInstance().getValidCheckByTable(commonTable))) {
+                setChanged();
+                notifyObservers(Notifier.Message.build(MessageType.ERROR, "This table already has an associated check.\n " +
+                        "You can clean it using the decicated button"));
                 return;
             }
 
             commonTable = TableDAO.getInstance().getById(commonTable.getId());
             check = new Check();
+            //we set the issue date with the creation date, then we update it during the printing of the check
             check.setIssueDate(java.time.LocalDateTime.now());
             check.setTable(commonTable);
             commonTable.getChecks().add(check);
             CheckDAO.getInstance().insert(check);
 
-            //TODO:uniform with others and passing through notifier?
-            JOptionPane.showMessageDialog(null,"New check created successfully", "Attention!",JOptionPane.INFORMATION_MESSAGE);
-
+            setChanged();
+            notifyObservers(Notifier.Message.build(MessageType.ADD_DISH, "New check created successfully"));
 
         }
     }
-    public static class CheckResetController implements ActionListener{
+    public static class CheckResetController extends Observable implements ActionListener{
 
         private TableUpdateTool tableUpdateTool;
         private Table table;
@@ -124,15 +126,26 @@ public class OrderController {
         @Override
         public void actionPerformed(ActionEvent e){
 
-            //TODO add all checks
-
+            if(java.util.Objects.isNull(CheckDAO.getInstance().getValidCheckByTable(table))){
+                setChanged();
+                notifyObservers(Notifier.Message.build(MessageType.ERROR, "There is any check to delete!"));
+                return;
+            }
+            //to delete all the orders present in the check
             for (var a:tableUpdateTool.getOrders())
                 OrderDAO.getInstance().delete(a);
 
-            CheckDAO.getInstance().delete(CheckDAO.getInstance().getValideCheckByTable(table));
 
-            //TODO add notification to the user
+            Check check1 = CheckDAO.getInstance().getValidCheckByTable(table);
 
+            table.getChecks().removeAll(table.getChecks());
+
+            CheckDAO.getInstance().delete(check1);
+
+
+            setChanged();
+            notifyObservers(Notifier.Message.build(MessageType.CLEAN_CHECK, "Orders and check deleted successfully"));
+            tableUpdateTool.buildOrdersList(table);
         }
     }
 

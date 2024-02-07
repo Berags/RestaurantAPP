@@ -1,5 +1,6 @@
 package edu.unifi.view;
 
+import edu.unifi.Notifier;
 import edu.unifi.controller.OrderController;
 import edu.unifi.model.entities.Dish;
 import edu.unifi.model.entities.Table;
@@ -34,6 +35,11 @@ public class OrderCreationItem extends DishItem{
 
         OrderController.OrderCreationController orderCreationController = new OrderController.OrderCreationController(tableUpdateTool, table, dish,this);
         orderCreationController.setDish(dish);
+
+        try {
+            orderCreationController.addObserver(Notifier.getInstance());
+        }catch (Exception e){}
+
         addOrderButton.addActionListener(orderCreationController);
         actionTestPanel.add(addOrderButton);
         listPanel.add(actionTestPanel);

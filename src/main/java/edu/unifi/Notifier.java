@@ -1,10 +1,7 @@
 package edu.unifi;
 
 import edu.unifi.controller.MessageType;
-import edu.unifi.view.DishCreationTool;
-import edu.unifi.view.DishView;
-import edu.unifi.view.Home;
-import edu.unifi.view.Login;
+import edu.unifi.view.*;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -64,6 +61,9 @@ public class Notifier implements Observer {
             }
             case UPDATE_ROOM -> {
                 home.showResultDialog("Room updated successfully", true);
+            }
+            case CLEAN_CHECK -> {
+                home.showResultDialog("Check cleaned successfully", true);
             }
             case ERROR -> {
                 home.showResultDialog(message.getStringMessage(), false);

@@ -80,7 +80,7 @@ public class CheckDAO implements IDAO<Check, Long> {
         return checks;
     }
 
-    public Check getValideCheckByTable(Table table){
+    public Check getValidCheckByTable(Table table){
 
         try {
             session = DatabaseAccess.open();
