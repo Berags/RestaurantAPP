@@ -77,30 +77,26 @@ public class OrderDAO implements IDAO<Order, OrderId> {
         }
     }
 
-    public Order getByDish(long dishId){
-
+    public List<Order> getByDish(long dishId){
         try {
             session = DatabaseAccess.open();
-            Query<Order> q = session.createQuery("from Order o where o.id.dish.id = :dish_id  ", Order.class);
-            q.setParameter("dish_id", dishId);
-            return q.getSingleResultOrNull();
+            List<Order> orders = session.createQuery("from Order o where o.id.dish.id = :dish_id  ", Order.class).setParameter("dish_id", dishId).getResultList();
+            return orders;
         } finally {
             DatabaseAccess.close(session);
         }
 
     }
-    public Order getByDishValideCheck(long dishId){
+    public List<Order> getByDishValideCheck(long dishId){
 
         try {
             session = DatabaseAccess.open();
-            Query<Order> q = session.createQuery("from Order o join Check c on o.id.check = :check where o.id.dish.id = :dish_id " +
-                    "and check.closed=false", Order.class);
-            q.setParameter("dish_id", dishId);
-            return q.getSingleResultOrNull();
+            List<Order> orders = session.createQuery("from Order o join Check c on o.id.check = c where o.id.dish.id = :dish_id " +
+                    "and c.closed=false", Order.class).setParameter("dish_id", dishId).getResultList();
+            return orders;
         } finally {
             DatabaseAccess.close(session);
         }
-
     }
 
     @Override

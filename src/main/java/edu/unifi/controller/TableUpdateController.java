@@ -10,36 +10,35 @@ import edu.unifi.model.orm.dao.OrderDAO;
 import edu.unifi.model.orm.dao.TableDAO;
 import edu.unifi.view.TableUpdateTool;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Observable;
 
-public final class TableController extends Observable implements ActionListener {
+public final class TableUpdateController extends Observable implements ActionListener {
     private final Table table;
     private final TableUpdateTool tableUpdateTool;
 
     private java.util.List<Order> orders;
 
-    public TableController(Table table, TableUpdateTool tableUpdateTool) {
+    public TableUpdateController(Table table, TableUpdateTool tableUpdateTool) {
         this.table = table;
         this.tableUpdateTool = tableUpdateTool;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        boolean ok = true;
-        System.out.println("Table " + table.getName() + " updated");
 
         String newTableName = tableUpdateTool.getNameTextField().getText();
 
+        //to check if the name field is empty
         if (newTableName.isEmpty()) {
             setChanged();
             notifyObservers(Notifier.Message.build(MessageType.ERROR, "Table name cannot be empty"));
             return;
         }
+
+        //we update the table with the information inserted
         table.setName(newTableName);
         table.setNOfSeats((Integer) tableUpdateTool.getNOfSeatsSpinner().getValue());
         table.setState((TableState) tableUpdateTool.getStateComboBox().getSelectedItem());
@@ -56,9 +55,14 @@ public final class TableController extends Observable implements ActionListener 
         notifyObservers(Notifier.Message.build(MessageType.UPDATE_TABLE, table.getName() + " successfully updated!"));
     }
 
+    /**
+     *
+     * @param table
+     * @return the orders associated with the open check of the table
+     */
     public java.util.List<Order> getTableOrders(Table table){
 
-        Check check = CheckDAO.getInstance().getValideCheckByTable(table);
+        Check check = CheckDAO.getInstance().getValidCheckByTable(table);
         table.getChecks().add(check);
 
         if(!java.util.Objects.isNull(check))

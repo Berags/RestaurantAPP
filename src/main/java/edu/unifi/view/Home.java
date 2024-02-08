@@ -130,6 +130,9 @@ public class Home extends Window {
             roomsMenu.add(addRoomMenuItem);
             roomsMenu.add(editRoomMenuItem);
 
+            editDishItem.setName("EditDish");
+            removeTableMenuItem.setName("RemoveTable");
+
             addMenuEntries(new Component[]{optionsMenu, tablesMenu, dishesMenu,roomsMenu, Box.createHorizontalGlue(), databaseMenu});
         }
         else if (CurrentSession.getInstance().isAuthorized(Roles.WAITER))
@@ -199,11 +202,12 @@ public class Home extends Window {
         button.setIcon(FontIcon.of(MaterialDesignT.TABLE_CHAIR, 40, Color.BLACK));
         button.addActionListener(e -> {
             try {
-                new TableUpdateTool("Table update tool", table ,900,700);
+                TableUpdateTool.getInstance("Table update tool", table, 900, 700);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
         });
+        button.setName(table.getName());
         return button;
     }
 

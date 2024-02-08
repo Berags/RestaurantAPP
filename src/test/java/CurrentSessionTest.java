@@ -1,9 +1,22 @@
-/*import edu.unifi.model.util.security.CurrentSession;
+import edu.unifi.Notifier;
+import edu.unifi.controller.MessageType;
+import edu.unifi.controller.TableCreationToolController;
+import edu.unifi.model.entities.*;
+import edu.unifi.model.orm.DatabaseAccess;
+import edu.unifi.model.orm.dao.TableDAO;
+import edu.unifi.model.util.security.CurrentSession;
 import edu.unifi.model.util.security.Roles;
 import edu.unifi.model.entities.User;
+import edu.unifi.view.TableCreationTool;
 import org.junit.jupiter.api.*;
 import org.mockito.*;
 
+import java.util.*;
+
+
+import javax.sql.DataSource;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -104,9 +117,9 @@ public class CurrentSessionTest {
 
         executorService.shutdown();
         try {
-            executorService.awaitTermination(5, TimeUnit.SECONDS);
+            boolean res = executorService.awaitTermination(5, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             log.severe(e.getMessage());
         }
     }
-}*/
+}

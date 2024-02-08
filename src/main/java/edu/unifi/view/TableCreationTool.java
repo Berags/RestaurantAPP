@@ -184,6 +184,12 @@ public class TableCreationTool extends Window {
         nOfSeatsLabel.setLabelFor(nOfSeatsSpinner);
         stateLabel.setLabelFor(stateComboBox);
 
+        nameTextField.setName("nameTextField");
+        nOfSeatsSpinner.setName("nOfSeatsSpinner");
+        roomComboBox.setName("roomComboBox");
+        stateComboBox.setName("stateComboBox");
+        createButton.setName("createButton");
+
         createFontIcon = FontIcon.of(MaterialDesignP.PLUS_BOX_OUTLINE, 20);
 
         createButton.setIcon(createFontIcon);
@@ -225,74 +231,20 @@ public class TableCreationTool extends Window {
         return nameTextField;
     }
 
-    public void setNameTextField(JTextField nameTextField) {
-        this.nameTextField = nameTextField;
-    }
-
     public JSpinner getNOfSeatsSpinner() {
         return nOfSeatsSpinner;
-    }
-
-    public void setNOfSeatsSpinner(JSpinner nOfSeatsSpinner) {
-        this.nOfSeatsSpinner = nOfSeatsSpinner;
     }
 
     public JComboBox getStateComboBox() {
         return stateComboBox;
     }
 
-    public void setStateComboBox(JComboBox stateComboBox) {
-        this.stateComboBox = stateComboBox;
-    }
-
-    public JLabel getNameLabel() {
-        return nameLabel;
-    }
-
-    public void setNameLabel(JLabel nameLabel) {
-        this.nameLabel = nameLabel;
-    }
-
-    public JLabel getnOfSeatsLabel() {
-        return nOfSeatsLabel;
-    }
-
-    public void setnOfSeatsLabel(JLabel nOfSeatsLabel) {
-        this.nOfSeatsLabel = nOfSeatsLabel;
-    }
-
     public JButton getCreateButton() {
         return createButton;
     }
 
-    public void setCreateButton(JButton createButton) {
-        this.createButton = createButton;
-    }
-
-    public JLabel getStateLabel() {
-        return stateLabel;
-    }
-
-    public void setStateLabel(JLabel stateLabel) {
-        this.stateLabel = stateLabel;
-    }
-
-    public JLabel getTitleLabel() {
-        return titleLabel;
-    }
-
-    public void setTitleLabel(JLabel titleLabel) {
-        this.titleLabel = titleLabel;
-    }
-
     public JComboBox<String> getRoomComboBox() {
         return roomComboBox;
-    }
-
-    public void showResultDialog(String message, boolean messageType) {
-        JOptionPane.showMessageDialog(null, message, messageType ? "Action successful" : "Severe Error!",
-                messageType ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE,
-                messageType ? FontIcon.of(MaterialDesignC.CHECK_CIRCLE_OUTLINE, 40, Color.BLUE) : FontIcon.of(MaterialDesignA.ALERT_RHOMBUS_OUTLINE, 40, Color.RED));
     }
 
     public Room getRoom() {

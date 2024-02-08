@@ -2,16 +2,15 @@ package edu.unifi.view;
 
 import edu.unifi.Notifier;
 import edu.unifi.controller.OrderController;
-import edu.unifi.controller.TableController;
-import edu.unifi.model.entities.Dish;
+import edu.unifi.controller.TableUpdateController;
 import edu.unifi.model.entities.Order;
 import edu.unifi.model.entities.Table;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
+import org.kordamp.ikonli.materialdesign2.MaterialDesignT;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignU;
 import org.kordamp.ikonli.swing.FontIcon;
 
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -19,8 +18,8 @@ import java.util.ArrayList;
 public class TableUpdateTool extends TableCreationTool {
     private JPanel rightPanel;
     private JButton addButton;
-
     private JButton checkButton;
+    private JButton resetButton;
     private JButton printReceiptButton;
     private JFormattedTextField totalField;
     private JPanel labelPanel;
@@ -30,19 +29,19 @@ public class TableUpdateTool extends TableCreationTool {
     private JLabel actionsLabel;
     private JPanel orderPanel;
     private JScrollPane listScroller;
-
     private int orderIndex = 0;
-
     private JPanel listPanel;
     private JPanel bottomPanel;
     private JLabel receiptTotalLabel;
 
-    private TableController tableController;
+    private TableUpdateController tableController;
 
     private java.util.List<Order> orders = new ArrayList<>();
     private java.util.List<OrderListItem> orderItems = new ArrayList<>();
 
-    public TableUpdateTool(String title, Table table, int width, int height) throws Exception {
+    private static volatile TableUpdateTool instance = null;
+
+    private TableUpdateTool(String title, Table table, int width, int height) throws Exception {
         super(title, width, height);
        // this.table = table;
         setUpRightUI(table);
@@ -59,7 +58,7 @@ public class TableUpdateTool extends TableCreationTool {
         createButton.setText("Update");
         createButton.setIcon(FontIcon.of(MaterialDesignU.UPDATE, 20));
 
-        tableController = new TableController(table, this);
+        tableController = new TableUpdateController(table, this);
         tableController.addObserver(Notifier.getInstance());
         createButton.addActionListener(tableController);
 
@@ -68,6 +67,21 @@ public class TableUpdateTool extends TableCreationTool {
         setVisible(true);
     }
 
+    public static TableUpdateTool getInstance(String title, Table table, int width, int height) throws Exception {
+        TableUpdateTool thisInstance = instance;
+        if (instance == null) {
+            synchronized (TableUpdateTool.class) {
+                if (thisInstance == null)
+                    instance = thisInstance = new TableUpdateTool(title,table,width,height);
+            }
+        }
+        return thisInstance;
+    }
+    @Override
+    public void dispose() {
+        instance = null;
+        super.dispose();
+    }
     private void setUpRightUI(Table table) {
 
         JPanel leftPanel = getLeftPanel();
@@ -148,8 +162,7 @@ public class TableUpdateTool extends TableCreationTool {
         addButton.setIcon(FontIcon.of(MaterialDesignP.PLUS_BOX_OUTLINE, 20));
         addButton.addActionListener(e -> {
             try {
-                //TODO add get instance with singleton
-                new OrderCreationTool(new OrderController(),this,table);
+                OrderCreationTool.getInstance(new OrderController(),this,table);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
@@ -168,7 +181,11 @@ public class TableUpdateTool extends TableCreationTool {
         checkButton = new JButton();
         checkButton.setText("New check");
         checkButton.setIcon(FontIcon.of(MaterialDesignP.PLUS_BOX_OUTLINE, 20));
-        checkButton.addActionListener(new OrderController.CheckCreationController(table));
+        OrderController.CheckCreationController checkCreationController = new OrderController.CheckCreationController(table);
+        try{
+            checkCreationController.addObserver(Notifier.getInstance());
+        }catch (Exception e){}
+        checkButton.addActionListener(checkCreationController);
         bottomPanel.add(checkButton, gbc);
         final JPanel spacer6 = new JPanel();
         gbc = new GridBagConstraints();
@@ -210,6 +227,24 @@ public class TableUpdateTool extends TableCreationTool {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         bottomPanel.add(totalField, gbc);
+
+        resetButton = new JButton();
+        resetButton.setText("Delete Receipt");
+        resetButton.setIcon(FontIcon.of(MaterialDesignT.TRASH_CAN, 20));
+        gbc = new GridBagConstraints();
+        gbc.gridx = 2;
+        gbc.gridy = 0;
+        gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        OrderController.CheckResetController checkResetController = new OrderController.CheckResetController(this, table);
+        try {
+            checkResetController.addObserver(Notifier.getInstance());
+        }catch (Exception e){}
+
+        resetButton.addActionListener(checkResetController);
+        bottomPanel.add(resetButton,gbc);
+
         receiptTotalLabel = new JLabel();
         receiptTotalLabel.setText("TOTAL");
         gbc = new GridBagConstraints();
@@ -235,21 +270,20 @@ public class TableUpdateTool extends TableCreationTool {
         listScroller.setViewportView(listPanel);
 
         for(var o:orders){
-            //OrderCreationItem OCI = new OrderCreationItem(this, table, o.getId().getDish(), 0);
             OrderListItem OLI = new OrderListItem(o.getId().getDish(),o.getQuantity(),o.getId(),this, table);
-            total+= (Float.parseFloat(OLI.quantityLabel.getText())*o.getId().getDish().getPrice())*10;
+            total+= (Float.parseFloat(OLI.quantityLabel.getText())*o.getId().getDish().getPrice()/10);
             orderItems.add(OLI);
             listPanel.add(OLI.getListPanel());
         }
 
-        totalField.setValue(total);
+        System.out.println(total);
 
+        String totalString = ((Float)total).toString();
+        totalString = totalString.replace(".", "");
+        String intString = totalString.substring(0,totalString.length()-2);
+        String decimalString = totalString.substring(totalString.length()-2);
+
+        totalField.setText(intString + "." + decimalString);
     }
-
-    public JScrollPane getListScroller(){return listScroller;}
-    public JPanel getListPanel(){return listPanel;}
-
-    public int getOrderIndex(){return orderIndex;}
-    public void setOrderIndex(int orderIndex){this.orderIndex = orderIndex;}
-    public java.util.List<OrderListItem> getOrderItems(){return orderItems;}
+    public java.util.List<Order> getOrders(){return orders;}
 }

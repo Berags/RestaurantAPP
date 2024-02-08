@@ -19,11 +19,14 @@ import java.util.Observable;
 public class DishController {
     private static List<Dish> dishes;
 
+    /**
+     *
+     * @param filter
+     * @return the list of dishes currently in the menu and filtered using the filter String
+     */
+
     public List<Dish> getFilteredDishes(String filter) {
-        if (dishes == null || dishes.isEmpty())
-            dishes = DishDAO.getInstance().getAll();
-        if (filter == null || filter.isEmpty())
-            return dishes;
+        dishes = DishDAO.getInstance().getAll();
         return dishes.stream().filter(dish -> dish.getName().toLowerCase().contains(filter.toLowerCase())).toList();
     }
 
@@ -40,13 +43,14 @@ public class DishController {
         public void actionPerformed(ActionEvent e) {
             String dishName = dishUpdateTool.getNameTextField().getText();
 
-            if(!java.util.Objects.isNull(OrderDAO.getInstance().getByDishValideCheck(dish.getId()))){
+            //if the table hasn't an open check associated
+            if(!(OrderDAO.getInstance().getByDishValideCheck(dish.getId())).isEmpty()){
                 setChanged();
                 notifyObservers(Notifier.Message.build(MessageType.ERROR, dish.getName() +
                         " The dish can't be updated because is part \n of some open orders"));
                 return;
             }
-
+            //if the table name inserted is blank
             if (StringUtils.isBlank(dishName)) {
                 setChanged();
                 notifyObservers(Notifier.Message.build(MessageType.ERROR, "Dish name cannot be empty"));
@@ -57,6 +61,7 @@ public class DishController {
             String priceString = null;
             int price = 0;
 
+            //to assure the correct format of the price with intPart.xx
             try {
                 priceString = dishUpdateTool.getPriceTextField().getText();
                 String[] decimals = priceString.split("\\.");
@@ -95,25 +100,21 @@ public class DishController {
         @Override
         public void actionPerformed(ActionEvent e) {
 
-            if(java.util.Objects.isNull(OrderDAO.getInstance().getByDish(dish.getId()))){
-
-                dishes.remove(dish);
-                if (dishes.isEmpty())
-                    dishes = null;
-                DishDAO.getInstance().delete(dish);
-                setChanged();
-                notifyObservers(Notifier.Message.build(MessageType.DELETE_DISH, dish.getName() + " deleted successfully"));
-
-            }else {
+            //to check if the dish has been ordinated
+            if(!(OrderDAO.getInstance().getByDishValideCheck(dish.getId())).isEmpty()) {
                 setChanged();
                 notifyObservers(Notifier.Message.build(MessageType.ERROR, dish.getName() +
                         " can't be deleted because is part of some open orders"));
+                return;
             }
 
-        }
-    }
+            dishes.remove(dish);
+            if (dishes.isEmpty())
+                dishes = null;
+            DishDAO.getInstance().delete(dish);
+            setChanged();
+            notifyObservers(Notifier.Message.build(MessageType.DELETE_DISH, dish.getName() + " deleted successfully"));
 
-    public void setDishesToNull() {
-        dishes = null;
+        }
     }
 }

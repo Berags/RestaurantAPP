@@ -46,17 +46,16 @@ public class Notifier implements Observer {
                 home.showResultDialog(message.getStringMessage(), true);
                 //TODO: To refactor the if statement
                 if (!Objects.isNull(dishView)) {
-                    dishView.getDishController().setDishesToNull();
-                    dishView.updateList();
+                    dishView.buildList();
                 }
             }
             case DELETE_DISH -> {
                 home.showResultDialog("Dish deleted successfully", true);
-                dishView.updateList();
+                dishView.buildList();
             }
             case UPDATE_DISH -> {
                 home.showResultDialog(message.getStringMessage(), true);
-                dishView.updateList();
+                dishView.buildList();
             }
             case ADD_ROOM -> {
                 home.showResultDialog("Room added successfully", true);
@@ -73,6 +72,9 @@ public class Notifier implements Observer {
                 home.showResultDialog("Room updated successfully", true);
                 home.updateHomeRooms();
                 RoomView.getInstance().updateList();
+            }
+            case CLEAN_CHECK -> {
+                home.showResultDialog("Check cleaned successfully", true);
             }
             case ERROR -> {
                 home.showResultDialog(message.getStringMessage(), false);

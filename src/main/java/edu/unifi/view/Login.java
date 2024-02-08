@@ -3,7 +3,6 @@ package edu.unifi.view;
 import edu.unifi.Notifier;
 import edu.unifi.controller.LoginController;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignA;
-import org.kordamp.ikonli.materialdesign2.MaterialDesignC;
 import org.kordamp.ikonli.swing.FontIcon;
 
 import javax.swing.*;

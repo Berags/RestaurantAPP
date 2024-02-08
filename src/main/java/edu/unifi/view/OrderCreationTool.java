@@ -14,6 +14,8 @@ public class OrderCreationTool extends DishView {
 
     private Table table;
 
+    private static volatile OrderCreationTool instance = null;
+
     public OrderCreationTool(OrderController orderController, TableUpdateTool tableUpdateTool, Table table) throws Exception{
         super();
         this.orderController = orderController;
@@ -22,6 +24,22 @@ public class OrderCreationTool extends DishView {
         panel1.remove(addButton);
         buildList();
         setVisible(true);
+    }
+
+    public static OrderCreationTool getInstance(OrderController orderController, TableUpdateTool tableUpdateTool, Table table) throws Exception {
+        OrderCreationTool thisInstance = instance;
+        if (instance == null) {
+            synchronized (OrderCreationTool.class) {
+                if (thisInstance == null)
+                    instance = thisInstance = new OrderCreationTool(orderController, tableUpdateTool, table);
+            }
+        }
+        return thisInstance;
+    }
+    @Override
+    public void dispose() {
+        instance = null;
+        super.dispose();
     }
 
     @Override
