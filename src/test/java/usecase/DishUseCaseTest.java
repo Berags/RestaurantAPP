@@ -1,10 +1,10 @@
 package usecase;
 
-import edu.unifi.model.entities.*;
+import edu.unifi.model.entities.Dish;
+import edu.unifi.model.entities.TypeOfCourse;
+import edu.unifi.model.entities.User;
 import edu.unifi.model.orm.DatabaseAccess;
 import edu.unifi.model.orm.dao.DishDAO;
-import edu.unifi.model.orm.dao.RoomDAO;
-import edu.unifi.model.orm.dao.TableDAO;
 import edu.unifi.model.orm.dao.TypeOfCourseDAO;
 import edu.unifi.model.util.security.CurrentSession;
 import edu.unifi.model.util.security.Roles;
@@ -35,6 +35,7 @@ public class DishUseCaseTest {
         DatabaseAccess.initiate();
         User user = new User();
         user.setRole(Roles.ADMIN);
+        if (CurrentSession.getInstance().isLogged()) CurrentSession.getInstance().logout();
         CurrentSession.getInstance().login(user);
         TypeOfCourse typeOfCourse = new TypeOfCourse();
         typeOfCourse.setName("TestTypeOfCourse");

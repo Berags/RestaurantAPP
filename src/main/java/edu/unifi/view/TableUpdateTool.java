@@ -43,7 +43,7 @@ public class TableUpdateTool extends TableCreationTool {
 
     private TableUpdateTool(String title, Table table, int width, int height) throws Exception {
         super(title, width, height);
-       // this.table = table;
+        // this.table = table;
         setUpRightUI(table);
         ActionListener[] actionListeners = getCreateButton().getActionListeners();
         for (ActionListener a : actionListeners)
@@ -62,9 +62,10 @@ public class TableUpdateTool extends TableCreationTool {
         tableController.addObserver(Notifier.getInstance());
         createButton.addActionListener(tableController);
 
-       buildOrdersList(table);
+        buildOrdersList(table);
 
         setVisible(true);
+        setName("Table Update Tool");
     }
 
     public static TableUpdateTool getInstance(String title, Table table, int width, int height) throws Exception {
@@ -72,22 +73,24 @@ public class TableUpdateTool extends TableCreationTool {
         if (instance == null) {
             synchronized (TableUpdateTool.class) {
                 if (thisInstance == null)
-                    instance = thisInstance = new TableUpdateTool(title,table,width,height);
+                    instance = thisInstance = new TableUpdateTool(title, table, width, height);
             }
         }
         return thisInstance;
     }
+
     @Override
     public void dispose() {
         instance = null;
         super.dispose();
     }
+
     private void setUpRightUI(Table table) {
 
         JPanel leftPanel = getLeftPanel();
         JPanel gridPanel = getGridPanel();
         gridPanel.removeAll();
-        gridPanel.setLayout(new GridLayout(0,2));
+        gridPanel.setLayout(new GridLayout(0, 2));
 
         gridPanel.add(leftPanel);
 
@@ -99,10 +102,10 @@ public class TableUpdateTool extends TableCreationTool {
         rightPanel.setForeground(new Color(-12875280));
         rightPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(-16777216))));
         labelPanel = new JPanel();
-        labelPanel.setLayout(new GridLayout(1,4));
+        labelPanel.setLayout(new GridLayout(1, 4));
 
         rightPanel.add(labelPanel, BorderLayout.NORTH);
-       // labelPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(-2104859)), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
+        // labelPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(-2104859)), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
         dishLabel = new JLabel();
         Font dishLabelFont = getFont(null, Font.BOLD, 18, dishLabel.getFont());
         if (dishLabelFont != null) dishLabel.setFont(dishLabelFont);
@@ -150,7 +153,7 @@ public class TableUpdateTool extends TableCreationTool {
         listScroller = new JScrollPane();
 
         orderPanel = new JPanel();
-        orderPanel.setLayout(new BorderLayout(0,0));
+        orderPanel.setLayout(new BorderLayout(0, 0));
         orderPanel.add(listScroller);
         rightPanel.add(orderPanel, BorderLayout.CENTER);
 
@@ -162,7 +165,7 @@ public class TableUpdateTool extends TableCreationTool {
         addButton.setIcon(FontIcon.of(MaterialDesignP.PLUS_BOX_OUTLINE, 20));
         addButton.addActionListener(e -> {
             try {
-                OrderCreationTool.getInstance(this,table);
+                OrderCreationTool.getInstance(this, table);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
@@ -182,9 +185,10 @@ public class TableUpdateTool extends TableCreationTool {
         checkButton.setText("New check");
         checkButton.setIcon(FontIcon.of(MaterialDesignP.PLUS_BOX_OUTLINE, 20));
         OrderController.CheckCreationController checkCreationController = new OrderController.CheckCreationController(table);
-        try{
+        try {
             checkCreationController.addObserver(Notifier.getInstance());
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
         checkButton.addActionListener(checkCreationController);
         bottomPanel.add(checkButton, gbc);
         final JPanel spacer6 = new JPanel();
@@ -192,13 +196,13 @@ public class TableUpdateTool extends TableCreationTool {
         gbc.gridx = 1;
         gbc.gridy = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        bottomPanel.add(spacer6,gbc);
+        bottomPanel.add(spacer6, gbc);
         final JPanel spacer7 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.fill = GridBagConstraints.VERTICAL;
-        bottomPanel.add(spacer7,gbc);
+        bottomPanel.add(spacer7, gbc);
         printReceiptButton = new JButton();
         printReceiptButton.setText("Print Receipt");
         printReceiptButton.setIcon(FontIcon.of(MaterialDesignP.PRINTER, 20));
@@ -207,13 +211,13 @@ public class TableUpdateTool extends TableCreationTool {
         gbc.gridy = 1;
         gbc.weightx = 1.0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        bottomPanel.add(printReceiptButton,gbc);
+        bottomPanel.add(printReceiptButton, gbc);
         final JPanel spacer8 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
         gbc.gridy = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        bottomPanel.add(spacer8,gbc);
+        bottomPanel.add(spacer8, gbc);
         totalField = new JFormattedTextField();
         totalField.setDragEnabled(false);
         totalField.setEditable(false);
@@ -240,10 +244,11 @@ public class TableUpdateTool extends TableCreationTool {
         OrderController.CheckResetController checkResetController = new OrderController.CheckResetController(this, table);
         try {
             checkResetController.addObserver(Notifier.getInstance());
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
 
         resetButton.addActionListener(checkResetController);
-        bottomPanel.add(resetButton,gbc);
+        bottomPanel.add(resetButton, gbc);
 
         receiptTotalLabel = new JLabel();
         receiptTotalLabel.setText("TOTAL");
@@ -260,30 +265,33 @@ public class TableUpdateTool extends TableCreationTool {
         setGridPanel(gridPanel);
     }
 
-    public void buildOrdersList(Table table){
+    public void buildOrdersList(Table table) {
 
-        float total=0;
+        float total = 0;
 
         orders = tableController.getTableOrders(table);
         listPanel = new JPanel();
-        listPanel.setLayout(new GridLayout(orders.size(),1));
+        listPanel.setLayout(new GridLayout(orders.size(), 1));
         listScroller.setViewportView(listPanel);
 
-        for(var o:orders){
-            OrderListItem OLI = new OrderListItem(o.getId().getDish(),o.getQuantity(),o.getId(),this, table);
-            total+= (Float.parseFloat(OLI.quantityLabel.getText())*o.getId().getDish().getPrice()/10);
+        for (var o : orders) {
+            OrderListItem OLI = new OrderListItem(o.getId().getDish(), o.getQuantity(), o.getId(), this, table);
+            total += (Float.parseFloat(OLI.quantityLabel.getText()) * o.getId().getDish().getPrice() / 10);
             orderItems.add(OLI);
             listPanel.add(OLI.getListPanel());
         }
 
         System.out.println(total);
 
-        String totalString = ((Float)total).toString();
+        String totalString = ((Float) total).toString();
         totalString = totalString.replace(".", "");
-        String intString = totalString.substring(0,totalString.length()-2);
-        String decimalString = totalString.substring(totalString.length()-2);
+        String intString = totalString.substring(0, totalString.length() - 2);
+        String decimalString = totalString.substring(totalString.length() - 2);
 
         totalField.setText(intString + "." + decimalString);
     }
-    public java.util.List<Order> getOrders(){return orders;}
+
+    public java.util.List<Order> getOrders() {
+        return orders;
+    }
 }
