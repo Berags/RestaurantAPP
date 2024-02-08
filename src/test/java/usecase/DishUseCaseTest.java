@@ -56,7 +56,7 @@ public class DishUseCaseTest {
     @Test
     public void editDish() {
         window.menuItem("EditDish").click();
-        FrameFixture dishList = findFrame("Dishes").withTimeout(1000).using(window.robot());
+        FrameFixture dishList = findFrame("Dish View").withTimeout(1000).using(window.robot());
         dishList.button("EditDish" + dish.getId()).click();
         FrameFixture dishUpdateTool = findFrame("Dish Update Tool").withTimeout(1000).using(window.robot());
 
@@ -89,7 +89,7 @@ public class DishUseCaseTest {
         dishList.close();
 
         window.menuItem("EditDish").click();
-        dishList = findFrame("Dishes").withTimeout(1000).using(window.robot());
+        dishList = findFrame("Dish View").withTimeout(1000).using(window.robot());
         dishList.button("EditDish" + dish.getId()).click();
         dishUpdateTool = findFrame("Dish Update Tool").withTimeout(1000).using(window.robot());
         dishUpdateTool.textBox("NameField").requireText("NewTestDish");
