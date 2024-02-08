@@ -162,7 +162,7 @@ public class TableUpdateTool extends TableCreationTool {
         addButton.setIcon(FontIcon.of(MaterialDesignP.PLUS_BOX_OUTLINE, 20));
         addButton.addActionListener(e -> {
             try {
-                OrderCreationTool.getInstance(new OrderController(),this,table);
+                OrderCreationTool.getInstance(this,table);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }

@@ -77,8 +77,7 @@ public class Home extends Window {
             JMenuItem editDishItem = new JMenuItem("Edit Menu");
             editDishItem.addActionListener(e -> {
                 try {
-                    DishController dishController = new DishController();
-                    DishView.getInstance(dishController).buildList();
+                    DishView.getInstance().buildList();
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
                 }
@@ -116,7 +115,6 @@ public class Home extends Window {
             JMenuItem editRoomMenuItem = new JMenuItem("Edit Room");
             editRoomMenuItem.addActionListener(e -> {
                 try {
-                    RoomEditDeletionToolController roomEditDeletionToolController = new RoomEditDeletionToolController();
                     RoomView.getInstance().buildList();
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);

@@ -43,7 +43,6 @@ public class DishUpdateTool extends DishCreationTool {
         DishController.DishEditController dishEditController = new DishController.DishEditController(dish,this);
 
         Notifier notifier = Notifier.getInstance();
-        notifier.setDishView(DishView.getInstance(new DishController()));
 
         dishEditController.addObserver(notifier);
         updateButton.addActionListener(dishEditController);

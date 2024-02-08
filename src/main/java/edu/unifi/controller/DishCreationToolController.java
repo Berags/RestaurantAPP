@@ -24,6 +24,7 @@ public class DishCreationToolController extends Observable implements ActionList
         Dish dish = new Dish();
 
         //to check if the dish name is empty
+        //TODO: Check if the price is equal to 0.
         String dishName = dishCreationTool.getNameTextField().getText();
         if (StringUtils.isBlank(dishName)) {
             setChanged();

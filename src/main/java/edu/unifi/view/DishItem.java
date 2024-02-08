@@ -37,7 +37,6 @@ public class DishItem {
 
         try {
             Notifier notifier = Notifier.getInstance();
-            notifier.setDishView(DishView.getInstance(new DishController()));
             dishDeletionController.addObserver(notifier);
         } catch (Exception e) {}
 

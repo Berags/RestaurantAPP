@@ -8,7 +8,6 @@ import java.awt.*;
 
 public class OrderCreationTool extends DishView {
 
-    private OrderController orderController;
 
     private TableUpdateTool tableUpdateTool;
 
@@ -16,9 +15,8 @@ public class OrderCreationTool extends DishView {
 
     private static volatile OrderCreationTool instance = null;
 
-    public OrderCreationTool(OrderController orderController, TableUpdateTool tableUpdateTool, Table table) throws Exception{
-        super();
-        this.orderController = orderController;
+    public OrderCreationTool(TableUpdateTool tableUpdateTool, Table table) {
+        super("Order Creation Tool");
         this.tableUpdateTool = tableUpdateTool;
         this.table = table;
         panel1.remove(addButton);
@@ -26,12 +24,12 @@ public class OrderCreationTool extends DishView {
         setVisible(true);
     }
 
-    public static OrderCreationTool getInstance(OrderController orderController, TableUpdateTool tableUpdateTool, Table table) throws Exception {
+    public static OrderCreationTool getInstance(TableUpdateTool tableUpdateTool, Table table) throws Exception {
         OrderCreationTool thisInstance = instance;
         if (instance == null) {
             synchronized (OrderCreationTool.class) {
                 if (thisInstance == null)
-                    instance = thisInstance = new OrderCreationTool(orderController, tableUpdateTool, table);
+                    instance = thisInstance = new OrderCreationTool(tableUpdateTool, table);
             }
         }
         return thisInstance;
@@ -44,7 +42,7 @@ public class OrderCreationTool extends DishView {
 
     @Override
     public void buildList(){
-        filteredDishes = orderController.getFilteredDishes(searchTextField.getText() == null ? "" : searchTextField.getText());
+        filteredDishes = new OrderController().getFilteredDishes(searchTextField.getText() == null ? "" : searchTextField.getText());
         listPanel = new JPanel(new GridLayout(filteredDishes.size(), 1));
         int index = 0;
 

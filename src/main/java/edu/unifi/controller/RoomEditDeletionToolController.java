@@ -57,7 +57,7 @@ public class RoomEditDeletionToolController {
         public void actionPerformed(ActionEvent e) {
 
             for (Table t : room.getTables()) {
-                if (!java.util.Objects.isNull(CheckDAO.getInstance().getValideCheckByTable(t))) {
+                if (!java.util.Objects.isNull(CheckDAO.getInstance().getValidCheckByTable(t))) {
                     setChanged();
                     notifyObservers(Notifier.Message.build(MessageType.ERROR, "Cannot close the room because some tables have an opened check"));
                     return;

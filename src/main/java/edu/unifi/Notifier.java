@@ -14,7 +14,6 @@ public class Notifier implements Observer {
     private Home home;
     private Login login;
 
-    private DishView dishView;
 
     private Notifier() throws Exception {
         if (instance != null)
@@ -45,17 +44,17 @@ public class Notifier implements Observer {
             case ADD_DISH -> {
                 home.showResultDialog(message.getStringMessage(), true);
                 //TODO: To refactor the if statement
-                if (!Objects.isNull(dishView)) {
-                    dishView.buildList();
+                if (!DishView.isDisposed()) {
+                    DishView.getInstance().buildList();
                 }
             }
             case DELETE_DISH -> {
                 home.showResultDialog("Dish deleted successfully", true);
-                dishView.buildList();
+                DishView.getInstance().buildList();
             }
             case UPDATE_DISH -> {
                 home.showResultDialog(message.getStringMessage(), true);
-                dishView.buildList();
+                DishView.getInstance().buildList();
             }
             case ADD_ROOM -> {
                 home.showResultDialog("Room added successfully", true);
@@ -92,10 +91,6 @@ public class Notifier implements Observer {
 
     public void setHome(Home home) {
         this.home = home;
-    }
-
-    public void setDishView(DishView dishView) {
-        this.dishView = dishView;
     }
 
     public void setLogin(Login login) {

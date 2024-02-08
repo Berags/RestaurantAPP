@@ -11,6 +11,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class DishView extends Window {
     protected JButton addButton;
@@ -19,7 +20,7 @@ public class DishView extends Window {
     private JLabel nameLabel;
     private JLabel typeLabel;
     private JLabel actionLabel;
-    private DishController dishController;
+    //private DishController dishController;
     protected final JScrollPane listScroller = new JScrollPane();
 
     protected JPanel panel1;
@@ -31,21 +32,17 @@ public class DishView extends Window {
 
     /**
      * To have all the dishItems, complete with buildList()
-     * @param dishController
+     * @param title
      * @throws Exception
      */
-    private DishView(DishController dishController) throws Exception {
-        super("Dishes", false, DISPOSE_ON_CLOSE, 0, 0, 600, 600);
-        this.dishController = dishController;
-
-        setupUI();
+    protected DishView(String title) {
+        super(title, false, DISPOSE_ON_CLOSE, 0, 0, 600, 600);
+        try {
+            setupUI();
+        }catch(Exception e) {}
         setVisible(true);
     }
 
-    protected DishView() throws Exception{
-        super("Order creation tool",false,DISPOSE_ON_CLOSE,0,0,600,600);
-        setupUI();
-    }
 
     private void setupUI() throws Exception {
         setRootLayout(Layout.BORDER);
@@ -163,12 +160,12 @@ public class DishView extends Window {
         panel3.add(typeLabel, gbc);
     }
 
-    public static DishView getInstance(DishController dishController) throws Exception {
+    public static DishView getInstance() {
         DishView thisInstance = instance;
         if (instance == null) {
             synchronized (DishView.class) {
                 if (thisInstance == null)
-                    instance = thisInstance = new DishView(dishController);
+                    instance = thisInstance = new DishView("Dishes");
             }
         }
         return thisInstance;
@@ -182,7 +179,7 @@ public class DishView extends Window {
     }
 
     public void buildList() {
-        filteredDishes = dishController.getFilteredDishes(searchTextField.getText() == null ? "" : searchTextField.getText());
+        filteredDishes = new DishController().getFilteredDishes(searchTextField.getText() == null ? "" : searchTextField.getText());
         listPanel = new JPanel(new GridLayout(filteredDishes.size(), 1));
         int index = 0;
 
@@ -197,7 +194,6 @@ public class DishView extends Window {
         panel2.add(listScroller, BorderLayout.CENTER);
     }
 
-    public DishController getDishController(){return dishController;}
 
     protected JPanel getPanel1(){return panel1;}
     protected JButton getAddButton(){return addButton;}
@@ -209,4 +205,8 @@ public class DishView extends Window {
     protected JPanel getPanel2(){return panel2;}
 
     protected void setListPanel(JPanel listPanel){this.listPanel = listPanel;}
+
+    public static boolean isDisposed() {
+        return Objects.isNull(instance);
+    }
 }
