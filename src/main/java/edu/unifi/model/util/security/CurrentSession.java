@@ -86,4 +86,8 @@ public class CurrentSession {
         if (user == null) throw new SecurityException("Session not initialized!");
         return user;
     }
+
+    public boolean isLogged() {
+        return user != null;
+    }
 }

@@ -38,7 +38,7 @@ public class Notifier implements Observer {
         switch (message.type) {
             case ADD_TABLE, UPDATE_TABLE, DELETE_TABLE -> {
                 home.showResultDialog(message.getStringMessage(), true);
-                roomView.updateList();
+                //roomView.updateList();
                 home.updateRoom();
             }
             case ADD_DISH -> {
