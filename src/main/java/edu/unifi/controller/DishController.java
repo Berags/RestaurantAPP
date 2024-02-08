@@ -44,7 +44,7 @@ public class DishController {
             String dishName = dishUpdateTool.getNameTextField().getText();
 
             //if the table hasn't an open check associated
-            if(!java.util.Objects.isNull(OrderDAO.getInstance().getByDishValideCheck(dish.getId()))){
+            if(!(OrderDAO.getInstance().getByDishValideCheck(dish.getId())).isEmpty()){
                 setChanged();
                 notifyObservers(Notifier.Message.build(MessageType.ERROR, dish.getName() +
                         " The dish can't be updated because is part \n of some open orders"));
@@ -101,18 +101,19 @@ public class DishController {
         public void actionPerformed(ActionEvent e) {
 
             //to check if the dish has been ordinated
-            if(java.util.Objects.isNull(OrderDAO.getInstance().getByDish(dish.getId()))){
-                dishes.remove(dish);
-                if (dishes.isEmpty())
-                    dishes = null;
-                DishDAO.getInstance().delete(dish);
-                setChanged();
-                notifyObservers(Notifier.Message.build(MessageType.DELETE_DISH, dish.getName() + " deleted successfully"));
-            }else {
+            if(!(OrderDAO.getInstance().getByDishValideCheck(dish.getId())).isEmpty()) {
                 setChanged();
                 notifyObservers(Notifier.Message.build(MessageType.ERROR, dish.getName() +
                         " can't be deleted because is part of some open orders"));
+                return;
             }
+
+            dishes.remove(dish);
+            if (dishes.isEmpty())
+                dishes = null;
+            DishDAO.getInstance().delete(dish);
+            setChanged();
+            notifyObservers(Notifier.Message.build(MessageType.DELETE_DISH, dish.getName() + " deleted successfully"));
 
         }
     }
