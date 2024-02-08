@@ -1,10 +1,8 @@
 package edu.unifi.view;
 
 import edu.unifi.Notifier;
-import edu.unifi.controller.DishController;
 import edu.unifi.controller.ExitController;
 import edu.unifi.controller.HomeController;
-import edu.unifi.controller.RoomEditDeletionToolController;
 import edu.unifi.model.entities.Room;
 import edu.unifi.model.entities.Table;
 import edu.unifi.model.util.security.CurrentSession;
@@ -63,6 +61,7 @@ public class Home extends Window {
             JMenu tablesMenu = new JMenu("Tables");
             JMenu dishesMenu = new JMenu("Menu");
             JMenu roomsMenu = new JMenu("Rooms");
+            JMenu accountsMenu = new JMenu("Accounts");
             //menu option to add a new dish
             JMenuItem addDishItem = new JMenuItem("Add Dish");
             addDishItem.addActionListener(e -> {
@@ -121,17 +120,28 @@ public class Home extends Window {
                 }
             });
 
+            JMenuItem addAccountItem = new JMenuItem("Add Account");
+            addAccountItem.addActionListener(e -> {
+                try {
+                    AccountCreationTool.getInstance("Account creation tool",400,350);
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            });
+
             tablesMenu.add(addTableMenuItem);
             tablesMenu.add(removeTableMenuItem);
             dishesMenu.add(addDishItem);
             dishesMenu.add(editDishItem);
             roomsMenu.add(addRoomMenuItem);
             roomsMenu.add(editRoomMenuItem);
+            accountsMenu.add(addAccountItem);
+
 
             editDishItem.setName("EditDish");
             removeTableMenuItem.setName("RemoveTable");
 
-            addMenuEntries(new Component[]{optionsMenu, tablesMenu, dishesMenu,roomsMenu, Box.createHorizontalGlue(), databaseMenu});
+            addMenuEntries(new Component[]{optionsMenu, tablesMenu, dishesMenu, roomsMenu, accountsMenu, Box.createHorizontalGlue(), databaseMenu});
         }
         else if (CurrentSession.getInstance().isAuthorized(Roles.WAITER))
             addMenuEntries(new Component[]{optionsMenu, Box.createHorizontalGlue(), databaseMenu});

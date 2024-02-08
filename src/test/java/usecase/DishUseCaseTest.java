@@ -3,8 +3,6 @@ package usecase;
 import edu.unifi.model.entities.*;
 import edu.unifi.model.orm.DatabaseAccess;
 import edu.unifi.model.orm.dao.DishDAO;
-import edu.unifi.model.orm.dao.RoomDAO;
-import edu.unifi.model.orm.dao.TableDAO;
 import edu.unifi.model.orm.dao.TypeOfCourseDAO;
 import edu.unifi.model.util.security.CurrentSession;
 import edu.unifi.model.util.security.Roles;
