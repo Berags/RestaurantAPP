@@ -41,6 +41,7 @@ public class DishView extends Window {
             setupUI();
         }catch(Exception e) {}
         setVisible(true);
+        setName("Dish View");
     }
 
 

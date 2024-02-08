@@ -2,6 +2,7 @@ package edu.unifi.view;
 
 import edu.unifi.Notifier;
 import edu.unifi.controller.OrderController;
+import edu.unifi.controller.TableController;
 import edu.unifi.controller.TableUpdateController;
 import edu.unifi.model.entities.Order;
 import edu.unifi.model.entities.Table;
@@ -162,6 +163,7 @@ public class TableUpdateTool extends TableCreationTool {
         rightPanel.add(bottomPanel, BorderLayout.SOUTH);
         addButton = new JButton();
         addButton.setText("Add");
+        addButton.setName("Add");
         addButton.setIcon(FontIcon.of(MaterialDesignP.PLUS_BOX_OUTLINE, 20));
         addButton.addActionListener(e -> {
             try {
@@ -183,6 +185,7 @@ public class TableUpdateTool extends TableCreationTool {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         checkButton = new JButton();
         checkButton.setText("New check");
+        checkButton.setName("New Check");
         checkButton.setIcon(FontIcon.of(MaterialDesignP.PLUS_BOX_OUTLINE, 20));
         OrderController.CheckCreationController checkCreationController = new OrderController.CheckCreationController(table);
         try {
@@ -205,7 +208,9 @@ public class TableUpdateTool extends TableCreationTool {
         bottomPanel.add(spacer7, gbc);
         printReceiptButton = new JButton();
         printReceiptButton.setText("Print Receipt");
+        printReceiptButton.setName("Print Receipt");
         printReceiptButton.setIcon(FontIcon.of(MaterialDesignP.PRINTER, 20));
+        printReceiptButton.addActionListener(new TableController.PrintCheckController(table));
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 1;
@@ -223,6 +228,7 @@ public class TableUpdateTool extends TableCreationTool {
         totalField.setEditable(false);
         totalField.setEnabled(true);
         totalField.setText("€0.00");
+        totalField.setName("TotalField");
         totalField.setVisible(true);
         gbc = new GridBagConstraints();
         gbc.gridx = 4;
@@ -266,7 +272,6 @@ public class TableUpdateTool extends TableCreationTool {
     }
 
     public void buildOrdersList(Table table) {
-
         float total = 0;
 
         orders = tableController.getTableOrders(table);

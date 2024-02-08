@@ -77,7 +77,7 @@ public class OrderDAO implements IDAO<Order, OrderId> {
         }
     }
 
-    public List<Order> getByDish(long dishId){
+    public List<Order> getByDish(long dishId) {
         try {
             session = DatabaseAccess.open();
             List<Order> orders = session.createQuery("from Order o where o.id.dish.id = :dish_id  ", Order.class).setParameter("dish_id", dishId).getResultList();
@@ -87,7 +87,8 @@ public class OrderDAO implements IDAO<Order, OrderId> {
         }
 
     }
-    public List<Order> getByDishValideCheck(long dishId){
+
+    public List<Order> getByDishValideCheck(long dishId) {
 
         try {
             session = DatabaseAccess.open();
@@ -124,5 +125,16 @@ public class OrderDAO implements IDAO<Order, OrderId> {
     @Override
     public void update(List<Order> orders) {
 
+    }
+
+    public List<Order> getOrdersByCheck(Check c) {
+        try {
+            session = DatabaseAccess.open();
+            Query<Order> q = session.createQuery("from Order o where o.id.check = :c_id", Order.class);
+            q.setParameter("c_id", c);
+            return q.getResultList();
+        } finally {
+            DatabaseAccess.close(session);
+        }
     }
 }

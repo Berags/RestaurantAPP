@@ -12,18 +12,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class OrderListItem extends DishItem{
+public class OrderListItem extends DishItem {
     JLabel quantityLabel;
     OrderId oid;
 
-    public OrderListItem(Dish dish, int orderQuantity, OrderId oid, TableUpdateTool tableUpdateTool, Table table){
+    public OrderListItem(Dish dish, int orderQuantity, OrderId oid, TableUpdateTool tableUpdateTool, Table table) {
         super(dish);
         this.oid = oid;
 
-        for (var a: deleteButton.getActionListeners())
+        for (var a : deleteButton.getActionListeners())
             deleteButton.removeActionListener(a);
 
-        for (var a: editButton.getActionListeners())
+        for (var a : editButton.getActionListeners())
             editButton.removeActionListener(a);
 
         listPanel.remove(dishIdLabel);
@@ -33,9 +33,10 @@ public class OrderListItem extends DishItem{
         listPanel.remove(spacer5);
         listPanel.remove(spacer6);
 
-        listPanel.setLayout(new GridLayout(1,4));
+        listPanel.setLayout(new GridLayout(1, 4));
 
         dishNameLabel.setText(dish.getName());
+        dishNameLabel.setName("DishNameLabel" + dish.getId());
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -46,6 +47,7 @@ public class OrderListItem extends DishItem{
         listPanel.add(dishNameLabel);
 
         quantityLabel = new JLabel(String.valueOf(orderQuantity));
+        quantityLabel.setName("QuantityLabel" + dish.getId());
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 0;
@@ -57,15 +59,16 @@ public class OrderListItem extends DishItem{
         float quantity = Float.parseFloat(quantityLabel.getText());
         float price = dish.getPrice();
 
-        JLabel totalLabel = new JLabel(Float.toString(quantity*price/100));
+        JLabel totalLabel = new JLabel(Float.toString(quantity * price / 100));
+        totalLabel.setName("TotalLabel" + dish.getId());
         gbc.gridx = 2;
         gbc.gridy = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        listPanel.add(totalLabel,gbc);
+        listPanel.add(totalLabel, gbc);
 
         actionTestPanel = new JPanel();
-        actionTestPanel.setLayout(new GridLayout(1,2));
+        actionTestPanel.setLayout(new GridLayout(1, 2));
 
 
         editButton = new JButton();
@@ -79,7 +82,6 @@ public class OrderListItem extends DishItem{
         gbc.anchor = GridBagConstraints.CENTER;
         editButton.addActionListener(new OrderController.OrderEditController(oid, tableUpdateTool, table));
         actionTestPanel.add(editButton, gbc);
-
 
         deleteButton = new JButton();
         deleteButton.setHideActionText(false);
@@ -101,6 +103,12 @@ public class OrderListItem extends DishItem{
         listPanel.add(actionTestPanel, gbc);
 
     }
-    public JLabel getQuantityLabel(){return quantityLabel; }
-    public JLabel getDishNameLabel(){return dishNameLabel;}
+
+    public JLabel getQuantityLabel() {
+        return quantityLabel;
+    }
+
+    public JLabel getDishNameLabel() {
+        return dishNameLabel;
+    }
 }

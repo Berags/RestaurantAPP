@@ -7,12 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class OrderCreationTool extends DishView {
-
-
     private TableUpdateTool tableUpdateTool;
-
     private Table table;
-
     private static volatile OrderCreationTool instance = null;
 
     public OrderCreationTool(TableUpdateTool tableUpdateTool, Table table) {
@@ -22,6 +18,7 @@ public class OrderCreationTool extends DishView {
         panel1.remove(addButton);
         buildList();
         setVisible(true);
+        setName("Order Creation Tool");
     }
 
     public static OrderCreationTool getInstance(TableUpdateTool tableUpdateTool, Table table) throws Exception {
