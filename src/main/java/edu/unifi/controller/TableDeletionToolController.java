@@ -32,6 +32,6 @@ public class TableDeletionToolController extends Observable implements ActionLis
     }
 
     public Room getRoomByName(String name) {
-        return RoomDAO.getInstance().getById(name);
+        return RoomDAO.getInstance().getByName(name);
     }
 }

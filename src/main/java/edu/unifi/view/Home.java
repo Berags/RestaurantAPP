@@ -148,10 +148,13 @@ public class Home extends Window {
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         topPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-        for (var table : room.getTables()) {
-            topPanel.add(createButton(table));
+        if (!java.util.Objects.isNull(room.getTables())) {
+            for (var table : room.getTables()) {
+                topPanel.add(createButton(table));
+            }
+            panel.add(topPanel, BorderLayout.CENTER);
         }
-        panel.add(topPanel, BorderLayout.CENTER);
+
     }
 
     public void updateHomeRooms() {

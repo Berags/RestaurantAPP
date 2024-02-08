@@ -8,7 +8,6 @@ import edu.unifi.model.orm.dao.RoomDAO;
 import edu.unifi.model.orm.dao.TableDAO;
 import edu.unifi.view.TableCreationTool;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
@@ -33,7 +32,7 @@ public class TableCreationToolController extends Observable implements ActionLis
         table.setName(tableName);
         table.setNOfSeats((Integer) tableCreationTool.getNOfSeatsSpinner().getValue());
         table.setState((TableState) tableCreationTool.getStateComboBox().getSelectedItem());
-        Room room = RoomDAO.getInstance().getById((String) tableCreationTool.getRoomComboBox().getSelectedItem());
+        Room room = RoomDAO.getInstance().getByName((String) tableCreationTool.getRoomComboBox().getSelectedItem());
         table.setRoom(room);
 
         TableDAO.getInstance().insert(table);

@@ -6,7 +6,6 @@ import edu.unifi.model.orm.dao.CheckDAO;
 import edu.unifi.model.orm.dao.RoomDAO;
 import edu.unifi.model.orm.dao.TableDAO;
 import edu.unifi.view.RoomUpdateTool;
-import org.hibernate.query.Query;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,12 +32,12 @@ public class RoomEditDeletionToolController {
         @Override
         public void actionPerformed(ActionEvent e) {
             String roomName = roomUpdateTool.getNameTextField().getText();
-            if (roomName.isEmpty() || !java.util.Objects.isNull(RoomDAO.getInstance().getById(roomName))) {
+            if (roomName.isEmpty() || !java.util.Objects.isNull(RoomDAO.getInstance().getByName(roomName))) {
                 setChanged();
                 notifyObservers(Notifier.Message.build(MessageType.ERROR, "Invalid room name"));
                 return;
             }
-            room = RoomDAO.getInstance().getById(room.getName());
+            room = RoomDAO.getInstance().getById(room.getId());
             room.setName(roomName);
             RoomDAO.getInstance().update(room);
             setChanged();
@@ -72,7 +71,7 @@ public class RoomEditDeletionToolController {
             rooms.remove(room);
             if (rooms.isEmpty())
                 rooms = null;
-            room = RoomDAO.getInstance().getById(room.getName());
+            room = RoomDAO.getInstance().getByName(room.getName());
             RoomDAO.getInstance().delete(room);
             setChanged();
             notifyObservers(Notifier.Message.build(MessageType.DELETE_ROOM, room.getName() + " deleted successfully"));

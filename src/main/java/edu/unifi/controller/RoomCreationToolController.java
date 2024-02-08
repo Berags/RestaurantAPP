@@ -2,7 +2,6 @@ package edu.unifi.controller;
 
 import edu.unifi.Notifier;
 import edu.unifi.model.entities.Room;
-import edu.unifi.model.orm.DatabaseAccess;
 import edu.unifi.model.orm.dao.RoomDAO;
 import edu.unifi.view.RoomCreationTool;
 
@@ -23,7 +22,7 @@ public class RoomCreationToolController extends Observable implements ActionList
 
         Room room = new Room("");
         String roomName = roomCreationTool.getNameTextField().getText();
-        if (roomName.isEmpty() || RoomDAO.getInstance().getById(roomName) != null) {
+        if (roomName.isEmpty() || RoomDAO.getInstance().getByName(roomName) != null) {
             setChanged();
             notifyObservers(Notifier.Message.build(MessageType.ERROR, "Invalid room name"));
             return;

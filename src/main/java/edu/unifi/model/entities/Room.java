@@ -9,8 +9,13 @@ import java.util.List;
 @Entity
 @Table(name = "rooms")
 public class Room {
+
     @Id
-    @Column(name = "name")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
+    private Long id;
+
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "room", orphanRemoval = true)
@@ -36,4 +41,5 @@ public class Room {
     }
     public void setName(String name) { this.name = name; }
     public int getNumberOfTables() { return tables.size(); }
+    public Long getId() { return id; }
 }

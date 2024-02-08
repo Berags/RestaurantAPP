@@ -9,7 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 
-public class RoomDAO implements IDAO<Room, String> {
+public class RoomDAO implements IDAO<Room, Long> {
 
     private Session session;
     private static volatile RoomDAO instance = null;
@@ -61,7 +61,18 @@ public class RoomDAO implements IDAO<Room, String> {
     }
 
     @Override
-    public Room getById(String name) {
+    public Room getById(Long id) {
+        try {
+            session = DatabaseAccess.open();
+            Query<Room> q = session.createQuery("from Room r where r.id = :r_id", Room.class);
+            q.setParameter("r_id", id);
+            return q.getSingleResultOrNull();
+        } finally {
+            DatabaseAccess.close(session);
+        }
+    }
+
+    public Room getByName(String name) {
         try {
             session = DatabaseAccess.open();
             Query<Room> q = session.createQuery("from Room r where r.name = :r_name", Room.class);

@@ -71,6 +71,7 @@ public class Notifier implements Observer {
             }
             case UPDATE_ROOM -> {
                 home.showResultDialog("Room updated successfully", true);
+                home.updateHomeRooms();
                 RoomView.getInstance().updateList();
             }
             case ERROR -> {

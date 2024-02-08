@@ -20,7 +20,7 @@ public class HomeController {
     }
 
     public Room getById(String name) {
-        return RoomDAO.getInstance().getById(name);
+        return RoomDAO.getInstance().getByName(name);
     }
 
     public User getUserByUsername(String username) { return UserDAO.getInstance().getByUsername(username); }
