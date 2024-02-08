@@ -31,7 +31,8 @@ jobs:
         run: mvn clean compile
       - name: Run headless test
         uses: coactions/setup-xvfb@v1
-        run: mvn clean test
+        with:
+          run: mvn clean test
       - name: Upload Test Report
         uses: actions/upload-artifact@v3
         if: always() # always run even if the previous step fails
