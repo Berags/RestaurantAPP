@@ -6,8 +6,9 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Java CI with Maven
-
+name: Build and Test
+permissions:
+  checks: write
 on:
   push:
     branches: [ "main" ]
@@ -33,10 +34,11 @@ jobs:
         uses: coactions/setup-xvfb@v1
         with:
           run: mvn clean test
-      - name: Upload Test Report
-        uses: actions/upload-artifact@v3
-        if: always() # always run even if the previous step fails
+      - name: Report
+        uses: dorny/test-reporter@v1
+        if: always()
         with:
-          name: junit-test-results
-          path: '**/build/test-results/test/TEST-*.xml'
-          retention-days: 1
+          name: Maven Tests
+          path: target/surefire-reports/*.xml
+          reporter: java-junit
+          fail-on-error: true
