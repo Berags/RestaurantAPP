@@ -1,6 +1,7 @@
 package edu.unifi;
 
 import edu.unifi.controller.MessageType;
+import edu.unifi.controller.RoomEditDeletionToolController;
 import edu.unifi.view.*;
 
 import java.util.Arrays;
@@ -14,7 +15,6 @@ public class Notifier implements Observer {
     private Login login;
 
     private DishView dishView;
-    private RoomView roomView;
 
     private Notifier() throws Exception {
         if (instance != null)
@@ -38,11 +38,13 @@ public class Notifier implements Observer {
         switch (message.type) {
             case ADD_TABLE, UPDATE_TABLE, DELETE_TABLE -> {
                 home.showResultDialog(message.getStringMessage(), true);
-                //roomView.updateList();
+                if (!RoomView.isDisposed())
+                    RoomView.getInstance().updateList();
                 home.updateRoom();
             }
             case ADD_DISH -> {
                 home.showResultDialog(message.getStringMessage(), true);
+                //TODO: To refactor the if statement
                 if (!Objects.isNull(dishView)) {
                     dishView.buildList();
                 }
@@ -58,15 +60,18 @@ public class Notifier implements Observer {
             case ADD_ROOM -> {
                 home.showResultDialog("Room added successfully", true);
                 home.updateHomeRooms();
+                if (!RoomView.isDisposed())
+                    RoomView.getInstance().updateList();
             }
             case DELETE_ROOM -> {
                 home.showResultDialog("Room deleted successfully", true);
                 home.updateHomeRooms();
-                roomView.updateList();
+                RoomView.getInstance().updateList();
             }
             case UPDATE_ROOM -> {
                 home.showResultDialog("Room updated successfully", true);
-                roomView.updateList();
+                home.updateHomeRooms();
+                RoomView.getInstance().updateList();
             }
             case CLEAN_CHECK -> {
                 home.showResultDialog("Check cleaned successfully", true);
@@ -91,10 +96,6 @@ public class Notifier implements Observer {
 
     public void setDishView(DishView dishView) {
         this.dishView = dishView;
-    }
-
-    public void setRoomView(RoomView roomView) {
-        this.roomView = roomView;
     }
 
     public void setLogin(Login login) {

@@ -8,7 +8,8 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
-
+import java.util.Objects;
+//TODO: Refactoring con DishVIew
 public class RoomView extends Window {
 
     private JButton addButton;
@@ -22,17 +23,21 @@ public class RoomView extends Window {
     private JPanel panel2;
     private JPanel listPanel;
     private static RoomView instance;
-    private RoomEditDeletionToolController roomEditDeletionToolController;
 
     private java.util.List<Room> filteredRooms;
 
 
-    private RoomView(RoomEditDeletionToolController roomEditDeletionToolController) throws Exception {
-        super("Rooms", false, DISPOSE_ON_CLOSE, 0, 0, 600, 600);
-        this.roomEditDeletionToolController = roomEditDeletionToolController;
+    private RoomView() {
 
+        super("Rooms", false, DISPOSE_ON_CLOSE, 0, 0, 600, 600);
+        try {
         setupUI();
+        } catch(Exception e) {}
         setVisible(true);
+    }
+
+    public static boolean isDisposed() {
+        return Objects.isNull(instance);
     }
 
     private void setupUI() throws Exception {
@@ -143,12 +148,12 @@ public class RoomView extends Window {
         panel3.add(actionLabel, gbc);
     }
 
-    public static RoomView getInstance(RoomEditDeletionToolController roomEditDeletionToolController) throws Exception {
+    public static RoomView getInstance() {
         RoomView thisInstance = instance;
         if (instance == null) {
             synchronized (RoomView.class) {
                 if (thisInstance == null)
-                    instance = thisInstance = new RoomView(roomEditDeletionToolController);
+                    instance = thisInstance = new RoomView();
             }
         }
         return thisInstance;
@@ -162,7 +167,7 @@ public class RoomView extends Window {
     }
 
     public void buildList() {
-        filteredRooms = roomEditDeletionToolController.getFilteredRooms(searchTextField.getText() == null ? "" : searchTextField.getText());
+        filteredRooms = new RoomEditDeletionToolController().getFilteredRooms(searchTextField.getText() == null ? "" : searchTextField.getText());
         listPanel = new JPanel(new GridLayout(filteredRooms.size(), 1));
         int index = 0;
 
@@ -182,5 +187,4 @@ public class RoomView extends Window {
         listScroller.setViewportView(listPanel);
     }
 
-    public RoomEditDeletionToolController getRoomEditDeletionToolController() { return roomEditDeletionToolController; }
 }
