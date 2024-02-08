@@ -40,6 +40,7 @@ public class TableUseCaseTest {
         DatabaseAccess.initiate();
         User user = new User();
         user.setRole(Roles.ADMIN);
+        if (CurrentSession.getInstance().isLogged()) CurrentSession.getInstance().logout();
         CurrentSession.getInstance().login(user);
 
         table = new Table();
