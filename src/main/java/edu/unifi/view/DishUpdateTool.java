@@ -14,8 +14,8 @@ public class DishUpdateTool extends DishCreationTool {
     private Dish dish;
     private static volatile DishUpdateTool instance;
 
-    private DishUpdateTool(String title, Dish dish, int width, int height) throws Exception {
-        super(title,width,height);
+    private DishUpdateTool( Dish dish, int width, int height) throws Exception {
+        super("Dish Update Tool",width,height);
         this.dish = dish;
 
         JButton updateButton = getCreateButton();
@@ -47,6 +47,8 @@ public class DishUpdateTool extends DishCreationTool {
 
         dishEditController.addObserver(notifier);
         updateButton.addActionListener(dishEditController);
+
+        setName("Dish Update Tool");
     }
 
     public static DishUpdateTool getInstance(String title, Dish d, int width, int height) throws Exception {
@@ -54,7 +56,7 @@ public class DishUpdateTool extends DishCreationTool {
         if (instance == null) {
             synchronized (DishUpdateTool.class) {
                 if (thisInstance == null)
-                    instance = thisInstance = new DishUpdateTool(title, d, width, height);
+                    instance = thisInstance = new DishUpdateTool(d, width, height);
             }
         }
         return thisInstance;

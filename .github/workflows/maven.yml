@@ -27,6 +27,8 @@ jobs:
           java-version: '21'
           distribution: 'oracle'
           cache: maven
+      - name: Compile Maven
+        run: mvn clean compile
       - name: Build and Run Tests
         run: mvn clean test
       - name: Publish Test Report

@@ -17,7 +17,7 @@ public class Window extends JFrame implements Runnable {
     // Map to store components of the window
     private final HashMap<JComponent, Object> components = new HashMap<>();
     // Root panel of the window
-    private final JPanel rootPane = new JPanel();
+    protected final JPanel rootPane = new JPanel();
     // Menu bar of the window
     private JMenuBar menuBar = new JMenuBar();
 
@@ -44,6 +44,7 @@ public class Window extends JFrame implements Runnable {
         if (hasMenu) setJMenuBar(menuBar);
 
         t.setName(title);
+        setName(title);
         setLocationRelativeTo(null);
     }
 

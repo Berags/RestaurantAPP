@@ -43,7 +43,7 @@ public class TableDAO implements IDAO<Table, Long> {
     public void delete(Table table) {
         try {
             session = DatabaseAccess.open();
-            session.remove(session);
+            session.remove(table);
         } finally {
             DatabaseAccess.close(session);
         }
