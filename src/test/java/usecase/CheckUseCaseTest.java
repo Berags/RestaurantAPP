@@ -2,10 +2,7 @@ package usecase;
 
 import edu.unifi.model.entities.*;
 import edu.unifi.model.orm.DatabaseAccess;
-import edu.unifi.model.orm.dao.DishDAO;
-import edu.unifi.model.orm.dao.RoomDAO;
-import edu.unifi.model.orm.dao.TableDAO;
-import edu.unifi.model.orm.dao.TypeOfCourseDAO;
+import edu.unifi.model.orm.dao.*;
 import edu.unifi.model.util.security.CurrentSession;
 import edu.unifi.model.util.security.Roles;
 import edu.unifi.view.Home;
@@ -21,9 +18,18 @@ import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
 
+import java.awt.print.PrinterException;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import static org.assertj.swing.finder.WindowFinder.findFrame;
 import static org.assertj.swing.timing.Pause.pause;
 import static org.assertj.swing.timing.Timeout.timeout;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 public class CheckUseCaseTest {
     private FrameFixture window;
@@ -67,7 +73,7 @@ public class CheckUseCaseTest {
 
     // Test for UC-1 "Add order"
     @Test
-    public void addOrder() throws InterruptedException {
+    public void addOrder() {
         window.button(table.getName()).click();
         FrameFixture tableUpdateToolFrame = findFrame("Table Update Tool").withTimeout(1000).using(window.robot());
 
@@ -99,6 +105,23 @@ public class CheckUseCaseTest {
         tableUpdateToolFrame.label("QuantityLabel" + dish.getId()).requireText("2");
         tableUpdateToolFrame.label("DishNameLabel" + dish.getId()).requireText(dish.getName());
         tableUpdateToolFrame.close();
+    }
+
+    @Test
+    public void printCheck() {
+        Check check = new Check();
+        check.setTable(table);
+        check.setIssueDate(LocalDateTime.now());
+        OrderId oid = new OrderId(check, dish);
+        Order o = new Order(oid);
+        o.setQuantity(2);
+
+        CheckDAO.getInstance().insert(check);
+        OrderDAO.getInstance().insert(o);
+        window.button(table.getName()).click();
+        FrameFixture tableUpdateToolFrame = findFrame("Table Update Tool").withTimeout(1000).using(window.robot());
+
+        assertDoesNotThrow(() -> tableUpdateToolFrame.button("Print Receipt").click());
     }
 
     @AfterEach
