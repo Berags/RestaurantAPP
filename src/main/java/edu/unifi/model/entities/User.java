@@ -23,7 +23,7 @@ public class User {
     @Column(name = "role")
     private Roles role;
 
-    @Column(name = "password_hash", unique = true)
+    @Column(name = "password_hash")
     private String passwordHash;
 
     @Column(name = "username", unique = true, length = 50)
@@ -53,7 +53,17 @@ public class User {
         return role;
     }
 
-    public void setRole(Roles role) {
-        this.role = role;
-    }
+    public void setRole(Roles role) { this.role = role; }
+
+    public String getName() { return name; }
+
+    public void setName(String name) { this.name = name; }
+
+    public String getSurname() { return surname; }
+
+    public void setSurname(String surname) { this.surname = surname; }
+
+    public String getEmail() { return email; }
+
+    public void setEmail(String email) { this.email = email; }
 }
