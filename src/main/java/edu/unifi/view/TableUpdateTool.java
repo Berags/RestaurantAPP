@@ -13,6 +13,7 @@ import org.kordamp.ikonli.swing.FontIcon;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class TableUpdateTool extends TableCreationTool {
@@ -276,7 +277,7 @@ public class TableUpdateTool extends TableCreationTool {
     }
 
     public void buildOrdersList(Table table) {
-        float total = 0;
+        double total = 0.00;
 
         orders = tableController.getTableOrders(table);
         listPanel = new JPanel();
@@ -285,17 +286,16 @@ public class TableUpdateTool extends TableCreationTool {
 
         for (var o : orders) {
             OrderListItem OLI = new OrderListItem(o.getId().getDish(), o.getQuantity(), o.getId(), this, table);
-            total += (Float.parseFloat(OLI.quantityLabel.getText()) * o.getId().getDish().getPrice() / 10);
+            int dishPrice =  o.getId().getDish().getPrice();
+            total +=  ((double) (Integer.parseInt(OLI.quantityLabel.getText()) * dishPrice)/100)  ;
+            System.out.println(Integer.parseInt(OLI.quantityLabel.getText()));
+            System.out.println(dishPrice);
             orderItems.add(OLI);
             listPanel.add(OLI.getListPanel());
         }
 
-        String totalString = ((Float) total).toString();
-        totalString = totalString.replace(".", "");
-        String intString = totalString.substring(0, totalString.length() - 2);
-        String decimalString = totalString.substring(totalString.length() - 2);
-
-        totalField.setText(intString + "." + decimalString);
+        DecimalFormat df = new DecimalFormat("#.##");
+        totalField.setText(df.format(total));
     }
 
     public java.util.List<Order> getOrders() {
