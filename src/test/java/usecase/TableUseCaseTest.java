@@ -57,14 +57,15 @@ public class TableUseCaseTest {
 
         table.setRoom(room);
         TableDAO.getInstance().insert(table);
-        Home frame = GuiActionRunner.execute(() -> new Home("Test Home"));
-        window = new FrameFixture(frame);
-        window.show(); // shows the frame to test
     }
 
     // Test for UC-3 "Edit table information"
     @Test
     public void editTableInformation() {
+        Home frame = GuiActionRunner.execute(() -> new Home("Test Home"));
+        window = new FrameFixture(frame);
+        window.show(); // shows the frame to test
+
         window.button(table.getName()).click();
         FrameFixture tableUpdateToolFrame = findFrame("Table Update Tool").withTimeout(1000).using(window.robot());
 
@@ -114,6 +115,10 @@ public class TableUseCaseTest {
     // Test for UC-5 "Remove table"
     @Test
     public void removeTable() {
+        Home frame = GuiActionRunner.execute(() -> new Home("Test Home"));
+        window = new FrameFixture(frame);
+        window.show(); // shows the frame to test
+
         window.menuItem("RemoveTable").click();
         FrameFixture tableDeletionTool = findFrame("Table Deletion Tool").withTimeout(1000).using(window.robot());
         tableDeletionTool.comboBox("RoomComboBox").selectItem(table.getRoom().getName());

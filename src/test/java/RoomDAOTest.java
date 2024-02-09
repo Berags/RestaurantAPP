@@ -28,7 +28,7 @@ public class RoomDAOTest {
 
         Room room = new Room("RoomTest");
         roomDAO.insert(room);
-        assertNotNull(roomDAO.getById("RoomTest"));
+        assertNotNull(roomDAO.getByName("RoomTest"));
         //reset previous state of the database
         roomDAO.delete(room);
     }
@@ -39,7 +39,7 @@ public class RoomDAOTest {
         Room room = new Room("RoomTest");
         roomDAO.insert(room);
         roomDAO.delete(room);
-        assertNull(roomDAO.getById("RoomTest"));
+        assertNull(roomDAO.getByName("RoomTest"));
     }
 
     @Test
@@ -47,7 +47,7 @@ public class RoomDAOTest {
 
         Room room = new Room("RoomTest");
         roomDAO.insert(room);
-        assertEquals(roomDAO.getById("RoomTest").getName(), room.getName());
+        assertEquals(roomDAO.getByName("RoomTest").getName(), room.getName());
         //reset previous state of the database
         roomDAO.delete(room);
     }

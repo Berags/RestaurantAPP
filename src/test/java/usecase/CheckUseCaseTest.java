@@ -1,11 +1,8 @@
 package usecase;
 
-import edu.unifi.model.entities.Dish;
-import edu.unifi.model.entities.TypeOfCourse;
-import edu.unifi.model.entities.User;
+import edu.unifi.model.entities.*;
 import edu.unifi.model.orm.DatabaseAccess;
-import edu.unifi.model.orm.dao.DishDAO;
-import edu.unifi.model.orm.dao.TypeOfCourseDAO;
+import edu.unifi.model.orm.dao.*;
 import edu.unifi.model.util.security.CurrentSession;
 import edu.unifi.model.util.security.Roles;
 import edu.unifi.view.Home;
@@ -21,12 +18,22 @@ import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
 
+import java.awt.print.PrinterException;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import static org.assertj.swing.finder.WindowFinder.findFrame;
 import static org.assertj.swing.timing.Pause.pause;
 import static org.assertj.swing.timing.Timeout.timeout;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
-public class DishUseCaseTest {
+public class CheckUseCaseTest {
     private FrameFixture window;
+    private Table table;
     private Dish dish;
 
     @BeforeEach
@@ -41,40 +48,39 @@ public class DishUseCaseTest {
         typeOfCourse.setName("TestTypeOfCourse");
         TypeOfCourseDAO.getInstance().insert(typeOfCourse);
 
+        Room room = new Room();
+        room.setName("TestRoom");
+        RoomDAO.getInstance().insert(room);
+
         dish = new Dish();
         dish.setName("TestDish");
         dish.setDescription("TestDescription");
-        dish.setPrice(10);
+        dish.setPrice(1000);
         dish.setTypeOfCourse(typeOfCourse);
         DishDAO.getInstance().insert(dish);
+
+        table = new Table();
+        table.setName("TestTable");
+        table.setNOfSeats(4);
+        table.setState(edu.unifi.model.entities.TableState.FREE);
+        table.setRoom(room);
+        TableDAO.getInstance().insert(table);
 
         Home frame = GuiActionRunner.execute(() -> new Home("Test Home"));
         window = new FrameFixture(frame);
         window.show(); // shows the frame to test
     }
 
+    // Test for UC-1 "Add order"
     @Test
-    public void editDish() {
-        window.menuItem("EditDish").click();
-        FrameFixture dishList = findFrame("Dish View").withTimeout(1000).using(window.robot());
-        dishList.button("EditDish" + dish.getId()).click();
-        FrameFixture dishUpdateTool = findFrame("Dish Update Tool").withTimeout(1000).using(window.robot());
+    public void addOrder() {
+        window.button(table.getName()).click();
+        FrameFixture tableUpdateToolFrame = findFrame("Table Update Tool").withTimeout(1000).using(window.robot());
 
-        dishUpdateTool.textBox("NameField").requireText(dish.getName());
-        String str = Integer.toString(dish.getPrice());
-        str = new StringBuilder(str).insert(str.length() - 2, ".").toString();
-        dishUpdateTool.textBox("PriceTextField").requireText(str);
-        dishUpdateTool.comboBox("TypeComboBox").requireSelection(dish.getTypeOfCourse().getName());
-        dishUpdateTool.textBox("DescriptionTextArea").requireText(dish.getDescription());
-
-        dishUpdateTool.textBox("NameField").deleteText().enterText("NewTestDish");
-        dishUpdateTool.textBox("PriceTextField").deleteText().enterText("20.00");
-        dishUpdateTool.textBox("DescriptionTextArea").deleteText().enterText("NewTestDescription");
-        dishUpdateTool.comboBox("TypeComboBox").selectItem(0);
-        dishUpdateTool.button("CreateDish").click();
+        tableUpdateToolFrame.button("New Check").click();
         GenericTypeMatcher<JOptionPane> matcher = new GenericTypeMatcher<>(JOptionPane.class) {
             protected boolean isMatching(JOptionPane optionPane) {
-                return "NewTestDish updated successfully".equals(optionPane.getMessage());
+                return "New check created successfully".equals(optionPane.getMessage());
             }
         };
         JOptionPaneFixture optionPane = JOptionPaneFinder.findOptionPane(matcher).using(window.robot());
@@ -86,17 +92,36 @@ public class DishUseCaseTest {
             }
         }, timeout());
         optionPane.okButton().click();
-        dishList.close();
 
-        window.menuItem("EditDish").click();
-        dishList = findFrame("Dish View").withTimeout(1000).using(window.robot());
-        dishList.button("EditDish" + dish.getId()).click();
-        dishUpdateTool = findFrame("Dish Update Tool").withTimeout(1000).using(window.robot());
-        dishUpdateTool.textBox("NameField").requireText("NewTestDish");
-        dishUpdateTool.textBox("PriceTextField").requireText("20.00");
-        dishUpdateTool.comboBox("TypeComboBox").requireSelection(0);
-        dishUpdateTool.textBox("DescriptionTextArea").requireText("NewTestDescription");
-        dishUpdateTool.close();
+        tableUpdateToolFrame.button("Add").click();
+
+        FrameFixture dishViewFrame = findFrame("Order Creation Tool").withTimeout(10000).using(window.robot());
+        dishViewFrame.spinner("Quantity" + dish.getId()).increment(1);
+        dishViewFrame.button("Add" + dish.getId()).click();
+        dishViewFrame.close();
+
+        tableUpdateToolFrame.textBox("TotalField").requireText("20.00");
+        tableUpdateToolFrame.label("TotalLabel" + dish.getId()).requireText("20.0");
+        tableUpdateToolFrame.label("QuantityLabel" + dish.getId()).requireText("2");
+        tableUpdateToolFrame.label("DishNameLabel" + dish.getId()).requireText(dish.getName());
+        tableUpdateToolFrame.close();
+    }
+
+    @Test
+    public void printCheck() {
+        Check check = new Check();
+        check.setTable(table);
+        check.setIssueDate(LocalDateTime.now());
+        OrderId oid = new OrderId(check, dish);
+        Order o = new Order(oid);
+        o.setQuantity(2);
+
+        CheckDAO.getInstance().insert(check);
+        OrderDAO.getInstance().insert(o);
+        window.button(table.getName()).click();
+        FrameFixture tableUpdateToolFrame = findFrame("Table Update Tool").withTimeout(1000).using(window.robot());
+
+        assertDoesNotThrow(() -> tableUpdateToolFrame.button("Print Receipt").click());
     }
 
     @AfterEach

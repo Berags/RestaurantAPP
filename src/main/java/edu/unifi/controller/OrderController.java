@@ -8,6 +8,7 @@ import edu.unifi.model.orm.dao.OrderDAO;
 import edu.unifi.model.orm.dao.TableDAO;
 import edu.unifi.view.OrderCreationItem;
 import edu.unifi.view.TableUpdateTool;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -45,8 +46,7 @@ public class OrderController {
 
             //to check if the table has an open check associated
             check = CheckDAO.getInstance().getValidCheckByTable(commonTable);
-            if(java.util.Objects.isNull(check)){
-
+            if (java.util.Objects.isNull(check)) {
                 setChanged();
                 notifyObservers(Notifier.Message.build(MessageType.ERROR, "You must create a new check"));
                 return;
@@ -58,23 +58,22 @@ public class OrderController {
 
             order.setQuantity((Integer) orderCreationItem.getQuantitySpinner().getValue());
 
-            java.util.List<Order> tableOrders = OrderDAO.getInstance().getAllTableOrders(commonTable,check);
+            java.util.List<Order> tableOrders = OrderDAO.getInstance().getAllTableOrders(commonTable, check);
 
             boolean contained = false;
 
-            for(var a : tableOrders){
-                if(Objects.equals(a.getId().getDish().getId(), dish.getId())){
-                    order.setQuantity( ((Integer) orderCreationItem.getQuantitySpinner().getValue()).intValue() + a.getQuantity());
+            for (var a : tableOrders) {
+                if (Objects.equals(a.getId().getDish().getId(), dish.getId())) {
+                    order.setQuantity(((Integer) orderCreationItem.getQuantitySpinner().getValue()).intValue() + a.getQuantity());
                     contained = true;
                 }
             }
-            if(contained){
+            if (contained) {
                 OrderDAO.getInstance().update(order);
-            }else{
+            } else {
                 OrderDAO.getInstance().insert(order);
             }
             tableUpdateTool.buildOrdersList(commonTable);
-
         }
 
         public void setDish(Dish dish) {
@@ -82,16 +81,16 @@ public class OrderController {
         }
     }
 
-    public static class CheckCreationController extends Observable implements ActionListener{
+    public static class CheckCreationController extends Observable implements ActionListener {
 
-        public CheckCreationController(Table table){
+        public CheckCreationController(Table table) {
             commonTable = table;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
 
-            if(!java.util.Objects.isNull(CheckDAO.getInstance().getValidCheckByTable(commonTable))) {
+            if (!java.util.Objects.isNull(CheckDAO.getInstance().getValidCheckByTable(commonTable))) {
                 setChanged();
                 notifyObservers(Notifier.Message.build(MessageType.ERROR, "This table already has an associated check.\n " +
                         "You can clean it using the decicated button"));
@@ -111,12 +110,13 @@ public class OrderController {
 
         }
     }
-    public static class CheckResetController extends Observable implements ActionListener{
+
+    public static class CheckResetController extends Observable implements ActionListener {
 
         private TableUpdateTool tableUpdateTool;
         private Table table;
 
-        public CheckResetController(TableUpdateTool tableUpdateTool, Table table){
+        public CheckResetController(TableUpdateTool tableUpdateTool, Table table) {
 
             this.tableUpdateTool = tableUpdateTool;
             this.table = table;
@@ -124,15 +124,15 @@ public class OrderController {
         }
 
         @Override
-        public void actionPerformed(ActionEvent e){
+        public void actionPerformed(ActionEvent e) {
 
-            if(java.util.Objects.isNull(CheckDAO.getInstance().getValidCheckByTable(table))){
+            if (java.util.Objects.isNull(CheckDAO.getInstance().getValidCheckByTable(table))) {
                 setChanged();
                 notifyObservers(Notifier.Message.build(MessageType.ERROR, "There is any check to delete!"));
                 return;
             }
             //to delete all the orders present in the check
-            for (var a:tableUpdateTool.getOrders())
+            for (var a : tableUpdateTool.getOrders())
                 OrderDAO.getInstance().delete(a);
 
 
@@ -149,24 +149,24 @@ public class OrderController {
         }
     }
 
-    public static class OrderEditController implements ActionListener{
+    public static class OrderEditController implements ActionListener {
 
         private OrderId oid;
 
 
-        public OrderEditController(OrderId oid, TableUpdateTool tableUpdateToolt, Table table){
+        public OrderEditController(OrderId oid, TableUpdateTool tableUpdateToolt, Table table) {
             this.oid = oid;
             commonTable = table;
             tableUpdateTool = tableUpdateToolt;
         }
 
         @Override
-        public void actionPerformed(ActionEvent e){
+        public void actionPerformed(ActionEvent e) {
 
-            SpinnerNumberModel sModel = new SpinnerNumberModel(OrderDAO.getInstance().getById(oid).getQuantity(),0,1000,1);
+            SpinnerNumberModel sModel = new SpinnerNumberModel(OrderDAO.getInstance().getById(oid).getQuantity(), 0, 1000, 1);
             JSpinner spinner = new JSpinner(sModel);
             int option = JOptionPane.showOptionDialog(null, spinner, "Enter the new quantity",
-                    JOptionPane.OK_CANCEL_OPTION,JOptionPane.INFORMATION_MESSAGE,null,null,null);
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
 
 
             if (option == JOptionPane.OK_OPTION) {
@@ -178,18 +178,18 @@ public class OrderController {
         }
     }
 
-    public static class OrderDeletionController implements ActionListener{
+    public static class OrderDeletionController implements ActionListener {
 
         private OrderId oid;
 
-        public OrderDeletionController(OrderId oid, TableUpdateTool tableUpdateToolt, Table table){
+        public OrderDeletionController(OrderId oid, TableUpdateTool tableUpdateToolt, Table table) {
             this.oid = oid;
             commonTable = table;
             tableUpdateTool = tableUpdateToolt;
         }
 
         @Override
-        public void actionPerformed(ActionEvent e){
+        public void actionPerformed(ActionEvent e) {
 
             Order order = OrderDAO.getInstance().getById(oid);
             OrderDAO.getInstance().delete(order);

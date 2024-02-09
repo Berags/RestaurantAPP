@@ -20,7 +20,7 @@ public class Check {
     private Long id;
 
     @Column(name = "closed", nullable = false)
-    private boolean closed=false;
+    private boolean closed = false;
 
     @Column(name = "issue_date", nullable = false)
     @JdbcTypeCode(SqlTypes.TIMESTAMP)
@@ -30,7 +30,7 @@ public class Check {
     @JoinColumn(name = "table_id", nullable = false)
     private edu.unifi.model.entities.Table table;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<Order> orders = new LinkedHashSet<>();
 
     public Set<Order> getOrders() {

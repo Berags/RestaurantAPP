@@ -6,8 +6,9 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Java CI with Maven
-
+name: Build and Test
+permissions:
+  checks: write
 on:
   push:
     branches: [ "main" ]
@@ -29,10 +30,15 @@ jobs:
           cache: maven
       - name: Compile Maven
         run: mvn clean compile
-      - name: Build and Run Tests
-        run: mvn clean test
-      - name: Publish Test Report
-        uses: mikepenz/action-junit-report@v4
-        if: success() || failure() # always run even if the previous step fails
+      - name: Run headless test
+        uses: coactions/setup-xvfb@v1
         with:
-          report_paths: '**/build/test-results/test/TEST-*.xml'
+          run: mvn clean test
+      - name: Report
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Maven Tests
+          path: target/surefire-reports/*.xml
+          reporter: java-junit
+          fail-on-error: true

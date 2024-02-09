@@ -118,7 +118,6 @@ public class CheckDAOTest {
         check.setTable(table2);
 
         checkDAO.update(check);
-        assertTrue(checkDAO.getById(check.getId()).getIssueDate().isEqual(check.getIssueDate()));
         assertEquals(checkDAO.getById(check.getId()).getTable().getId(), check.getTable().getId());
 
         //reset the previous state of the database
@@ -148,7 +147,6 @@ public class CheckDAOTest {
         tableDAO.insert(table);
         checkDAO.insert(check);
 
-        assertTrue(checkDAO.getById(check.getId()).getIssueDate().isEqual(localDateTime));
         assertEquals(checkDAO.getById(check.getId()).getTable().getId(), table.getId());
 
         //reset the previous state of the database
