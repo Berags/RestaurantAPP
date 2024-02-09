@@ -1,7 +1,7 @@
 package edu.unifi.view;
 
 import edu.unifi.Notifier;
-import edu.unifi.controller.AccountCreationToolController;
+import edu.unifi.controller.UserCreationToolController;
 import edu.unifi.model.util.security.Roles;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
 import org.kordamp.ikonli.swing.FontIcon;
@@ -11,7 +11,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class AccountCreationTool extends Window {
+public class UserCreationTool extends Window {
 
     private JLabel nameLabel;
     private JTextField nameTextField;
@@ -30,14 +30,14 @@ public class AccountCreationTool extends Window {
     private JComboBox roleComboBox;
     private JPanel gridPanel;
 
-    private static volatile AccountCreationTool instance = null;
+    private static volatile UserCreationTool instance = null;
 
-    protected AccountCreationTool(String title, int width, int height) throws Exception {
+    protected UserCreationTool(String title, int width, int height) throws Exception {
         super(title, false, JFrame.DISPOSE_ON_CLOSE, 0, 0, width, height);
         setUpUI();
 
-        AccountCreationToolController accountCreationToolController = new AccountCreationToolController(this);
-        accountCreationToolController.addObserver(Notifier.getInstance());
+        UserCreationToolController userCreationToolController = new UserCreationToolController(this);
+        userCreationToolController.addObserver(Notifier.getInstance());
 
         setVisible(true);
     }
@@ -282,9 +282,9 @@ public class AccountCreationTool extends Window {
         gbc.weightx = 1.0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(20, 0, 0, 50);
-        AccountCreationToolController accountCreationToolController = new AccountCreationToolController(this);
-        accountCreationToolController.addObserver(Notifier.getInstance());
-        createButton.addActionListener(accountCreationToolController);
+        UserCreationToolController userCreationToolController = new UserCreationToolController(this);
+        userCreationToolController.addObserver(Notifier.getInstance());
+        createButton.addActionListener(userCreationToolController);
         gridPanel.add(createButton, gbc);
 
 
@@ -302,12 +302,12 @@ public class AccountCreationTool extends Window {
 
     }
 
-    public static AccountCreationTool getInstance(String title, int width, int height) throws Exception {
-        AccountCreationTool thisInstance = instance;
+    public static UserCreationTool getInstance(String title, int width, int height) throws Exception {
+        UserCreationTool thisInstance = instance;
         if (instance == null) {
             synchronized (TableCreationTool.class) {
                 if (thisInstance == null)
-                    instance = thisInstance = new AccountCreationTool(title, width, height);
+                    instance = thisInstance = new UserCreationTool(title, width, height);
             }
         }
         return thisInstance;
@@ -324,4 +324,7 @@ public class AccountCreationTool extends Window {
     public JTextField getUsernameTextField() { return usernameTextField; }
     public JPasswordField getPasswordTextField() { return passwordTextField; }
     public JComboBox getRoleComboBox() { return roleComboBox; }
+    public JButton getCreateButton() { return createButton; }
+
+    public JLabel getTitleLabel() { return titleLabel; }
 }

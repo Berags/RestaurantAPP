@@ -61,7 +61,7 @@ public class Home extends Window {
             JMenu tablesMenu = new JMenu("Tables");
             JMenu dishesMenu = new JMenu("Menu");
             JMenu roomsMenu = new JMenu("Rooms");
-            JMenu accountsMenu = new JMenu("Accounts");
+            JMenu usersMenu = new JMenu("Users");
             //menu option to add a new dish
             JMenuItem addDishItem = new JMenuItem("Add Dish");
             addDishItem.addActionListener(e -> {
@@ -120,10 +120,19 @@ public class Home extends Window {
                 }
             });
 
-            JMenuItem addAccountItem = new JMenuItem("Add Account");
-            addAccountItem.addActionListener(e -> {
+            JMenuItem addUserMenuItem = new JMenuItem("Add User");
+            addUserMenuItem.addActionListener(e -> {
                 try {
-                    AccountCreationTool.getInstance("Account creation tool",400,350);
+                    UserCreationTool.getInstance("User creation tool",400,350);
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            });
+
+            JMenuItem editUserMenuItem = new JMenuItem("Edit User");
+            editUserMenuItem.addActionListener(e -> {
+                try {
+                    UserView.getInstance().buildList();
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
                 }
@@ -135,13 +144,14 @@ public class Home extends Window {
             dishesMenu.add(editDishItem);
             roomsMenu.add(addRoomMenuItem);
             roomsMenu.add(editRoomMenuItem);
-            accountsMenu.add(addAccountItem);
+            usersMenu.add(addUserMenuItem);
+            usersMenu.add(editUserMenuItem);
 
 
             editDishItem.setName("EditDish");
             removeTableMenuItem.setName("RemoveTable");
 
-            addMenuEntries(new Component[]{optionsMenu, tablesMenu, dishesMenu, roomsMenu, accountsMenu, Box.createHorizontalGlue(), databaseMenu});
+            addMenuEntries(new Component[]{optionsMenu, tablesMenu, dishesMenu, roomsMenu, usersMenu, Box.createHorizontalGlue(), databaseMenu});
         }
         else if (CurrentSession.getInstance().isAuthorized(Roles.WAITER))
             addMenuEntries(new Component[]{optionsMenu, Box.createHorizontalGlue(), databaseMenu});

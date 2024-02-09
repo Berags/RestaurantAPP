@@ -23,7 +23,7 @@ public class User {
     @Column(name = "role")
     private Roles role;
 
-    @Column(name = "password_hash", unique = true)
+    @Column(name = "password_hash")
     private String passwordHash;
 
     @Column(name = "username", unique = true, length = 50)

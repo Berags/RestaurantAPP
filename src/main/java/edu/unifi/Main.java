@@ -1,6 +1,9 @@
 package edu.unifi;
 
+import edu.unifi.model.entities.User;
 import edu.unifi.model.orm.DatabaseAccess;
+import edu.unifi.model.orm.dao.UserDAO;
+import edu.unifi.model.util.security.PasswordManager;
 import edu.unifi.model.util.security.Roles;
 import edu.unifi.model.util.security.aop.Authorize;
 import edu.unifi.view.Home;
@@ -39,7 +42,6 @@ public class Main {
         loadingDialog.setVisible(true);
         // Initiating database connection pool
         DatabaseAccess.initiate();
-
 
         loadingDialog.setVisible(false);
         try {
