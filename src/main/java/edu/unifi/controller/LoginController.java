@@ -7,10 +7,8 @@ import edu.unifi.model.util.security.CurrentSession;
 import edu.unifi.model.util.security.PasswordManager;
 import edu.unifi.view.Login;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Objects;
 import java.util.Observable;
 
 public final class LoginController extends Observable implements ActionListener {

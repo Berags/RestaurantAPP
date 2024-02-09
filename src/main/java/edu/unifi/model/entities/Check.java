@@ -49,6 +49,8 @@ public class Check {
         this.table = table;
     }
 
+    public void setClosed(boolean closed) {this.closed = closed;}
+
     public LocalDateTime getIssueDate() {
         return issueDate;
     }

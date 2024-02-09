@@ -1,11 +1,7 @@
 package edu.unifi;
 
 import edu.unifi.controller.MessageType;
-import edu.unifi.controller.RoomEditDeletionToolController;
 import edu.unifi.view.*;
-
-import java.util.Arrays;
-import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 

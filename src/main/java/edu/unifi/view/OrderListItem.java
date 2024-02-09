@@ -17,6 +17,7 @@ public class OrderListItem extends DishItem {
     OrderId oid;
 
     public OrderListItem(Dish dish, int orderQuantity, OrderId oid, TableUpdateTool tableUpdateTool, Table table) {
+
         super(dish);
         this.oid = oid;
 
@@ -33,7 +34,7 @@ public class OrderListItem extends DishItem {
         listPanel.remove(spacer5);
         listPanel.remove(spacer6);
 
-        listPanel.setLayout(new GridLayout(1, 4));
+        listPanel.setLayout(new GridLayout(1,4));
 
         dishNameLabel.setText(dish.getName());
         dishNameLabel.setName("DishNameLabel" + dish.getId());
@@ -43,6 +44,7 @@ public class OrderListItem extends DishItem {
         gbc.gridy = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
+        gbc.weighty = 0.2;
 
         listPanel.add(dishNameLabel);
 
@@ -53,6 +55,7 @@ public class OrderListItem extends DishItem {
         gbc.gridy = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.EAST;
+        gbc.weighty = 0.2;
 
         listPanel.add(quantityLabel, gbc);
 
@@ -65,11 +68,18 @@ public class OrderListItem extends DishItem {
         gbc.gridy = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
+        gbc.weighty = 0.2;
         listPanel.add(totalLabel, gbc);
 
         actionTestPanel = new JPanel();
-        actionTestPanel.setLayout(new GridLayout(1, 2));
+        actionTestPanel.setLayout(new GridLayout(1,2));
 
+        JPanel rightActionTestPanel = new JPanel();
+        rightActionTestPanel.setLayout(new BoxLayout(rightActionTestPanel, BoxLayout.PAGE_AXIS));
+        rightActionTestPanel.add(Box.createVerticalGlue());
+        JPanel leftActionTestPanel = new JPanel();
+        leftActionTestPanel.setLayout(new BoxLayout(leftActionTestPanel, BoxLayout.PAGE_AXIS));
+        leftActionTestPanel.add(Box.createVerticalGlue());
 
         editButton = new JButton();
         editButton.setHideActionText(false);
@@ -78,10 +88,10 @@ public class OrderListItem extends DishItem {
         editButton.setIcon(FontIcon.of(MaterialDesignP.PENCIL, 20));
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.anchor = GridBagConstraints.CENTER;
         editButton.addActionListener(new OrderController.OrderEditController(oid, tableUpdateTool, table));
-        actionTestPanel.add(editButton, gbc);
+        leftActionTestPanel.add(editButton, gbc);
+        leftActionTestPanel.add(Box.createVerticalGlue());
+        actionTestPanel.add(leftActionTestPanel, gbc);
 
         deleteButton = new JButton();
         deleteButton.setHideActionText(false);
@@ -92,23 +102,18 @@ public class OrderListItem extends DishItem {
 
         gbc.gridx = 1;
         gbc.gridy = 0;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.anchor = GridBagConstraints.EAST;
+        gbc.weighty = 0.2;
 
-        actionTestPanel.add(deleteButton, gbc);
+        rightActionTestPanel.add(deleteButton, gbc);
+        rightActionTestPanel.add(Box.createVerticalGlue());
+        actionTestPanel.add(rightActionTestPanel, gbc);
+
         gbc.gridx = 3;
         gbc.gridy = 0;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.fill = GridBagConstraints.BOTH;
         gbc.anchor = GridBagConstraints.CENTER;
         listPanel.add(actionTestPanel, gbc);
 
-    }
-
-    public JLabel getQuantityLabel() {
-        return quantityLabel;
-    }
-
-    public JLabel getDishNameLabel() {
-        return dishNameLabel;
     }
 }

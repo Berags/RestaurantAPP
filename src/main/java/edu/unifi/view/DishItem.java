@@ -123,15 +123,10 @@ public class DishItem {
         deleteButton.setHorizontalTextPosition(0);
         deleteButton.setIcon(FontIcon.of(MaterialDesignD.DELETE, 20));
 
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = index++;
-        gbc.weighty = 0.1;
         listPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
     }
 
     JPanel getListPanel() {
         return listPanel;
     }
-
 }
