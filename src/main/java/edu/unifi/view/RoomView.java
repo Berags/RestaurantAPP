@@ -10,7 +10,6 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.util.Objects;
 
-//TODO: Refactoring con DishVIew?
 public class RoomView extends Window {
 
     private JButton addButton;

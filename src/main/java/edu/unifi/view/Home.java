@@ -22,13 +22,12 @@ import java.util.concurrent.TimeUnit;
 public class Home extends Window {
     private JTabbedPane roomsTabbedPane;
     private java.util.List<Room> rooms;
-    private final HomeController homeController;
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private final JLabel databaseMenu = new JLabel("Connected");
 
     public Home(String title) throws Exception {
         super(title, true, JFrame.EXIT_ON_CLOSE, 0, 0, 1000, 700);
-        homeController = new HomeController(this);
+        //homeController = new HomeController(this);
         scheduler.scheduleAtFixedRate(this, 1, 1, TimeUnit.MINUTES);
 
         setRootLayout(Layout.BORDER, 0, 0);
@@ -163,7 +162,7 @@ public class Home extends Window {
 
     public void updateRoom() {
         Room room = rooms.get(roomsTabbedPane.getSelectedIndex());
-        room = homeController.getById(room.getName());
+        room = new HomeController(this).getById(room.getName());
         JPanel panel = (JPanel) roomsTabbedPane.getSelectedComponent();
         panel.removeAll();
         JPanel topPanel = new JPanel();
@@ -184,7 +183,7 @@ public class Home extends Window {
             remove(roomsTabbedPane);
         }
         roomsTabbedPane = new JTabbedPane();
-        rooms = homeController.getRooms();
+        rooms = new HomeController(this).getRooms();
         for (var room : rooms) {
             JPanel panel = new JPanel();
             panel.setLayout(new BorderLayout(10, 10));

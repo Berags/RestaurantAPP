@@ -110,5 +110,4 @@ public class RoomToolController {
 
     }
     public void setRoomsToNull() { rooms = null; }
-
 }

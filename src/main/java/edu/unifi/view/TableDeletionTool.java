@@ -17,14 +17,13 @@ public class TableDeletionTool extends Window {
     private JLabel roomLabel;
     private JLabel tableLabel;
     private final HashMap<String, java.util.List<Table>> roomTableHashMap = new HashMap<>();
-    private final TableToolController.TableDeletionToolController tableDeletionToolController;
 
     private static TableDeletionTool instance;
 
     private TableDeletionTool() throws Exception {
         super("Table Deletion Tool", false, JFrame.DISPOSE_ON_CLOSE, 0, 0, 400, 300);
 
-        tableDeletionToolController = new TableToolController.TableDeletionToolController(this);
+        TableToolController.TableDeletionToolController tableDeletionToolController = new TableToolController.TableDeletionToolController(this);
         tableDeletionToolController.addObserver(Notifier.getInstance());
 
         removeButton.addActionListener(tableDeletionToolController);
@@ -33,10 +32,10 @@ public class TableDeletionTool extends Window {
             roomTableHashMap.put(room.getName(), room.getTables());
         }
 
-        setUpUI();
+        setUpUI(tableDeletionToolController);
     }
 
-    private void setUpUI() throws Exception {
+    private void setUpUI(TableDeletionToolController tableDeletionToolController) throws Exception {
         setRootLayout(Layout.BORDER);
         titleLabel = new JLabel();
         Font titleLabelFont = getFont(null, Font.BOLD, 20, titleLabel.getFont());

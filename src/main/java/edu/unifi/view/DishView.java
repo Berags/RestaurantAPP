@@ -19,7 +19,6 @@ public class DishView extends Window {
     private JLabel nameLabel;
     private JLabel typeLabel;
     private JLabel actionLabel;
-    //private DishController dishController;
     protected final JScrollPane listScroller = new JScrollPane();
 
     protected JPanel panel1;
