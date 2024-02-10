@@ -175,7 +175,6 @@ public class Home extends Window {
             }
             panel.add(topPanel, BorderLayout.CENTER);
         }
-
     }
 
     public void updateHomeRooms() {
@@ -230,6 +229,7 @@ public class Home extends Window {
     }
 
     public void showResultDialog(String message, boolean messageType) {
+        UIManager.put("OptionPane.minimumSize", new Dimension(300,100));
         JOptionPane.showMessageDialog(null, message, messageType ? "Action successful" : "Severe Error!",
                 messageType ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE,
                 messageType ? FontIcon.of(MaterialDesignC.CHECK_CIRCLE_OUTLINE, 40, Color.BLUE) : FontIcon.of(MaterialDesignA.ALERT_RHOMBUS_OUTLINE, 40, Color.RED));

@@ -1,8 +1,7 @@
 package edu.unifi.view;
 
 import edu.unifi.Notifier;
-import edu.unifi.controller.OrderController;
-import edu.unifi.controller.TableController;
+import edu.unifi.controller.CheckController;
 import edu.unifi.controller.TableUpdateController;
 import edu.unifi.model.entities.Order;
 import edu.unifi.model.entities.Table;
@@ -14,6 +13,7 @@ import org.kordamp.ikonli.swing.FontIcon;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class TableUpdateTool extends TableCreationTool {
@@ -30,7 +30,6 @@ public class TableUpdateTool extends TableCreationTool {
     private JLabel actionsLabel;
     private JPanel orderPanel;
     private JScrollPane listScroller;
-    private int orderIndex = 0;
     private JPanel listPanel;
     private JPanel bottomPanel;
     private JLabel receiptTotalLabel;
@@ -187,7 +186,7 @@ public class TableUpdateTool extends TableCreationTool {
         checkButton.setText("New check");
         checkButton.setName("New Check");
         checkButton.setIcon(FontIcon.of(MaterialDesignP.PLUS_BOX_OUTLINE, 20));
-        OrderController.CheckCreationController checkCreationController = new OrderController.CheckCreationController(table);
+        CheckController.CheckCreationController checkCreationController = new CheckController.CheckCreationController(table);
         try {
             checkCreationController.addObserver(Notifier.getInstance());
         } catch (Exception e) {
@@ -210,7 +209,13 @@ public class TableUpdateTool extends TableCreationTool {
         printReceiptButton.setText("Print Receipt");
         printReceiptButton.setName("Print Receipt");
         printReceiptButton.setIcon(FontIcon.of(MaterialDesignP.PRINTER, 20));
-        printReceiptButton.addActionListener(new TableController.PrintCheckController(table));
+        CheckController.PrintCheckController printCheckController = new CheckController.PrintCheckController(table);
+
+        try {
+            printCheckController.addObserver(Notifier.getInstance());
+        }catch (Exception e){}
+
+        printReceiptButton.addActionListener(printCheckController);
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 1;
@@ -247,7 +252,7 @@ public class TableUpdateTool extends TableCreationTool {
         gbc.weightx = 1.0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        OrderController.CheckResetController checkResetController = new OrderController.CheckResetController(this, table);
+        CheckController.CheckResetController checkResetController = new CheckController.CheckResetController(this, table);
         try {
             checkResetController.addObserver(Notifier.getInstance());
         } catch (Exception e) {
@@ -272,7 +277,7 @@ public class TableUpdateTool extends TableCreationTool {
     }
 
     public void buildOrdersList(Table table) {
-        float total = 0;
+        double total = 0.00;
 
         orders = tableController.getTableOrders(table);
         listPanel = new JPanel();
@@ -281,19 +286,16 @@ public class TableUpdateTool extends TableCreationTool {
 
         for (var o : orders) {
             OrderListItem OLI = new OrderListItem(o.getId().getDish(), o.getQuantity(), o.getId(), this, table);
-            total += (Float.parseFloat(OLI.quantityLabel.getText()) * o.getId().getDish().getPrice() / 10);
+            int dishPrice =  o.getId().getDish().getPrice();
+            total +=  ((double) (Integer.parseInt(OLI.quantityLabel.getText()) * dishPrice)/100)  ;
+            System.out.println(Integer.parseInt(OLI.quantityLabel.getText()));
+            System.out.println(dishPrice);
             orderItems.add(OLI);
             listPanel.add(OLI.getListPanel());
         }
 
-        System.out.println(total);
-
-        String totalString = ((Float) total).toString();
-        totalString = totalString.replace(".", "");
-        String intString = totalString.substring(0, totalString.length() - 2);
-        String decimalString = totalString.substring(totalString.length() - 2);
-
-        totalField.setText(intString + "." + decimalString);
+        DecimalFormat df = new DecimalFormat("#.##");
+        totalField.setText(df.format(total));
     }
 
     public java.util.List<Order> getOrders() {

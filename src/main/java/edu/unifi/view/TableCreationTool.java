@@ -3,11 +3,8 @@ package edu.unifi.view;
 import edu.unifi.Notifier;
 import edu.unifi.controller.TableCreationToolController;
 import edu.unifi.model.entities.Room;
-import edu.unifi.model.entities.Table;
 import edu.unifi.model.entities.TableState;
 import edu.unifi.model.orm.dao.RoomDAO;
-import org.kordamp.ikonli.materialdesign2.MaterialDesignA;
-import org.kordamp.ikonli.materialdesign2.MaterialDesignC;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
 import org.kordamp.ikonli.swing.FontIcon;
 
@@ -194,10 +191,6 @@ public class TableCreationTool extends Window {
 
         createButton.setIcon(createFontIcon);
 
-
-
-        //addComponent(titleLabel, BorderLayout.NORTH);
-        //addComponent(gridPanel, BorderLayout.CENTER);
     }
 
     /**

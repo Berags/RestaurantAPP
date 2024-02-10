@@ -1,9 +1,7 @@
 package edu.unifi.view;
 
 import edu.unifi.Notifier;
-import edu.unifi.controller.DishController;
 import edu.unifi.controller.RoomEditDeletionToolController;
-import edu.unifi.model.entities.Dish;
 import edu.unifi.model.entities.Room;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignD;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
@@ -13,15 +11,14 @@ import javax.swing.*;
 import java.awt.*;
 
 public class RoomItem {
-
-    private JPanel listPanel;
-    private JButton deleteButton;
-    private JPanel actionTestPanel;
-    private JButton editButton;
-    private JLabel roomNameLabel;
-    private JLabel numberOfTablesLabel;
-    private JPanel spacer5;
-    private JPanel spacer6;
+    protected JPanel listPanel;
+    protected JButton deleteButton;
+    protected JPanel actionTestPanel;
+    protected JButton editButton;
+    protected JLabel roomNameLabel;
+    protected JLabel numberOfTablesLabel;
+    protected JPanel spacer5;
+    protected JPanel spacer6;
 
     private Room room;
 

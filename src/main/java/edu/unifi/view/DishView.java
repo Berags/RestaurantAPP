@@ -194,19 +194,6 @@ public class DishView extends Window {
         listScroller.setViewportView(listPanel);
         panel2.add(listScroller, BorderLayout.CENTER);
     }
-
-
-    protected JPanel getPanel1(){return panel1;}
-    protected JButton getAddButton(){return addButton;}
-    protected java.util.List<Dish> getFilteredDishes(){return filteredDishes;}
-    protected void setFilteredDishes(java.util.List<Dish> filteredDishes){this.filteredDishes = filteredDishes;}
-    protected JTextField getSearchTextField(){return searchTextField;}
-    protected JScrollPane getListScroller(){return listScroller;}
-    protected JPanel getListPanel(){return listPanel;}
-    protected JPanel getPanel2(){return panel2;}
-
-    protected void setListPanel(JPanel listPanel){this.listPanel = listPanel;}
-
     public static boolean isDisposed() {
         return Objects.isNull(instance);
     }
