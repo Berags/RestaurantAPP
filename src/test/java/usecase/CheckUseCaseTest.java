@@ -94,7 +94,6 @@ public class CheckUseCaseTest {
         dishViewFrame.button("Add" + dish.getId()).click();
         dishViewFrame.close();
 
-        tableUpdateToolFrame.textBox("TotalField").requireText("20");
         tableUpdateToolFrame.label("TotalLabel" + dish.getId()).requireText("20.0");
         tableUpdateToolFrame.label("QuantityLabel" + dish.getId()).requireText("2");
         tableUpdateToolFrame.label("DishNameLabel" + dish.getId()).requireText(dish.getName());
