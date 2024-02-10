@@ -79,9 +79,7 @@ public class OrderController {
     }
 
     public static class OrderEditController implements ActionListener {
-
         private OrderId oid;
-
 
         public OrderEditController(OrderId oid, TableUpdateTool tableUpdateToolt, Table table) {
             this.oid = oid;
@@ -123,7 +121,6 @@ public class OrderController {
             Order order = OrderDAO.getInstance().getById(oid);
             OrderDAO.getInstance().delete(order);
             tableUpdateTool.buildOrdersList(commonTable);
-
         }
     }
 }

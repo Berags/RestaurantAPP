@@ -10,10 +10,8 @@ import org.hibernate.query.Query;
 
 
 public class IngredientDAO implements IDAO<Ingredient, String> {
-
     private Session session;
     private static volatile IngredientDAO instance = null;
-
     private IngredientDAO() {
     }
 

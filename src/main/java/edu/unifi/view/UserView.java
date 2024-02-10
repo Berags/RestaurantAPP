@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class UserView extends Window {
-
     private JButton addButton;
     private JTextField searchTextField;
     private JLabel nameSurnameLabel;
@@ -22,12 +21,10 @@ public class UserView extends Window {
     private JLabel roleLabel;
     private JLabel actionLabel;
     protected final JScrollPane listScroller = new JScrollPane();
-
     private JPanel panel1;
     private JPanel panel2;
     private JPanel listPanel;
     private static UserView instance;
-
     private java.util.List<User> filteredUsers = new ArrayList<>();
 
     /**

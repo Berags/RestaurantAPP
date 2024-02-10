@@ -11,7 +11,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class DishItem {
-
     protected JPanel listPanel;
     private  Dish dish;
 

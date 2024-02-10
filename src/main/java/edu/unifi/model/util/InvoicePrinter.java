@@ -18,7 +18,6 @@ public class InvoicePrinter implements Printable {
         this.table = table;
         this.pj = pj;
     }
-
     public int print(Graphics graphics, PageFormat pageFormat, int pageIndex)
             throws PrinterException {
         Check c = CheckDAO.getInstance().getValidCheckByTable(table);

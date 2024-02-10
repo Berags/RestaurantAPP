@@ -11,23 +11,15 @@ import javax.swing.*;
 import java.awt.*;
 
 public class UserItem {
-
     private JPanel listPanel;
     private User user;
-
     private JButton editButton;
-
     private JButton deleteButton;
-
     private JPanel actionTestPanel;
-
     private JLabel userNameSurnameLabel;
-
     private JLabel userUsernameLabel;
-
     private JLabel userEmailLabel;
     private JLabel userRoleLabel;
-
     private JPanel spacer1, spacer2;
 
     protected UserItem(User user, int index) {

@@ -11,7 +11,6 @@ import java.awt.*;
 import java.util.Objects;
 
 public class RoomView extends Window {
-
     private JButton addButton;
     private JLabel numberLabel;
     private JTextField searchTextField;
@@ -186,5 +185,4 @@ public class RoomView extends Window {
         buildList();
         listScroller.setViewportView(listPanel);
     }
-
 }

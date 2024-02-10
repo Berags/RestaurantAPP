@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class UserCreationTool extends Window {
-
     private JLabel nameLabel;
     private JTextField nameTextField;
     private JLabel surnameLabel;
@@ -256,10 +255,6 @@ public class UserCreationTool extends Window {
 
         ArrayList<Roles> listOfRoles = new ArrayList<>(Arrays.asList(Roles.values()));
         roleComboBox = new JComboBox<>(listOfRoles.toArray());
-
-        //for (var r : listOfRoles){
-         //   roleComboBox.addItem(r.toString());
-       // }
 
         gbc = new GridBagConstraints();
         gbc.gridx = 2;

@@ -11,7 +11,6 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 
 public class UserUpdateTool extends UserCreationTool {
-
     private User user;
     private static volatile UserUpdateTool instance;
 

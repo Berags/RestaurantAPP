@@ -10,7 +10,6 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 
 public class RoomUpdateTool extends RoomCreationTool {
-
     private Room room;
     private static volatile RoomUpdateTool instance;
 

@@ -12,8 +12,6 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 
 public class RoomCreationTool extends Window {
-
-
     protected JTextField nameTextField;
     protected JLabel nameLabel;
     protected JButton createButton;
@@ -152,5 +150,4 @@ public class RoomCreationTool extends Window {
     public JPanel getGridPanel(){return gridPanel;}
 
     protected void setGridPanel(JPanel panel){gridPanel = panel;}
-
 }

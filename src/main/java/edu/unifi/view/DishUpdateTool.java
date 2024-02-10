@@ -10,7 +10,6 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 
 public class DishUpdateTool extends DishCreationTool {
-
     private Dish dish;
     private static volatile DishUpdateTool instance;
 

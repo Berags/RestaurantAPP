@@ -121,7 +121,6 @@ public class TableToolController {
             notifyObservers(Notifier.Message.build(MessageType.DELETE_TABLE, "Table successfully deleted!"));
             tableDeletionTool.dispose();
         }
-
         public List<Room> getRooms() {
             return RoomDAO.getInstance().getAll();
         }

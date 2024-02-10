@@ -114,5 +114,4 @@ public class RoomItem {
     JPanel getListPanel() {
         return listPanel;
     }
-
 }

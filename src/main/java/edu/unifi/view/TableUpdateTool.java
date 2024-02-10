@@ -36,12 +36,10 @@ public class TableUpdateTool extends TableCreationTool {
     private JLabel receiptTotalLabel;
     private java.util.List<Order> orders = new ArrayList<>();
     private java.util.List<OrderListItem> orderItems = new ArrayList<>();
-
     private static volatile TableUpdateTool instance = null;
 
     private TableUpdateTool(String title, Table table, int width, int height) throws Exception {
         super(title, width, height);
-        // this.table = table;
         setUpRightUI(table);
         ActionListener[] actionListeners = getCreateButton().getActionListeners();
         for (ActionListener a : actionListeners)
@@ -285,9 +283,7 @@ public class TableUpdateTool extends TableCreationTool {
         for (var o : orders) {
             OrderListItem OLI = new OrderListItem(o.getId().getDish(), o.getQuantity(), o.getId(), this, table);
             int dishPrice =  o.getId().getDish().getPrice();
-            total +=  ((double) (Integer.parseInt(OLI.quantityLabel.getText()) * dishPrice)/100)  ;
-            System.out.println(Integer.parseInt(OLI.quantityLabel.getText()));
-            System.out.println(dishPrice);
+            total +=  ((double) (Integer.parseInt(OLI.quantityLabel.getText()) * dishPrice)/100);
             orderItems.add(OLI);
             listPanel.add(OLI.getListPanel());
         }

@@ -35,7 +35,6 @@ public class DishToolController {
         public DishCreationToolController(DishCreationTool dishCreationTool) {
             this.dishCreationTool = dishCreationTool;
         }
-
         @Override
         public void actionPerformed(ActionEvent e) {
             Dish dish = new Dish();

@@ -10,7 +10,6 @@ import org.hibernate.query.Query;
 
 
 public class RoomDAO implements IDAO<Room, Long> {
-
     private Session session;
     private static volatile RoomDAO instance = null;
 
@@ -100,5 +99,4 @@ public class RoomDAO implements IDAO<Room, Long> {
     public void update(List<Room> rooms) {
 
     }
-
 }

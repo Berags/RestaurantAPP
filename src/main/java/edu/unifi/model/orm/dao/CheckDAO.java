@@ -13,7 +13,6 @@ import org.hibernate.query.Query;
 public class CheckDAO implements IDAO<Check, Long> {
     private Session session;
     private static volatile CheckDAO instance = null;
-
     private CheckDAO() {
     }
 
@@ -97,12 +96,10 @@ public class CheckDAO implements IDAO<Check, Long> {
     public void delete(List<Check> checks) {
 
     }
-
     @Override
     public void update(List<Check> checks) {
 
     }
-
 }
 
 

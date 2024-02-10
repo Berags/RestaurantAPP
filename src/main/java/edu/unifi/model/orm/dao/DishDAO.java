@@ -13,7 +13,6 @@ import org.hibernate.query.Query;
 public class DishDAO implements IDAO<Dish, Long> {
     private Session session;
     private static volatile DishDAO instance = null;
-
     private DishDAO() {
     }
 

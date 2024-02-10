@@ -8,7 +8,6 @@ import org.hibernate.query.Query;
 import java.util.List;
 
 public class TypeOfCourseDAO implements IDAO<TypeOfCourse, String> {
-
     private Session session;
     private static volatile TypeOfCourseDAO instance = null;
 
