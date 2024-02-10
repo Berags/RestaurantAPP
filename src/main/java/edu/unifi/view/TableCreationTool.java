@@ -101,6 +101,7 @@ public class TableCreationTool extends Window {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(15, 50, 0, 0);
         leftPanel.add(nOfSeatsLabel, gbc);
+        //TODO: check if the nOfSeat is 0?
         nOfSeatsSpinner = new JSpinner(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1));
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
