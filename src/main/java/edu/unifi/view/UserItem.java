@@ -1,7 +1,7 @@
 package edu.unifi.view;
 
 import edu.unifi.Notifier;
-import edu.unifi.controller.UserEditDeletionToolController;
+import edu.unifi.controller.UserToolController;
 import edu.unifi.model.entities.User;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignD;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
@@ -11,30 +11,22 @@ import javax.swing.*;
 import java.awt.*;
 
 public class UserItem {
-
     private JPanel listPanel;
     private User user;
-
     private JButton editButton;
-
     private JButton deleteButton;
-
     private JPanel actionTestPanel;
-
     private JLabel userNameSurnameLabel;
-
     private JLabel userUsernameLabel;
-
     private JLabel userEmailLabel;
     private JLabel userRoleLabel;
-
     private JPanel spacer1, spacer2;
 
     protected UserItem(User user, int index) {
 
         setUp(user,index);
 
-        UserEditDeletionToolController.UserDeletionController userDeletionToolController = new UserEditDeletionToolController.UserDeletionController(user);
+        UserToolController.UserDeletionController userDeletionToolController = new UserToolController.UserDeletionController(user);
 
         try {
             userDeletionToolController.addObserver(Notifier.getInstance());

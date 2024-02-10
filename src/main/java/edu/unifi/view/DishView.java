@@ -1,8 +1,7 @@
 package edu.unifi.view;
 
-import edu.unifi.controller.DishController;
+import edu.unifi.controller.DishToolController;
 import edu.unifi.model.entities.Dish;
-import org.kordamp.ikonli.materialdesign2.MaterialDesignD;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
 import org.kordamp.ikonli.swing.FontIcon;
 
@@ -20,7 +19,6 @@ public class DishView extends Window {
     private JLabel nameLabel;
     private JLabel typeLabel;
     private JLabel actionLabel;
-    //private DishController dishController;
     protected final JScrollPane listScroller = new JScrollPane();
 
     protected JPanel panel1;
@@ -180,7 +178,7 @@ public class DishView extends Window {
     }
 
     public void buildList() {
-        filteredDishes = new DishController().getFilteredDishes(searchTextField.getText() == null ? "" : searchTextField.getText());
+        filteredDishes = new DishToolController().getFilteredDishes(searchTextField.getText() == null ? "" : searchTextField.getText());
         listPanel = new JPanel(new GridLayout(filteredDishes.size(), 1));
         int index = 0;
 

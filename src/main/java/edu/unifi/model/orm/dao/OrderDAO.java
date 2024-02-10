@@ -15,7 +15,6 @@ import org.hibernate.query.Query;
 public class OrderDAO implements IDAO<Order, OrderId> {
     private Session session;
     private static volatile OrderDAO instance = null;
-
     private OrderDAO() {
     }
 

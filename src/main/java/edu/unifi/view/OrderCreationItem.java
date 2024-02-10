@@ -11,7 +11,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class OrderCreationItem extends DishItem {
-
     private JSpinner quantitySpinner;
     private TableUpdateTool tableUpdateTool;
 

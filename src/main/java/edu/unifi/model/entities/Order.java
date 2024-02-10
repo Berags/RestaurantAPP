@@ -15,11 +15,9 @@ public class Order {
     public Order(OrderId id) {
         this.id = id;
     }
-
     public Order() {
 
     }
-
     public int getQuantity() {
         return quantity;
     }

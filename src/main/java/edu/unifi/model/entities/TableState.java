@@ -7,8 +7,7 @@ public enum TableState {
     RESERVED,
     AWAITING_DISHES,
     DINING,
-    AWAITING_CHECK,
-    ;
+    AWAITING_CHECK;
 
     public Color getColor() {
         return switch (this) {

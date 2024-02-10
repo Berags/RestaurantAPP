@@ -1,6 +1,6 @@
 package edu.unifi.view;
 
-import edu.unifi.controller.RoomEditDeletionToolController;
+import edu.unifi.controller.RoomToolController;
 import edu.unifi.model.entities.Room;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
 import org.kordamp.ikonli.swing.FontIcon;
@@ -10,9 +10,7 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.util.Objects;
 
-//TODO: Refactoring con DishVIew?
 public class RoomView extends Window {
-
     private JButton addButton;
     private JLabel numberLabel;
     private JTextField searchTextField;
@@ -168,7 +166,7 @@ public class RoomView extends Window {
     }
 
     public void buildList() {
-        filteredRooms = new RoomEditDeletionToolController().getFilteredRooms(searchTextField.getText() == null ? "" : searchTextField.getText());
+        filteredRooms = new RoomToolController().getFilteredRooms(searchTextField.getText() == null ? "" : searchTextField.getText());
         listPanel = new JPanel(new GridLayout(filteredRooms.size(), 1));
         int index = 0;
 
@@ -187,5 +185,4 @@ public class RoomView extends Window {
         buildList();
         listScroller.setViewportView(listPanel);
     }
-
 }

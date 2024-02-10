@@ -1,7 +1,7 @@
 package edu.unifi.view;
 
 import edu.unifi.Notifier;
-import edu.unifi.controller.RoomCreationToolController;
+import edu.unifi.controller.RoomToolController.RoomCreationToolController;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignA;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignC;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
@@ -12,8 +12,6 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 
 public class RoomCreationTool extends Window {
-
-
     protected JTextField nameTextField;
     protected JLabel nameLabel;
     protected JButton createButton;
@@ -152,5 +150,4 @@ public class RoomCreationTool extends Window {
     public JPanel getGridPanel(){return gridPanel;}
 
     protected void setGridPanel(JPanel panel){gridPanel = panel;}
-
 }

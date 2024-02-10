@@ -53,8 +53,6 @@ public class CheckController {
 
     public static class CheckResetController extends Observable implements ActionListener {
 
-
-
         public CheckResetController(TableUpdateTool tableUpdateTool, Table table) {
 
             commonTableUpdateTool = tableUpdateTool;
@@ -74,13 +72,11 @@ public class CheckController {
             for (var a : commonTableUpdateTool.getOrders())
                 OrderDAO.getInstance().delete(a);
 
-
             Check check1 = CheckDAO.getInstance().getValidCheckByTable(commonTable);
 
             commonTable.getChecks().removeAll(commonTable.getChecks());
 
             CheckDAO.getInstance().delete(check1);
-
 
             setChanged();
             notifyObservers(Notifier.Message.build(MessageType.CLEAN_CHECK, "Orders and check deleted successfully"));
@@ -112,10 +108,11 @@ public class CheckController {
                 boolean doPrint = job.printDialog();
                 if (doPrint) {
                     job.print();
+                    commonCheck = CheckDAO.getInstance().getValidCheckByTable(commonTable);
+                    commonCheck.setIssueDate(java.time.LocalDateTime.now());
+                    commonCheck.setClosed(true);
+                    CheckDAO.getInstance().update(commonCheck);
                 }
-                commonCheck.setIssueDate(java.time.LocalDateTime.now());
-                commonCheck.setClosed(true);
-                CheckDAO.getInstance().update(commonCheck);
 
                 commonTableUpdateTool.buildOrdersList(table);
 

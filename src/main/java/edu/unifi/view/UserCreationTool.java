@@ -1,7 +1,7 @@
 package edu.unifi.view;
 
 import edu.unifi.Notifier;
-import edu.unifi.controller.UserCreationToolController;
+import edu.unifi.controller.UserToolController.UserCreationToolController;
 import edu.unifi.model.util.security.Roles;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
 import org.kordamp.ikonli.swing.FontIcon;
@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class UserCreationTool extends Window {
-
     private JLabel nameLabel;
     private JTextField nameTextField;
     private JLabel surnameLabel;
@@ -256,10 +255,6 @@ public class UserCreationTool extends Window {
 
         ArrayList<Roles> listOfRoles = new ArrayList<>(Arrays.asList(Roles.values()));
         roleComboBox = new JComboBox<>(listOfRoles.toArray());
-
-        //for (var r : listOfRoles){
-         //   roleComboBox.addItem(r.toString());
-       // }
 
         gbc = new GridBagConstraints();
         gbc.gridx = 2;

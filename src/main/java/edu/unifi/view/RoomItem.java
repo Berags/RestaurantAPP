@@ -1,7 +1,7 @@
 package edu.unifi.view;
 
 import edu.unifi.Notifier;
-import edu.unifi.controller.RoomEditDeletionToolController;
+import edu.unifi.controller.RoomToolController;
 import edu.unifi.model.entities.Room;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignD;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
@@ -27,7 +27,7 @@ public class RoomItem {
 
         setUp(room,index);
 
-        RoomEditDeletionToolController.RoomDeletionController roomDeletionController = new RoomEditDeletionToolController.RoomDeletionController(room);
+        RoomToolController.RoomDeletionController roomDeletionController = new RoomToolController.RoomDeletionController(room);
 
         try {
             Notifier notifier = Notifier.getInstance();
@@ -114,5 +114,4 @@ public class RoomItem {
     JPanel getListPanel() {
         return listPanel;
     }
-
 }

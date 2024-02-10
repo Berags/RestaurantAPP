@@ -10,10 +10,8 @@ import org.hibernate.query.Query;
 
 
 public class TableDAO implements IDAO<Table, Long> {
-
     private Session session;
     private static volatile TableDAO instance = null;
-
     private TableDAO() {
     }
     public static TableDAO getInstance() {
@@ -98,5 +96,4 @@ public class TableDAO implements IDAO<Table, Long> {
     public void update(List<Table> tables) {
 
     }
-
 }

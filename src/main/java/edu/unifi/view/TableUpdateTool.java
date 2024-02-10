@@ -2,7 +2,8 @@ package edu.unifi.view;
 
 import edu.unifi.Notifier;
 import edu.unifi.controller.CheckController;
-import edu.unifi.controller.TableUpdateController;
+import edu.unifi.controller.TableToolController;
+import edu.unifi.controller.TableToolController.TableUpdateToolController;
 import edu.unifi.model.entities.Order;
 import edu.unifi.model.entities.Table;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
@@ -33,17 +34,12 @@ public class TableUpdateTool extends TableCreationTool {
     private JPanel listPanel;
     private JPanel bottomPanel;
     private JLabel receiptTotalLabel;
-
-    private TableUpdateController tableController;
-
     private java.util.List<Order> orders = new ArrayList<>();
     private java.util.List<OrderListItem> orderItems = new ArrayList<>();
-
     private static volatile TableUpdateTool instance = null;
 
     private TableUpdateTool(String title, Table table, int width, int height) throws Exception {
         super(title, width, height);
-        // this.table = table;
         setUpRightUI(table);
         ActionListener[] actionListeners = getCreateButton().getActionListeners();
         for (ActionListener a : actionListeners)
@@ -58,7 +54,7 @@ public class TableUpdateTool extends TableCreationTool {
         createButton.setText("Update");
         createButton.setIcon(FontIcon.of(MaterialDesignU.UPDATE, 20));
 
-        tableController = new TableUpdateController(table, this);
+        TableToolController.TableUpdateToolController tableController = new TableToolController.TableUpdateToolController(table, this);
         tableController.addObserver(Notifier.getInstance());
         createButton.addActionListener(tableController);
 
@@ -279,7 +275,7 @@ public class TableUpdateTool extends TableCreationTool {
     public void buildOrdersList(Table table) {
         double total = 0.00;
 
-        orders = tableController.getTableOrders(table);
+        orders = new TableToolController.TableUpdateToolController(table, this).getTableOrders(table);
         listPanel = new JPanel();
         listPanel.setLayout(new GridLayout(orders.size(), 1));
         listScroller.setViewportView(listPanel);
@@ -287,9 +283,7 @@ public class TableUpdateTool extends TableCreationTool {
         for (var o : orders) {
             OrderListItem OLI = new OrderListItem(o.getId().getDish(), o.getQuantity(), o.getId(), this, table);
             int dishPrice =  o.getId().getDish().getPrice();
-            total +=  ((double) (Integer.parseInt(OLI.quantityLabel.getText()) * dishPrice)/100)  ;
-            System.out.println(Integer.parseInt(OLI.quantityLabel.getText()));
-            System.out.println(dishPrice);
+            total +=  ((double) (Integer.parseInt(OLI.quantityLabel.getText()) * dishPrice)/100);
             orderItems.add(OLI);
             listPanel.add(OLI.getListPanel());
         }
