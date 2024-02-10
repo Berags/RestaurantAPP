@@ -81,6 +81,19 @@ public class Notifier implements Observer {
             case WRONG_CREDENTIALS -> {
                 login.showResultDialog("Username or password is not correct!");
             }
+            case ADD_USER -> {
+                home.showResultDialog("User added successfully", true);
+                if (!UserView.isDisposed())
+                    UserView.getInstance().updateList();
+            }
+            case UPDATE_USER -> {
+                home.showResultDialog("User updated successfully", true);
+                UserView.getInstance().updateList();
+            }
+            case DELETE_USER -> {
+                home.showResultDialog("User deleted successfully", true);
+                UserView.getInstance().updateList();
+            }
             default -> throw new IllegalStateException("Unexpected value: " + toDisplay);
         }
     }

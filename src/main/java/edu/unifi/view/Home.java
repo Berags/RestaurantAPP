@@ -61,6 +61,7 @@ public class Home extends Window {
             JMenu tablesMenu = new JMenu("Tables");
             JMenu dishesMenu = new JMenu("Menu");
             JMenu roomsMenu = new JMenu("Rooms");
+            JMenu usersMenu = new JMenu("Users");
             //menu option to add a new dish
             JMenuItem addDishItem = new JMenuItem("Add Dish");
             addDishItem.addActionListener(e -> {
@@ -119,17 +120,38 @@ public class Home extends Window {
                 }
             });
 
+            JMenuItem addUserMenuItem = new JMenuItem("Add User");
+            addUserMenuItem.addActionListener(e -> {
+                try {
+                    UserCreationTool.getInstance("User creation tool",400,350);
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            });
+
+            JMenuItem editUserMenuItem = new JMenuItem("Edit User");
+            editUserMenuItem.addActionListener(e -> {
+                try {
+                    UserView.getInstance().buildList();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            });
+
             tablesMenu.add(addTableMenuItem);
             tablesMenu.add(removeTableMenuItem);
             dishesMenu.add(addDishItem);
             dishesMenu.add(editDishItem);
             roomsMenu.add(addRoomMenuItem);
             roomsMenu.add(editRoomMenuItem);
+            usersMenu.add(addUserMenuItem);
+            usersMenu.add(editUserMenuItem);
+
 
             editDishItem.setName("EditDish");
             removeTableMenuItem.setName("RemoveTable");
 
-            addMenuEntries(new Component[]{optionsMenu, tablesMenu, dishesMenu,roomsMenu, Box.createHorizontalGlue(), databaseMenu});
+            addMenuEntries(new Component[]{optionsMenu, tablesMenu, dishesMenu, roomsMenu, usersMenu, Box.createHorizontalGlue(), databaseMenu});
         }
         else if (CurrentSession.getInstance().isAuthorized(Roles.WAITER))
             addMenuEntries(new Component[]{optionsMenu, Box.createHorizontalGlue(), databaseMenu});

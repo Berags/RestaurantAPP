@@ -40,7 +40,6 @@ public class Main {
         // Initiating database connection pool
         DatabaseAccess.initiate();
 
-
         loadingDialog.setVisible(false);
         try {
             Login loginView = new Login();
