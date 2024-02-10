@@ -1,7 +1,7 @@
 package edu.unifi.view;
 
 import edu.unifi.Notifier;
-import edu.unifi.controller.RoomCreationToolController;
+import edu.unifi.controller.RoomToolController.RoomCreationToolController;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignA;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignC;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignP;

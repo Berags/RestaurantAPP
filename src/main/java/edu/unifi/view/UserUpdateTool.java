@@ -2,7 +2,7 @@ package edu.unifi.view;
 
 
 import edu.unifi.Notifier;
-import edu.unifi.controller.UserEditDeletionToolController;
+import edu.unifi.controller.UserToolController;
 import edu.unifi.model.entities.User;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
 import org.kordamp.ikonli.swing.FontIcon;
@@ -38,7 +38,7 @@ public class UserUpdateTool extends UserCreationTool {
 
         Notifier notifier = Notifier.getInstance();
 
-        UserEditDeletionToolController.UserEditController userEditController = new UserEditDeletionToolController.UserEditController(user, this);
+        UserToolController.UserEditController userEditController = new UserToolController.UserEditController(user, this);
 
         userEditController.addObserver(notifier);
         updateButton.addActionListener(userEditController);

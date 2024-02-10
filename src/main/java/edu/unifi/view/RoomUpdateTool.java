@@ -1,7 +1,7 @@
 package edu.unifi.view;
 
 import edu.unifi.Notifier;
-import edu.unifi.controller.RoomEditDeletionToolController;
+import edu.unifi.controller.RoomToolController;
 import edu.unifi.model.entities.Room;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
 import org.kordamp.ikonli.swing.FontIcon;
@@ -33,7 +33,7 @@ public class RoomUpdateTool extends RoomCreationTool {
 
         Notifier notifier = Notifier.getInstance();
 
-        RoomEditDeletionToolController.RoomEditController roomEditController = new RoomEditDeletionToolController.RoomEditController(room,this);
+        RoomToolController.RoomEditController roomEditController = new RoomToolController.RoomEditController(room,this);
 
         roomEditController.addObserver(notifier);
         updateButton.addActionListener(roomEditController);

@@ -1,7 +1,7 @@
 package edu.unifi.view;
 
 import edu.unifi.Notifier;
-import edu.unifi.controller.DishController;
+import edu.unifi.controller.DishToolController;
 import edu.unifi.model.entities.Dish;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
 import org.kordamp.ikonli.swing.FontIcon;
@@ -40,7 +40,7 @@ public class DishUpdateTool extends DishCreationTool {
 
         getTypeComboBox().setSelectedItem(dish.getTypeOfCourse().getName());
 
-        DishController.DishEditController dishEditController = new DishController.DishEditController(dish,this);
+        DishToolController.DishEditController dishEditController = new DishToolController.DishEditController(dish,this);
 
         Notifier notifier = Notifier.getInstance();
 

@@ -1,7 +1,7 @@
 package edu.unifi.view;
 
 import edu.unifi.Notifier;
-import edu.unifi.controller.UserEditDeletionToolController;
+import edu.unifi.controller.UserToolController;
 import edu.unifi.model.entities.User;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignD;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
@@ -34,7 +34,7 @@ public class UserItem {
 
         setUp(user,index);
 
-        UserEditDeletionToolController.UserDeletionController userDeletionToolController = new UserEditDeletionToolController.UserDeletionController(user);
+        UserToolController.UserDeletionController userDeletionToolController = new UserToolController.UserDeletionController(user);
 
         try {
             userDeletionToolController.addObserver(Notifier.getInstance());

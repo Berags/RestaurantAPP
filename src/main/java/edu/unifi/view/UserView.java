@@ -1,6 +1,6 @@
 package edu.unifi.view;
 
-import edu.unifi.controller.UserEditDeletionToolController;
+import edu.unifi.controller.UserToolController;
 import edu.unifi.model.entities.User;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
 import org.kordamp.ikonli.swing.FontIcon;
@@ -198,7 +198,7 @@ public class UserView extends Window {
     }
 
     public void buildList() {
-        filteredUsers = new UserEditDeletionToolController().getFilteredUsers(searchTextField.getText() == null ? "" : searchTextField.getText());
+        filteredUsers = new UserToolController().getFilteredUsers(searchTextField.getText() == null ? "" : searchTextField.getText());
         listPanel = new JPanel(new GridLayout(filteredUsers.size(), 1));
         int index = 0;
 

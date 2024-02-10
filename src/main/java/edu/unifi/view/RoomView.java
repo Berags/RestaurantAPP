@@ -1,6 +1,6 @@
 package edu.unifi.view;
 
-import edu.unifi.controller.RoomEditDeletionToolController;
+import edu.unifi.controller.RoomToolController;
 import edu.unifi.model.entities.Room;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
 import org.kordamp.ikonli.swing.FontIcon;
@@ -168,7 +168,7 @@ public class RoomView extends Window {
     }
 
     public void buildList() {
-        filteredRooms = new RoomEditDeletionToolController().getFilteredRooms(searchTextField.getText() == null ? "" : searchTextField.getText());
+        filteredRooms = new RoomToolController().getFilteredRooms(searchTextField.getText() == null ? "" : searchTextField.getText());
         listPanel = new JPanel(new GridLayout(filteredRooms.size(), 1));
         int index = 0;
 

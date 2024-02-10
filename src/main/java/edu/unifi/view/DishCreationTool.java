@@ -1,7 +1,8 @@
 package edu.unifi.view;
 
 import edu.unifi.Notifier;
-import edu.unifi.controller.DishCreationToolController;
+import edu.unifi.controller.DishToolController;
+import edu.unifi.controller.DishToolController.DishCreationToolController;
 import edu.unifi.model.entities.TypeOfCourse;
 import edu.unifi.model.orm.dao.TypeOfCourseDAO;
 
@@ -26,7 +27,7 @@ public class DishCreationTool extends Window {
     protected DishCreationTool(String title, int width, int height) throws Exception {
         super("Dish Creation Tool",false, JFrame.DISPOSE_ON_CLOSE, 0, 0, width, height);
         setUpUI();
-        DishCreationToolController dishCreationToolController = new DishCreationToolController(this);
+        DishCreationToolController dishCreationToolController = new DishToolController.DishCreationToolController(this);
         dishCreationToolController.addObserver(Notifier.getInstance());
         createButton.addActionListener(dishCreationToolController);
         pack();

@@ -1,7 +1,8 @@
 package edu.unifi.view;
 
 import edu.unifi.Notifier;
-import edu.unifi.controller.TableDeletionToolController;
+import edu.unifi.controller.TableToolController.TableDeletionToolController;
+import edu.unifi.controller.TableToolController;
 import edu.unifi.model.entities.Table;
 
 import javax.swing.*;
@@ -16,14 +17,14 @@ public class TableDeletionTool extends Window {
     private JLabel roomLabel;
     private JLabel tableLabel;
     private final HashMap<String, java.util.List<Table>> roomTableHashMap = new HashMap<>();
-    private final TableDeletionToolController tableDeletionToolController;
+    private final TableToolController.TableDeletionToolController tableDeletionToolController;
 
     private static TableDeletionTool instance;
 
     private TableDeletionTool() throws Exception {
         super("Table Deletion Tool", false, JFrame.DISPOSE_ON_CLOSE, 0, 0, 400, 300);
 
-        tableDeletionToolController = new TableDeletionToolController(this);
+        tableDeletionToolController = new TableToolController.TableDeletionToolController(this);
         tableDeletionToolController.addObserver(Notifier.getInstance());
 
         removeButton.addActionListener(tableDeletionToolController);

@@ -1,7 +1,7 @@
 package edu.unifi.view;
 
 import edu.unifi.Notifier;
-import edu.unifi.controller.UserCreationToolController;
+import edu.unifi.controller.UserToolController.UserCreationToolController;
 import edu.unifi.model.util.security.Roles;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
 import org.kordamp.ikonli.swing.FontIcon;

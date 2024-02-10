@@ -1,7 +1,7 @@
 package edu.unifi.view;
 
 import edu.unifi.Notifier;
-import edu.unifi.controller.TableCreationToolController;
+import edu.unifi.controller.TableToolController;
 import edu.unifi.model.entities.Room;
 import edu.unifi.model.entities.TableState;
 import edu.unifi.model.orm.dao.RoomDAO;
@@ -40,7 +40,7 @@ public class TableCreationTool extends Window {
         super(title, false, JFrame.DISPOSE_ON_CLOSE, 0, 0, width, height);
         setUpUI();
 
-        TableCreationToolController tableCreationToolController = new TableCreationToolController(this);
+        TableToolController.TableCreationToolController tableCreationToolController = new TableToolController.TableCreationToolController(this);
         tableCreationToolController.addObserver(Notifier.getInstance());
         createButton.addActionListener(tableCreationToolController);
 

@@ -1,7 +1,7 @@
 package edu.unifi.view;
 
 import edu.unifi.Notifier;
-import edu.unifi.controller.DishController;
+import edu.unifi.controller.DishToolController;
 import edu.unifi.model.entities.Dish;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignD;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
@@ -33,7 +33,7 @@ public class DishItem {
 
         setUp(d,index);
 
-        DishController.DishDeletionController dishDeletionController = new DishController.DishDeletionController(dish);
+        DishToolController.DishDeletionController dishDeletionController = new DishToolController.DishDeletionController(dish);
 
         try {
             Notifier notifier = Notifier.getInstance();
