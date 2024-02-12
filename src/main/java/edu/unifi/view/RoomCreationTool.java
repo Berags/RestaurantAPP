@@ -109,45 +109,15 @@ public class RoomCreationTool extends Window {
         return nameTextField;
     }
 
-    public void setNameTextField(JTextField nameTextField) {
-        this.nameTextField = nameTextField;
-    }
-
-    public JLabel getNameLabel() {
-        return nameLabel;
-    }
-
-    public void setNameLabel(JLabel nameLabel) {
-        this.nameLabel = nameLabel;
-    }
-
     public JButton getCreateButton() {
         return createButton;
-    }
-
-    public void setCreateButton(JButton createButton) {
-        this.createButton = createButton;
     }
 
     public JLabel getTitleLabel() {
         return titleLabel;
     }
 
-    public void setTitleLabel(JLabel titleLabel) {
-        this.titleLabel = titleLabel;
-    }
-
-    public void showResultDialog(String message, boolean messageType) {
-        JOptionPane.showMessageDialog(null, message, messageType ? "Action successful" : "Severe Error!",
-                messageType ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE,
-                messageType ? FontIcon.of(MaterialDesignC.CHECK_CIRCLE_OUTLINE, 40, Color.BLUE) : FontIcon.of(MaterialDesignA.ALERT_RHOMBUS_OUTLINE, 40, Color.RED));
-    }
-
     public static void setInstance(RoomCreationTool instance) {
         RoomCreationTool.instance = instance;
     }
-
-    public JPanel getGridPanel(){return gridPanel;}
-
-    protected void setGridPanel(JPanel panel){gridPanel = panel;}
 }

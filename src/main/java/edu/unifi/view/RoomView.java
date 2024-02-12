@@ -17,12 +17,10 @@ public class RoomView extends Window {
     private JLabel nameLabel;
     private JLabel actionLabel;
     private final JScrollPane listScroller = new JScrollPane();
-
     private JPanel panel1;
     private JPanel panel2;
     private JPanel listPanel;
     private static RoomView instance;
-
     private java.util.List<Room> filteredRooms;
 
 

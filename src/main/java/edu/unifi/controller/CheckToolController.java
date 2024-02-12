@@ -15,7 +15,7 @@ import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.util.Observable;
 
-public class CheckController {
+public class CheckToolController {
 
     private static TableUpdateTool commonTableUpdateTool;
     private static Table commonTable;

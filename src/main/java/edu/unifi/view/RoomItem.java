@@ -19,7 +19,6 @@ public class RoomItem {
     protected JLabel numberOfTablesLabel;
     protected JPanel spacer5;
     protected JPanel spacer6;
-
     private Room room;
 
 
