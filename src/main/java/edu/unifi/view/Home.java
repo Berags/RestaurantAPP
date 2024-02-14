@@ -51,7 +51,6 @@ public class Home extends Window {
         optionsMenu.add(exitFromApplication);
 
 
-
         if (CurrentSession.getInstance().isAuthorized(Roles.ADMIN)) {
             JMenu tablesMenu = new JMenu("Tables");
             JMenu dishesMenu = new JMenu("Menu");
@@ -61,7 +60,7 @@ public class Home extends Window {
             JMenuItem addDishItem = new JMenuItem("Add Dish");
             addDishItem.addActionListener(e -> {
                 try {
-                    DishCreationTool.getInstance("Dish creation tool",400,300);
+                    DishCreationTool.getInstance("Dish creation tool", 400, 300);
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
                 }
@@ -81,7 +80,7 @@ public class Home extends Window {
             JMenuItem addTableMenuItem = new JMenuItem("Add Table");
             addTableMenuItem.addActionListener(e -> {
                 try {
-                    TableCreationTool.getInstance("Table creation tool",400,300);
+                    TableCreationTool.getInstance("Table creation tool", 400, 300);
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
                 }
@@ -118,7 +117,7 @@ public class Home extends Window {
             JMenuItem addUserMenuItem = new JMenuItem("Add User");
             addUserMenuItem.addActionListener(e -> {
                 try {
-                    UserCreationTool.getInstance("User creation tool",400,350);
+                    UserCreationTool.getInstance("User creation tool", 400, 350);
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
                 }
@@ -142,13 +141,11 @@ public class Home extends Window {
             usersMenu.add(addUserMenuItem);
             usersMenu.add(editUserMenuItem);
 
-
             editDishItem.setName("EditDish");
             removeTableMenuItem.setName("RemoveTable");
 
             addMenuEntries(new Component[]{optionsMenu, tablesMenu, dishesMenu, roomsMenu, usersMenu, Box.createHorizontalGlue(), databaseMenu});
-        }
-        else if (CurrentSession.getInstance().isAuthorized(Roles.WAITER))
+        } else if (CurrentSession.getInstance().isAuthorized(Roles.WAITER))
             addMenuEntries(new Component[]{optionsMenu, Box.createHorizontalGlue(), databaseMenu});
 
         setVisible(true);
@@ -174,7 +171,7 @@ public class Home extends Window {
 
     public void updateHomeRooms() {
 
-        if (!java.util.Objects.isNull(roomsTabbedPane)){
+        if (!java.util.Objects.isNull(roomsTabbedPane)) {
             roomsTabbedPane.setVisible(false);
             remove(roomsTabbedPane);
         }
@@ -224,7 +221,7 @@ public class Home extends Window {
     }
 
     public void showResultDialog(String message, boolean messageType) {
-        UIManager.put("OptionPane.minimumSize", new Dimension(300,100));
+        UIManager.put("OptionPane.minimumSize", new Dimension(300, 100));
         JOptionPane.showMessageDialog(null, message, messageType ? "Action successful" : "Severe Error!",
                 messageType ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE,
                 messageType ? FontIcon.of(MaterialDesignC.CHECK_CIRCLE_OUTLINE, 40, Color.BLUE) : FontIcon.of(MaterialDesignA.ALERT_RHOMBUS_OUTLINE, 40, Color.RED));
