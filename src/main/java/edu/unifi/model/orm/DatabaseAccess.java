@@ -24,7 +24,7 @@ public class DatabaseAccess {
         // Open a new session
         Session session = sessionFactory.openSession();
         // Begin a transaction
-        Transaction t = session.beginTransaction();
+        session.beginTransaction();
         return session;
     }
 

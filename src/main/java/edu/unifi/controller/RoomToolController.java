@@ -1,10 +1,13 @@
 package edu.unifi.controller;
+
 import edu.unifi.Notifier;
 import edu.unifi.model.entities.Room;
 import edu.unifi.model.entities.Table;
 import edu.unifi.model.orm.dao.CheckDAO;
 import edu.unifi.model.orm.dao.RoomDAO;
 import edu.unifi.model.orm.dao.TableDAO;
+import edu.unifi.model.util.security.Roles;
+import edu.unifi.model.util.security.aop.Authorize;
 import edu.unifi.view.RoomCreationTool;
 import edu.unifi.view.RoomUpdateTool;
 
@@ -22,7 +25,6 @@ public class RoomToolController {
     }
 
     public static class RoomCreationToolController extends Observable implements ActionListener {
-
         private final RoomCreationTool roomCreationTool;
 
         public RoomCreationToolController(RoomCreationTool roomCreationTool) {
@@ -30,6 +32,7 @@ public class RoomToolController {
         }
 
         @Override
+        @Authorize(role = Roles.ADMIN)
         public void actionPerformed(ActionEvent e) {
 
             Room room = new Room("");
@@ -61,6 +64,7 @@ public class RoomToolController {
         }
 
         @Override
+        @Authorize(role = Roles.ADMIN)
         public void actionPerformed(ActionEvent e) {
             String roomName = roomUpdateTool.getNameTextField().getText();
             if (roomName.isEmpty() || !java.util.Objects.isNull(RoomDAO.getInstance().getByName(roomName))) {
@@ -85,6 +89,7 @@ public class RoomToolController {
         }
 
         @Override
+        @Authorize(role = Roles.ADMIN)
         public void actionPerformed(ActionEvent e) {
 
             for (Table t : room.getTables()) {
@@ -109,5 +114,4 @@ public class RoomToolController {
         }
 
     }
-    public void setRoomsToNull() { rooms = null; }
 }

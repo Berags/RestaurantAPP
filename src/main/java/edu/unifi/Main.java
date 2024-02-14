@@ -60,7 +60,7 @@ public class Main {
         }
     }
 
-    @Authorize(role = Roles.ADMIN)
+    @Authorize(role = Roles.CUSTOMER)
     private static void test() {
         log.info("test");
     }
