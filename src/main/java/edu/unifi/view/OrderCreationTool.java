@@ -1,6 +1,6 @@
 package edu.unifi.view;
 
-import edu.unifi.controller.OrderController;
+import edu.unifi.controller.OrderToolController;
 import edu.unifi.model.entities.Table;
 
 import javax.swing.*;
@@ -39,7 +39,7 @@ public class OrderCreationTool extends DishView {
 
     @Override
     public void buildList(){
-        filteredDishes = new OrderController().getFilteredDishes(searchTextField.getText() == null ? "" : searchTextField.getText());
+        filteredDishes = new OrderToolController().getFilteredDishes(searchTextField.getText() == null ? "" : searchTextField.getText());
         listPanel = new JPanel(new GridLayout(filteredDishes.size(), 1));
         int index = 0;
 

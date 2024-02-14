@@ -1,6 +1,6 @@
 package edu.unifi.view;
 
-import edu.unifi.controller.OrderController;
+import edu.unifi.controller.OrderToolController;
 import edu.unifi.model.entities.Dish;
 import edu.unifi.model.entities.OrderId;
 import edu.unifi.model.entities.Table;
@@ -10,7 +10,6 @@ import org.kordamp.ikonli.swing.FontIcon;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 
 public class OrderListItem extends DishItem {
     JLabel quantityLabel;
@@ -88,7 +87,7 @@ public class OrderListItem extends DishItem {
         editButton.setIcon(FontIcon.of(MaterialDesignP.PENCIL, 20));
         gbc.gridx = 0;
         gbc.gridy = 0;
-        editButton.addActionListener(new OrderController.OrderEditController(oid, tableUpdateTool, table));
+        editButton.addActionListener(new OrderToolController.OrderEditController(oid, tableUpdateTool, table));
         leftActionTestPanel.add(editButton, gbc);
         leftActionTestPanel.add(Box.createVerticalGlue());
         actionTestPanel.add(leftActionTestPanel, gbc);
@@ -98,7 +97,7 @@ public class OrderListItem extends DishItem {
         deleteButton.setHorizontalAlignment(0);
         deleteButton.setHorizontalTextPosition(0);
         deleteButton.setIcon(FontIcon.of(MaterialDesignD.DELETE, 20));
-        deleteButton.addActionListener(new OrderController.OrderDeletionController(oid, tableUpdateTool, table));
+        deleteButton.addActionListener(new OrderToolController.OrderDeletionController(oid, tableUpdateTool, table));
 
         gbc.gridx = 1;
         gbc.gridy = 0;
@@ -114,6 +113,5 @@ public class OrderListItem extends DishItem {
         gbc.fill = GridBagConstraints.BOTH;
         gbc.anchor = GridBagConstraints.CENTER;
         listPanel.add(actionTestPanel, gbc);
-
     }
 }

@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Observable;
 
-public class OrderController {
+public class OrderToolController {
 
     private static List<Dish> dishes;
     private static Check check;

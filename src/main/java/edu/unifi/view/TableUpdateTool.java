@@ -1,9 +1,8 @@
 package edu.unifi.view;
 
 import edu.unifi.Notifier;
-import edu.unifi.controller.CheckController;
+import edu.unifi.controller.CheckToolController;
 import edu.unifi.controller.TableToolController;
-import edu.unifi.controller.TableToolController.TableUpdateToolController;
 import edu.unifi.model.entities.Order;
 import edu.unifi.model.entities.Table;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
@@ -182,7 +181,7 @@ public class TableUpdateTool extends TableCreationTool {
         checkButton.setText("New check");
         checkButton.setName("New Check");
         checkButton.setIcon(FontIcon.of(MaterialDesignP.PLUS_BOX_OUTLINE, 20));
-        CheckController.CheckCreationController checkCreationController = new CheckController.CheckCreationController(table);
+        CheckToolController.CheckCreationController checkCreationController = new CheckToolController.CheckCreationController(table);
         try {
             checkCreationController.addObserver(Notifier.getInstance());
         } catch (Exception e) {
@@ -205,7 +204,7 @@ public class TableUpdateTool extends TableCreationTool {
         printReceiptButton.setText("Print Receipt");
         printReceiptButton.setName("Print Receipt");
         printReceiptButton.setIcon(FontIcon.of(MaterialDesignP.PRINTER, 20));
-        CheckController.PrintCheckController printCheckController = new CheckController.PrintCheckController(table);
+        CheckToolController.PrintCheckController printCheckController = new CheckToolController.PrintCheckController(table);
 
         try {
             printCheckController.addObserver(Notifier.getInstance());
@@ -248,7 +247,7 @@ public class TableUpdateTool extends TableCreationTool {
         gbc.weightx = 1.0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        CheckController.CheckResetController checkResetController = new CheckController.CheckResetController(this, table);
+        CheckToolController.CheckResetController checkResetController = new CheckToolController.CheckResetController(this, table);
         try {
             checkResetController.addObserver(Notifier.getInstance());
         } catch (Exception e) {
