@@ -92,5 +92,16 @@ public class DishDAO implements IDAO<Dish, Long> {
     public void update(List<Dish> dishes) {
 
     }
+
+    public void remove(Dish dish) {
+        try {
+            session = DatabaseAccess.open();
+            Dish d = session.get(Dish.class, dish.getId());
+            d.setVisible(false);
+            session.remove(d);
+        } finally {
+            DatabaseAccess.close(session);
+        }
+    }
 }
 
