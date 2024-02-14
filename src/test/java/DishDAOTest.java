@@ -24,7 +24,6 @@ public class DishDAOTest {
 
     @Test
     public void insertTest() {
-
         Dish dish = new Dish();
         TypeOfCourse typeOfCourse = new TypeOfCourse();
 
@@ -41,13 +40,12 @@ public class DishDAOTest {
         assertNotNull(dishDAO.getById(dish.getId()));
 
         //reset previous state of the database
-        dishDAO.delete(dish);
+        dishDAO.remove(dish);
         typeOfCourseDAO.delete(typeOfCourse);
     }
 
     @Test
     public void deleteTest(){
-
         Dish dish = new Dish();
         TypeOfCourse typeOfCourse = new TypeOfCourse();
 
@@ -60,7 +58,7 @@ public class DishDAOTest {
 
         typeOfCourseDAO.insert(typeOfCourse);
         dishDAO.insert(dish);
-        dishDAO.delete(dish);
+        dishDAO.remove(dish);
         typeOfCourseDAO.delete(typeOfCourse);
 
         assertNull(dishDAO.getById(dish.getId()));
@@ -100,10 +98,9 @@ public class DishDAOTest {
         assertEquals(dishDAO.getById(dish.getId()).getTypeOfCourse().getName(), typeOfCourse2.getName());
 
         //reset the previous state of the database
-        dishDAO.delete(dish);
+        dishDAO.remove(dish);
         typeOfCourseDAO.delete(typeOfCourse1);
         typeOfCourseDAO.delete(typeOfCourse2);
-
     }
 
     @Test
@@ -130,8 +127,7 @@ public class DishDAOTest {
         assertEquals(dishDAO.getById(dish.getId()).getTypeOfCourse().getName(), dish.getTypeOfCourse().getName());
 
         //reset the previous state of the database
-        dishDAO.delete(dish);
+        dishDAO.remove(dish);
         typeOfCourseDAO.delete(typeOfCourse);
-
     }
 }

@@ -30,6 +30,8 @@ public class Dish {
     @Column(name = "picture")
     private String picture;
 
+
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "type_of_course_name", nullable = false)
     private TypeOfCourse typeOfCourse;
@@ -39,6 +41,17 @@ public class Dish {
 
     @OneToMany(orphanRemoval = true)
     private Set<Order> orders = new LinkedHashSet<>();
+
+    @Column(name = "visible")
+    private Boolean visible = false;
+
+    public Boolean getVisible() {
+        return visible;
+    }
+
+    public void setVisible(Boolean visible) {
+        this.visible = visible;
+    }
 
     public Set<Order> getOrders() {
         return orders;

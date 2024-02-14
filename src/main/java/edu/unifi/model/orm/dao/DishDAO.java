@@ -13,6 +13,7 @@ import org.hibernate.query.Query;
 public class DishDAO implements IDAO<Dish, Long> {
     private Session session;
     private static volatile DishDAO instance = null;
+
     private DishDAO() {
     }
 
@@ -33,6 +34,7 @@ public class DishDAO implements IDAO<Dish, Long> {
     public void insert(Dish dish) {
         try {
             session = DatabaseAccess.open();
+            dish.setVisible(true);
             session.persist(dish);
         } finally {
             DatabaseAccess.close(session);
@@ -44,7 +46,8 @@ public class DishDAO implements IDAO<Dish, Long> {
         try {
             session = DatabaseAccess.open();
             Dish d = session.get(Dish.class, dish.getId());
-            session.remove(d);
+            d.setVisible(false);
+            session.merge(d);
         } finally {
             DatabaseAccess.close(session);
         }
@@ -64,7 +67,7 @@ public class DishDAO implements IDAO<Dish, Long> {
     public Dish getById(Long id) {
         try {
             session = DatabaseAccess.open();
-            Query<Dish> q = session.createQuery("from Dish d where d.id = :d_id", Dish.class);
+            Query<Dish> q = session.createQuery("from Dish d where d.id = :d_id and d.visible=true", Dish.class);
             q.setParameter("d_id", id);
             return q.getSingleResultOrNull();
         } finally {
@@ -75,7 +78,7 @@ public class DishDAO implements IDAO<Dish, Long> {
     @Override
     public List<Dish> getAll() {
         session = DatabaseAccess.open();
-        List<Dish> dishes = session.createQuery("from Dish", Dish.class).getResultList();
+        List<Dish> dishes = session.createQuery("from Dish where visible=true", Dish.class).getResultList();
         DatabaseAccess.close(session);
         return dishes;
     }
@@ -88,6 +91,17 @@ public class DishDAO implements IDAO<Dish, Long> {
     @Override
     public void update(List<Dish> dishes) {
 
+    }
+
+    public void remove(Dish dish) {
+        try {
+            session = DatabaseAccess.open();
+            Dish d = session.get(Dish.class, dish.getId());
+            d.setVisible(false);
+            session.remove(d);
+        } finally {
+            DatabaseAccess.close(session);
+        }
     }
 }
 

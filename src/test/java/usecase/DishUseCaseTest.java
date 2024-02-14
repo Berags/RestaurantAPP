@@ -25,10 +25,18 @@ import static org.assertj.swing.finder.WindowFinder.findFrame;
 import static org.assertj.swing.timing.Pause.pause;
 import static org.assertj.swing.timing.Timeout.timeout;
 
+/**
+ * This class is responsible for testing the use case of editing a dish in the system.
+ * It uses the AssertJ Swing library to simulate user interactions with the GUI.
+ */
 public class DishUseCaseTest {
     private FrameFixture window;
     private Dish dish;
 
+    /**
+     * This method is called before each test.
+     * It sets up the environment for the test, including creating a dish and opening the application window.
+     */
     @BeforeEach
     public void setUp() {
         DatabaseAccess.setHibernateConfigFileToTest();
@@ -53,6 +61,10 @@ public class DishUseCaseTest {
         window.show(); // shows the frame to test
     }
 
+    /**
+     * This method tests the use case of editing a dish.
+     * It simulates the user interactions required to edit a dish and checks that the dish is updated correctly.
+     */
     @Test
     public void editDish() {
         window.menuItem("EditDish").click();
@@ -99,6 +111,10 @@ public class DishUseCaseTest {
         dishUpdateTool.close();
     }
 
+    /**
+     * This method is called after each test.
+     * It cleans up the environment, including closing the application window and logging out the current session.
+     */
     @AfterEach
     public void tearDown() {
         window.cleanUp();

@@ -5,6 +5,8 @@ import edu.unifi.model.entities.Dish;
 import edu.unifi.model.entities.TypeOfCourse;
 import edu.unifi.model.orm.dao.DishDAO;
 import edu.unifi.model.orm.dao.OrderDAO;
+import edu.unifi.model.util.security.Roles;
+import edu.unifi.model.util.security.aop.Authorize;
 import edu.unifi.view.DishCreationTool;
 import edu.unifi.view.DishUpdateTool;
 import org.apache.maven.shared.utils.StringUtils;
@@ -19,11 +21,9 @@ public class DishToolController {
     private static List<Dish> dishes;
 
     /**
-     *
      * @param filter
      * @return the list of dishes currently in the menu and filtered using the filter String
      */
-
     public List<Dish> getFilteredDishes(String filter) {
         dishes = DishDAO.getInstance().getAll();
         return dishes.stream().filter(dish -> dish.getName().toLowerCase().contains(filter.toLowerCase())).toList();
@@ -35,7 +35,9 @@ public class DishToolController {
         public DishCreationToolController(DishCreationTool dishCreationTool) {
             this.dishCreationTool = dishCreationTool;
         }
+
         @Override
+        @Authorize(role = Roles.ADMIN)
         public void actionPerformed(ActionEvent e) {
             Dish dish = new Dish();
 
@@ -56,11 +58,11 @@ public class DishToolController {
             try {
                 priceString = dishCreationTool.getPriceTextField().getText();
                 String[] decimals = priceString.split("\\.");
-                if(decimals.length < 2 || decimals[1].length() > 2){
+                if (decimals.length < 2 || decimals[1].length() > 2) {
                     throw new NumberFormatException();
                 }
-                price = Integer.parseInt(dishCreationTool.getPriceTextField().getText().replace(".",""));
-            }catch(NumberFormatException ex) {
+                price = Integer.parseInt(dishCreationTool.getPriceTextField().getText().replace(".", ""));
+            } catch (NumberFormatException ex) {
 
                 setChanged();
                 notifyObservers(Notifier.Message.build(MessageType.ERROR, "The price must be in \nthe format intPrice.xx"));
@@ -92,11 +94,12 @@ public class DishToolController {
         }
 
         @Override
+        @Authorize(role = Roles.ADMIN)
         public void actionPerformed(ActionEvent e) {
             String dishName = dishUpdateTool.getNameTextField().getText();
 
             //if the table hasn't an open check associated
-            if(!(OrderDAO.getInstance().getByDishValideCheck(dish.getId())).isEmpty()){
+            if (!(OrderDAO.getInstance().getByDishValideCheck(dish.getId())).isEmpty()) {
                 setChanged();
                 notifyObservers(Notifier.Message.build(MessageType.ERROR, dish.getName() +
                         " The dish can't be updated because is part \n of some open orders"));
@@ -150,10 +153,11 @@ public class DishToolController {
         }
 
         @Override
+        @Authorize(role = Roles.ADMIN)
         public void actionPerformed(ActionEvent e) {
 
             //to check if the dish has been ordinated
-            if(!(OrderDAO.getInstance().getByDishValideCheck(dish.getId())).isEmpty()) {
+            if (!(OrderDAO.getInstance().getByDishValideCheck(dish.getId())).isEmpty()) {
                 setChanged();
                 notifyObservers(Notifier.Message.build(MessageType.ERROR, dish.getName() +
                         " can't be deleted because is part of some open orders"));
@@ -166,7 +170,6 @@ public class DishToolController {
             DishDAO.getInstance().delete(dish);
             setChanged();
             notifyObservers(Notifier.Message.build(MessageType.DELETE_DISH, dish.getName() + " deleted successfully"));
-
         }
     }
 }

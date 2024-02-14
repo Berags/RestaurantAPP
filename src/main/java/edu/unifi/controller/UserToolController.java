@@ -6,9 +6,11 @@ import edu.unifi.model.orm.dao.UserDAO;
 import edu.unifi.model.util.security.CurrentSession;
 import edu.unifi.model.util.security.PasswordManager;
 import edu.unifi.model.util.security.Roles;
+import edu.unifi.model.util.security.aop.Authorize;
 import edu.unifi.view.UserCreationTool;
 import edu.unifi.view.UserUpdateTool;
 import org.apache.commons.validator.routines.EmailValidator;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -34,6 +36,7 @@ public class UserToolController {
         }
 
         @Override
+        @Authorize(role = Roles.ADMIN)
         public void actionPerformed(ActionEvent e) {
             User user = new User();
 
@@ -48,7 +51,7 @@ public class UserToolController {
                 notifyObservers(Notifier.Message.build(MessageType.ERROR, "User surname cannot be empty"));
                 return;
             }
-            if (!EmailValidator.getInstance().isValid(userCreationTool.getEmailTextField().getText())){
+            if (!EmailValidator.getInstance().isValid(userCreationTool.getEmailTextField().getText())) {
                 setChanged();
                 notifyObservers(Notifier.Message.build(MessageType.ERROR, "Invalid email format by RFC 822 Standards"));
                 return;
@@ -90,6 +93,7 @@ public class UserToolController {
         }
 
         @Override
+        @Authorize(role = Roles.ADMIN)
         public void actionPerformed(ActionEvent e) {
             String userName = userUpdateTool.getNameTextField().getText();
             String userSurname = userUpdateTool.getSurnameTextField().getText();
@@ -145,6 +149,7 @@ public class UserToolController {
         }
 
         @Override
+        @Authorize(role = Roles.ADMIN)
         public void actionPerformed(ActionEvent e) {
             System.out.println(CurrentSession.getInstance().getUser().getId());
             System.out.println(user.getId());
@@ -162,8 +167,5 @@ public class UserToolController {
             setChanged();
             notifyObservers(Notifier.Message.build(MessageType.DELETE_USER, user.getName() + " deleted successfully"));
         }
-
     }
-    public void setUsersToNull() { users = null; }
-
 }
